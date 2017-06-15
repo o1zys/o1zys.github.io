@@ -307,7 +307,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-15T18:22:41+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-15T18:38:21+08:00">
                 2017-06-15
               </time>
             
@@ -380,7 +380,7 @@
             <blockquote>
 <p>转自：<a href="http://www.tracefact.net/CSharp-Programming/Delegates-and-Events-in-CSharp.aspx" target="_blank" rel="external">http://www.tracefact.net/CSharp-Programming/Delegates-and-Events-in-CSharp.aspx</a><br>作者：张子阳</p>
 </blockquote>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p><strong>委托(delegates)</strong>和 <strong>事件(Events)</strong>在 .Net Framework中的应用非常广泛，然而，较好地理解委托和事件对很多接触C#时间不长的人来说并不容易。它们就像是一道槛儿，过了这个槛的人，觉得真是太容易了，而没有过去的人每次见到委托和事件就觉得心里别（biè）得慌，混身不自在。</p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p><strong>委托(Delegates)</strong>和 <strong>事件(Events)</strong>在 .Net Framework中的应用非常广泛，然而，较好地理解委托和事件对很多接触C#时间不长的人来说并不容易。它们就像是一道槛儿，过了这个槛的人，觉得真是太容易了，而没有过去的人每次见到委托和事件就觉得心里别（biè）得慌，混身不自在。</p>
 <p>本文中，我将通过两个范例由浅入深地讲述什么是委托、为什么要使用委托、事件的由来、.Net Framework中的委托和事件、委托和事件对Observer设计模式的意义，对它们的中间代码也做了讨论。</p>
 <h1 id="将方法作为方法的参数"><a href="#将方法作为方法的参数" class="headerlink" title="将方法作为方法的参数"></a>将方法作为方法的参数</h1><p>我们先不管这个标题如何的绕口，也不管委托究竟是个什么东西，来看下面这两个最简单的方法，它们不过是在屏幕上输出一句问候的话语：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">void GreetPeople(string name) &#123;</div><div class="line">    // 做某些额外的事情，比如初始化之类，此处略</div><div class="line">    EnglishGreeting(name);</div><div class="line">&#125;</div><div class="line">public void EnglishGreeting(string name) &#123;</div><div class="line">    Console.WriteLine(&quot;Morning, &quot; + name);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>暂且不管这两个方法有没有什么实际意义。GreetPeople用于向某人问好，当我们传递代表某人姓名的name参数，比如说“Jimmy”，进去的时候，在这个方法中，将调用EnglishGreeting方法，再次传递name参数，EnglishGreeting则用于向屏幕输出 “Morning, Jimmy”。</p>
