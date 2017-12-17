@@ -277,6 +277,509 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/Markdown/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/17/Markdown/" itemprop="url">Markdown 简明教程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-17T17:24:10+08:00">
+                2017-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/17/Markdown/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/17/Markdown/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h2 id="1-斜体和粗体"><a href="#1-斜体和粗体" class="headerlink" title="1. 斜体和粗体"></a>1. 斜体和粗体</h2><p><strong>语法说明:</strong>  </p>
+<pre><code>*斜体* 或者 _斜体_
+**粗体**
+***加粗斜体
+</code></pre><p><strong>显示效果:</strong>  </p>
+<blockquote>
+<ul>
+<li>这是<em>斜体</em></li>
+<li>这是<strong>粗体</strong></li>
+<li>这是<strong><em>加粗斜体</em></strong></li>
+</ul>
+</blockquote>
+<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2. 标题"></a>2. 标题</h2><p><strong>语法说明:</strong></p>
+<pre><code># 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题
+... ...
+</code></pre><h2 id="3-段落与换行"><a href="#3-段落与换行" class="headerlink" title="3. 段落与换行"></a>3. 段落与换行</h2><p><strong>语法说明:</strong></p>
+<pre><code>无间隔换行: 在段落末加2个空格[Space][Space]
+有间隔换行: 在段落后加2个换行[tr][tr]
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p>第一行<br>第二行</p>
+<p>第一行</p>
+<p>第二行</p>
+</blockquote>
+<h2 id="4-超链接"><a href="#4-超链接" class="headerlink" title="4. 超链接"></a>4. 超链接</h2><h3 id="4-1-自动链接"><a href="#4-1-自动链接" class="headerlink" title="4.1. 自动链接"></a>4.1. 自动链接</h3><p><strong>语法说明:</strong></p>
+<pre><code>&lt;http://o1zys.github.io/&gt;
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p><a href="http://o1zys.github.io/" target="_blank" rel="noopener">http://o1zys.github.io/</a></p>
+</blockquote>
+<h3 id="4-2-行内式"><a href="#4-2-行内式" class="headerlink" title="4.2. 行内式"></a>4.2. 行内式</h3><p><strong>语法说明:</strong></p>
+<p>[ ]里写链接文字，( )里写链接地址, ( )中的” “中可以为链接指定title属性，title属性可加可不加。title属性的效果是鼠标悬停在链接上会出现指定的 title文字。[链接文字](链接地址 “链接标题”)’这样的形式。链接地址与链接标题前有一个空格。</p>
+<pre><code>[Oizys&apos;s Blog](http://o1zys.github.io/ &quot;Oizys&apos;s Blog&quot;)
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p><a href="http://o1zys.github.io/" title="Oizys&#39;s Blog" target="_blank" rel="noopener">Oizys’s Blog</a></p>
+</blockquote>
+<h3 id="4-3-参考式"><a href="#4-3-参考式" class="headerlink" title="4.3. 参考式"></a>4.3. 参考式</h3><p><strong>语法说明:</strong></p>
+<p>参考式超链接一般用在学术论文上面，或者另一种情况，如果某一个链接在文章中多处使用，那么使用引用 的方式创建链接将非常好，它可以让你对链接进行统一的管理。</p>
+<p>参考式链接分为两部分，文中的写法 [链接文字][链接标记]，在文本的任意位置添加[链接标记]:链接地址 “链接标题”，链接地址与链接标题前有一个空格。</p>
+<pre><code>经常浏览[Google][1]以及[自己的博客][2]。
+[Google][1]是很好的搜索网站。
+[1]:http://www.google.com &quot;Google&quot;
+[2]:http://o1zys.github.com &quot;Oizys&apos;s Blog&quot;
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p>经常浏览<a href="http://www.google.com" title="Google" target="_blank" rel="noopener">Google</a>以及<a href="http://o1zys.github.com" title="Oizys&#39;s Blog" target="_blank" rel="noopener">自己的博客</a>。<br><a href="http://www.google.com" title="Google" target="_blank" rel="noopener">Google</a>是很好的搜索网站。</p>
+</blockquote>
+<h2 id="5-列表"><a href="#5-列表" class="headerlink" title="5. 列表"></a>5. 列表</h2><h3 id="5-1-无序列表"><a href="#5-1-无序列表" class="headerlink" title="5.1. 无序列表"></a>5.1. 无序列表</h3><p><strong>语法说明:</strong></p>
+<p>使用 *，+，- 表示无序列表。</p>
+<pre><code>- 无序列表项 一
++ 无序列表项 二
+* 无序列表项 三
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<ul>
+<li>无序列表项 一</li>
+</ul>
+<ul>
+<li>无序列表项 二</li>
+</ul>
+<ul>
+<li>无序列表项 三</li>
+</ul>
+</blockquote>
+<h3 id="5-2-有序列表"><a href="#5-2-有序列表" class="headerlink" title="5.2. 有序列表"></a>5.2. 有序列表</h3><p><strong>语法说明:</strong></p>
+<p>使用数字表示有序列表。</p>
+<pre><code>1. 有序列表项 一
+2. 有序列表项 二
+3. 有序列表项 三
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<ol>
+<li>有序列表项 一</li>
+<li>有序列表项 二</li>
+<li>有序列表项 三</li>
+</ol>
+</blockquote>
+<h3 id="5-3-特殊情况"><a href="#5-3-特殊情况" class="headerlink" title="5.3. 特殊情况"></a>5.3. 特殊情况</h3><p>在特殊情况下，项目列表很可能会不小心产生，像是下面这样的写法：</p>
+<pre><code>1986. What a great season.
+</code></pre><p>会显示成</p>
+<blockquote>
+<ol>
+<li>What a great season.</li>
+</ol>
+</blockquote>
+<p>所以应该要改成</p>
+<pre><code>1986\. What a great season.
+</code></pre><p>结果才会正确</p>
+<blockquote>
+<p>1986. What a great season.</p>
+</blockquote>
+<h2 id="6-引用"><a href="#6-引用" class="headerlink" title="6. 引用"></a>6. 引用</h2><h3 id="6-1-两种引用方式"><a href="#6-1-两种引用方式" class="headerlink" title="6.1 两种引用方式"></a>6.1 两种引用方式</h3><p><strong>语法说明:</strong></p>
+<pre><code>&gt; 这是一个有两段文字的引用,  
+&gt; 段落1句1.  
+&gt; 段落1句2.  
+&gt; 
+&gt; 段落2句3.  
+&gt; 段落2句4.  
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p>这是一个有两段文字的引用,<br>段落1句1.<br>段落1句2.  </p>
+<p>段落2句3.<br>段落2句4. </p>
+</blockquote>
+<p>Markdown 也允许你偷懒只在整个段落的第一行最前面加上 &gt; ：</p>
+<p><strong>语法说明:</strong></p>
+<pre><code>&gt; 这是一个有两段文字的引用,  
+段落1句1.  
+段落1句2.  
+
+&gt; 段落2句3.  
+段落2句4.  
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p>这是一个有两段文字的引用,<br>段落1句1.<br>段落1句2.  </p>
+<p>段落2句3.<br>段落2句4.</p>
+</blockquote>
+<h3 id="6-2-引用的多层嵌套"><a href="#6-2-引用的多层嵌套" class="headerlink" title="6.2. 引用的多层嵌套"></a>6.2. 引用的多层嵌套</h3><p><strong>语法说明:</strong></p>
+<pre><code>&gt; 第一级
+&gt; &gt; 第二级
+&gt; &gt; &gt; 第三级
+
+&gt; &gt; 二级
+
+&gt; 一级
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p>第一级</p>
+<blockquote>
+<p>第二级</p>
+<blockquote>
+<p>第三级</p>
+</blockquote>
+<p>二级</p>
+</blockquote>
+<p>一级</p>
+</blockquote>
+<h2 id="7-图像"><a href="#7-图像" class="headerlink" title="7. 图像"></a>7. 图像</h2><h3 id="7-1-行内式"><a href="#7-1-行内式" class="headerlink" title="7.1. 行内式"></a>7.1. 行内式</h3><p><strong>语法说明:</strong></p>
+<pre><code>![图片Alt](图片地址 “图片Title”)
+
+![头像](https://avatars.githubusercontent.com/o1zys
+ &quot;Oizys&quot;)
+</code></pre><p><strong>显示效果:</strong></p>
+<p><img src="https://avatars.githubusercontent.com/o1zys" alt="头像" title="Oizys"></p>
+<h3 id="7-2-参考式"><a href="#7-2-参考式" class="headerlink" title="7.2. 参考式"></a>7.2. 参考式</h3><p><strong>语法说明:</strong></p>
+<pre><code>在文档要插入图片的地方写![图片Alt][标记]
+在文档的最后写上[标记]:图片地址 “Title”
+
+![头像][prof_pic]
+[prof_pic]:https://avatars.githubusercontent.com/o1zys
+ &quot;Oizys&quot;
+</code></pre><p><strong>显示效果:</strong></p>
+<p><img src="https://avatars.githubusercontent.com/o1zys" alt="头像" title="Oizys"></p>
+<h2 id="8-代码"><a href="#8-代码" class="headerlink" title="8. 代码"></a>8. 代码</h2><h3 id="8-1-行内式"><a href="#8-1-行内式" class="headerlink" title="8.1. 行内式"></a>8.1. 行内式</h3><p><strong>语法说明:</strong></p>
+<pre><code>学习一门新语言的开始是`HelloWorld()`。
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<p>学习一门新语言的开始是<code>HelloWorld()</code>。</p>
+</blockquote>
+<h3 id="8-2-缩进式多行代码"><a href="#8-2-缩进式多行代码" class="headerlink" title="8.2. 缩进式多行代码"></a>8.2. 缩进式多行代码</h3><p><strong>语法说明:</strong></p>
+<p>缩进 4 个空格或是 1 个制表符。<br>一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）。</p>
+<pre><code>#include &lt;iostream&gt;
+int main() {
+    cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; endl;
+}
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<pre><code>#include &lt;iostream&gt;
+int main() {
+    cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; endl;
+}
+</code></pre></blockquote>
+<h3 id="8-3-块"><a href="#8-3-块" class="headerlink" title="8.3. ``` 块"></a>8.3. ``` 块</h3><p><strong>语法说明:</strong></p>
+<p>这种方式的代码块可以支持不同语言的语法高亮，要在 ``` 之后加上语言类型。</p>
+<p>``` c++<br>#include <iostream><br>int main() {<br>    cout &lt;&lt; “Hello World!” &lt;&lt; endl;<br>}<br> ```</iostream></p>
+<p><strong>显示效果:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello World!"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="8-4-HTML原始码"><a href="#8-4-HTML原始码" class="headerlink" title="8.4. HTML原始码"></a>8.4. HTML原始码</h3><p><strong>语法说明:</strong></p>
+<p>在代码区块里面， &amp; 、 &lt; 和 &gt; 会自动转成 HTML 实体，这样的方式让你非常容易使用 Markdown 插入范例用的 HTML 原始码，只需要复制贴上，剩下的 Markdown 都会帮你处理，例如：</p>
+<pre><code>&lt;table&gt;
+       &lt;tr&gt;
+           &lt;th rowspan=&quot;2&quot;&gt;值班人员&lt;/th&gt;
+            &lt;th&gt;星期一&lt;/th&gt;
+            &lt;th&gt;星期二&lt;/th&gt;
+            &lt;th&gt;星期三&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;张三&lt;/td&gt;
+        &lt;td&gt;李四&lt;/td&gt;
+        &lt;td&gt;王五&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre><p><strong>显示效果:</strong></p>
+<table><br>       <tr><br>           <th rowspan="2">值班人员</th><br>            <th>星期一</th><br>            <th>星期二</th><br>            <th>星期三</th><br>        </tr><br>    <tr><br>       <td>张三</td><br>       <td>李四</td><br>       <td>王五</td><br>    </tr><br></table>
+
+
+<h2 id="9-表格"><a href="#9-表格" class="headerlink" title="9. 表格"></a>9. 表格</h2><p><strong>语法说明:</strong></p>
+<ol>
+<li>不管是哪种方式，第一行为表头，第二行分隔表头和主体部分，第三行开始每一行为一个表格行。</li>
+<li>列于列之间用管道符|隔开。原生方式的表格每一行的两边也要有管道符。</li>
+<li>第二行还可以为不同的列指定对齐方向。默认为左对齐，在-右边加上:就右对齐。</li>
+</ol>
+<p>简单方式:</p>
+<pre><code>姓名|性别|总分
+-|-|-
+小明|男|80
+小红|女|130
+小刚|男|9
+</code></pre><p>原生方式:</p>
+<pre><code>|姓名|姓别|总分|
+|-|-|-|
+|小明|男|80|
+|小红|女|130|
+|小刚|男|9|
+</code></pre><p>为第三列指定右对齐:</p>
+<pre><code>姓名|性别|总分
+-|-|-:
+小明|男|80
+小红|女|130
+小刚|男|9
+</code></pre><p><strong>显示效果:</strong></p>
+<p>简单方式:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>性别</th>
+<th>总分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小明</td>
+<td>男</td>
+<td>80</td>
+</tr>
+<tr>
+<td>小红</td>
+<td>女</td>
+<td>130</td>
+</tr>
+<tr>
+<td>小刚</td>
+<td>男</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>原生方式:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>姓别</th>
+<th>总分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小明</td>
+<td>男</td>
+<td>80</td>
+</tr>
+<tr>
+<td>小红</td>
+<td>女</td>
+<td>130</td>
+</tr>
+<tr>
+<td>小刚</td>
+<td>男</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>为第三列指定右对齐:</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>性别</th>
+<th style="text-align:right">总分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小明</td>
+<td>男</td>
+<td style="text-align:right">80</td>
+</tr>
+<tr>
+<td>小红</td>
+<td>女</td>
+<td style="text-align:right">130</td>
+</tr>
+<tr>
+<td>小刚</td>
+<td>男</td>
+<td style="text-align:right">9</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h2 id="10-内容目录"><a href="#10-内容目录" class="headerlink" title="10. 内容目录"></a>10. 内容目录</h2><p>在段落中填写<code>[TOC]</code>以显示全文内容的目录结构。</p>
+<h2 id="11-注脚"><a href="#11-注脚" class="headerlink" title="11. 注脚"></a>11. 注脚</h2><p><strong>语法说明:</strong></p>
+<p>在需要添加注脚的文字后加上脚注名字[^注脚名字],称为加注。 然后在文本的任意位置(一般在最后)添加脚注，脚注前必须有对应的脚注名字。</p>
+<p>注意：经测试注脚与注脚之间必须空一行，不然会失效。成功后会发现，即使你没有把注脚写在文末，经Markdown转换后，也会自动归类到文章的最后。</p>
+<pre><code>使用 Markdown[^1]可以效率的书写文档, 直接转换成 HTML[^2]
+
+[^1]:Markdown是一种纯文本标记语言
+
+[^2]:HyperText Markup Language 超文本标记语言
+</code></pre><p><strong>显示效果:</strong></p>
+<p>使用 Markdown<a href="Markdown是一种纯文本标记语言">^1</a>可以效率的书写文档, 直接转换成 HTML[^2]。</p>
+<p>[^2]:HyperText Markup Language 超文本标记语言</p>
+<p><strong>注：脚注自动被搬运到最后面，请到文章末尾查看，并且脚注后方的链接可以直接跳转回到加注的地方。</strong></p>
+<h2 id="12-LaTex公式"><a href="#12-LaTex公式" class="headerlink" title="12. LaTex公式"></a>12. LaTex公式</h2><p>这里采用MathJax引擎，所以在Markdown文件中必须添加</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&gt;&lt;/script&gt;
+</code></pre><h3 id="12-1-表示行内公式"><a href="#12-1-表示行内公式" class="headerlink" title="12.1. $表示行内公式"></a>12.1. $表示行内公式</h3><p><strong>语法说明:</strong></p>
+<pre><code>质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。
+</code></pre><p><strong>显示效果:
+</strong><br>质能守恒方程可以用一个很简洁的方程式 <code>$E=mc^2$</code> 来表达。</p>
+<h3 id="12-2-表示整行公式"><a href="#12-2-表示整行公式" class="headerlink" title="12.2. $$表示整行公式"></a>12.2. $$表示整行公式</h3><p><strong>语法说明:</strong></p>
+<pre><code>$$\sum_{i=1}^n a_i=0$$  
+
+$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$  
+</code></pre><p><strong>显示效果:</strong></p>
+<p>$$\sum_{i=1}^n a_i=0$$</p>
+<p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$</p>
+<p>访问 <a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="noopener">MathJax</a> 参考更多使用方法。</p>
+<h2 id="13-分隔线"><a href="#13-分隔线" class="headerlink" title="13. 分隔线"></a>13. 分隔线</h2><p><strong>语法说明:</strong></p>
+<p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线：</p>
+<pre><code>* * *
+
+***
+
+*****
+
+- - -
+
+---------------------------------------
+</code></pre><p><strong>显示效果:</strong></p>
+<blockquote>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/c_sharp_delegate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -723,7 +1226,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -734,7 +1237,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
