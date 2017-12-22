@@ -1,0 +1,864 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="面向对象的三大特性三大特性：封装，继承，多态。  封装：封装是实现面向对象程序设计的第一步，封装就是将数据或函数等集合在一个个的单元中（我们称之为类）。封装的意义在于保护或者防止代码（数据）被我们无意中破坏。 继承：继承主要实现重用代码，节省开发时间。子类可以继承父类的一些东西。 多态：同一操作作用于不同的对象，可以有">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Section2 面向对象(1)">
+<meta property="og:url" content="http://yoursite.com/2017/12/18/CppS2_1/index.html">
+<meta property="og:site_name" content="Oizys&#39;s Blog">
+<meta property="og:description" content="面向对象的三大特性三大特性：封装，继承，多态。  封装：封装是实现面向对象程序设计的第一步，封装就是将数据或函数等集合在一个个的单元中（我们称之为类）。封装的意义在于保护或者防止代码（数据）被我们无意中破坏。 继承：继承主要实现重用代码，节省开发时间。子类可以继承父类的一些东西。 多态：同一操作作用于不同的对象，可以有不同的解释，产生不同的执行结果。分为编译时多态和运行时多态。  可被继承及不可被">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-21T08:30:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ Section2 面向对象(1)">
+<meta name="twitter:description" content="面向对象的三大特性三大特性：封装，继承，多态。  封装：封装是实现面向对象程序设计的第一步，封装就是将数据或函数等集合在一个个的单元中（我们称之为类）。封装的意义在于保护或者防止代码（数据）被我们无意中破坏。 继承：继承主要实现重用代码，节省开发时间。子类可以继承父类的一些东西。 多态：同一操作作用于不同的对象，可以有不同的解释，产生不同的执行结果。分为编译时多态和运行时多态。  可被继承及不可被">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/18/CppS2_1/"/>
+
+
+
+
+
+  <title>C++ Section2 面向对象(1) | Oizys's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oizys's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/18/CppS2_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ Section2 面向对象(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-18T19:42:28+08:00">
+                2017-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/18/CppS2_1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/18/CppS2_1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h2><p>三大特性：封装，继承，多态。</p>
+<ol>
+<li>封装：封装是实现面向对象程序设计的第一步，封装就是将数据或函数等集合在一个个的单元中（我们称之为类）。封装的意义在于保护或者防止代码（数据）被我们无意中破坏。</li>
+<li>继承：继承主要实现重用代码，节省开发时间。子类可以继承父类的一些东西。</li>
+<li>多态：同一操作作用于不同的对象，可以有不同的解释，产生不同的执行结果。分为编译时多态和运行时多态。</li>
+</ol>
+<h2 id="可被继承及不可被继承"><a href="#可被继承及不可被继承" class="headerlink" title="可被继承及不可被继承"></a>可被继承及不可被继承</h2><p>无法被继承的有:  </p>
+<ul>
+<li>构造函数</li>
+<li>析构函数</li>
+<li>赋值运算符</li>
+<li>友元函数</li>
+</ul>
+<p>可被继承的有:</p>
+<ul>
+<li>静态成员</li>
+<li>静态方法</li>
+<li>非静态成员</li>
+<li>非静态方法</li>
+<li>虚表指针</li>
+</ul>
+<h2 id="定义默认构造函数的两种方法"><a href="#定义默认构造函数的两种方法" class="headerlink" title="定义默认构造函数的两种方法"></a>定义默认构造函数的两种方法</h2><ul>
+<li>给已有的构造函数中的一个的所有参数加上默认值</li>
+<li>通过方法重载定义一个无参数构造函数</li>
+</ul>
+<p><strong>注意：隐式调用默认构造函数不要加括号(), 会被编译器解释为函数声明。</strong></p>
+<h2 id="调用非默认构造函数的三种方法"><a href="#调用非默认构造函数的三种方法" class="headerlink" title="调用非默认构造函数的三种方法"></a>调用非默认构造函数的三种方法</h2><ol>
+<li>Foo f(…); // 隐式调用</li>
+<li>Foo f = Foo(…) ;// 显式调用</li>
+<li>Foo* f = new Foo(); // 显式调用 </li>
+</ol>
+<h2 id="由编译器生成的六个成员函数"><a href="#由编译器生成的六个成员函数" class="headerlink" title="由编译器生成的六个成员函数"></a>由编译器生成的六个成员函数</h2><ol>
+<li>默认构造函数</li>
+<li>析构函数</li>
+<li>复制构造函数</li>
+<li>赋值运算符</li>
+<li>取地址运算符</li>
+<li>取地址运算符 const版本</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	Foo();                              <span class="comment">// 默认构造函数</span></div><div class="line">	~Foo();                             <span class="comment">// 析构函数</span></div><div class="line">	Foo(<span class="keyword">const</span> Foo &amp;);                   <span class="comment">// 复制构造函数</span></div><div class="line">	<span class="keyword">const</span> Foo&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo &amp;);  <span class="comment">// 赋值构造函数</span></div><div class="line">	Foo* <span class="keyword">operator</span>&amp;();                   <span class="comment">// 取地址运算符</span></div><div class="line">	<span class="keyword">const</span> Foo* <span class="keyword">operator</span>&amp;() <span class="keyword">const</span>;       <span class="comment">// 取地址运算符const重载</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="必须在构造函数初始化式里进行初始化的数据成员"><a href="#必须在构造函数初始化式里进行初始化的数据成员" class="headerlink" title="必须在构造函数初始化式里进行初始化的数据成员"></a>必须在构造函数初始化式里进行初始化的数据成员</h2><ol>
+<li>常量成员，因为常量只能初始化不能赋值，所以必须放在初始化列表里面</li>
+<li>引用类型，引用必须在定义的时候初始化，并且不能重新赋值，所以也要写在初始化列表里面</li>
+<li>没有默认构造函数的类类型，因为使用初始化列表可以不必调用默认构造函数来初始化，而是直接调用拷贝构造函数初始化</li>
+</ol>
+<h2 id="如果赋值构造函数参数不是传引用而是传值会有什么问题？"><a href="#如果赋值构造函数参数不是传引用而是传值会有什么问题？" class="headerlink" title="如果赋值构造函数参数不是传引用而是传值会有什么问题？"></a>如果赋值构造函数参数不是传引用而是传值会有什么问题？</h2><p>如果不是传引用，会造成栈溢出。因为如果是Foo(Foo f)的形式，实参初始化形参的时候也会调用复制构造函数，造成死循环。所以，复制构造函数一定要传引用：</p>
+<p>Foo(Foo&amp; f); </p>
+<h2 id="三种继承方式（public-private-protected）的区别"><a href="#三种继承方式（public-private-protected）的区别" class="headerlink" title="三种继承方式（public, private, protected）的区别"></a>三种继承方式（public, private, protected）的区别</h2><ol>
+<li><p><strong>公有继承（public）:</strong> </p>
+<ul>
+<li><strong>基类成员对其对象的可见性</strong>: 与一般类及其对象的可见性相同，<strong>public</strong>成员可见，<strong>protected</strong>和<strong>private</strong>成员不可见。  </li>
+<li><strong>基类成员对派生类的可见性</strong>: 对派生类来说，基类的 <strong>public</strong> 和 <strong>protected</strong> 成员可见的。<ul>
+<li>基类的 <strong>public</strong> 成员和 <strong>protected</strong> 成员作为派生类的成员时，它们都保持原有状态；</li>
+<li>基类的 <strong>private</strong> 成员依旧是private，派生类不可访问基类中的private成员。  </li>
+</ul>
+</li>
+<li><strong>基类成员对派生类对象的可见性</strong>: 对派生类对象来说，基类的public成员是可见的，其他成员是不可见的。所以，在公有继承时，<strong>派生类的对象</strong>可以访问基类中的public成员，<strong>派生类的成员方法</strong>可以访问基类中的public成员和protected成员。</li>
+</ul>
+</li>
+<li><p><strong>私有继承（private）:</strong> </p>
+<ul>
+<li><strong>基类成员对其对象的可见性</strong>: 与一般类及其对象的可见性相同，public成员可见，其他成员不可见。  </li>
+<li><strong>基类成员对派生类的可见性</strong>: 对派生类来说，基类的public和protected成员可见：<ul>
+<li>基类的 <strong>public</strong> 成员和 <strong>protected</strong> 成员都作为派生类的 <strong>private</strong> 成员，并且不能被这个派生类的子类所访问；</li>
+<li>基类的 <strong>private</strong> 成员依旧是private，派生类不可访问基类中的private成员。</li>
+</ul>
+</li>
+<li><strong>基类成员对派生类对象的可见性</strong>: 对派生类对象来说，基类的所有成员都是不可见的,所以在私有继承时，基类的成员只能由直接派生类访问，<strong>无法再往下继承</strong>。</li>
+</ul>
+</li>
+<li><p><strong>保护继承（protected）:</strong> </p>
+<ul>
+<li>保护继承与私有继承相似，基类成员对其对象的可见性与一般类及其对象的可见性相同，public成员可见，其他成员不可见。</li>
+<li><strong>基类成员对派生类的可见性</strong>: 对派生类来说，基类的public和protected成员是可见的：<ul>
+<li>基类的 <strong>public</strong> 成员和 <strong>protected</strong> 成员都作为派生类的 <strong>protected</strong> 成员，并且不能被这个派生类的子类所访问；</li>
+<li>基类的 <strong>private</strong> 成员依旧是private，派生类不可访问基类中的private成员。</li>
+</ul>
+</li>
+<li><strong>基类成员对派生类对象的可见性</strong>: 对派生类对象来说，基类的所有成员都是不可见的。所以，在保护继承时，基类的成员也只能由直接派生类访问，而<strong>无法再向下继承</strong>。</li>
+</ul>
+</li>
+</ol>
+<p>C++支持多重继承。多重继承是一个类从多个基类派生而来的能力。派生类实际上获取了所有基类的特性。当一个类 是两个或多个基类的派生类时，派生类的构造函数必须激活所有基类的构造函数，并把相应的参数传递给它们 。</p>
+<h2 id="class-与-struct的区别"><a href="#class-与-struct的区别" class="headerlink" title="class 与 struct的区别"></a>class 与 struct的区别</h2><ul>
+<li>class默认的继承方式为private, struct 默认继承方式为public </li>
+<li>class的成员访问默认为private, struct默认为public </li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/17/Markdown/" rel="next" title="Markdown 简明教程">
+                <i class="fa fa-chevron-left"></i> Markdown 简明教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/CppS2_2/" rel="prev" title="C++ Section2 面向对象(2) 多态与虚函数">
+                C++ Section2 面向对象(2) 多态与虚函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars.githubusercontent.com/o1zys"
+               alt="Oizys" />
+          <p class="site-author-name" itemprop="name">Oizys</p>
+           
+              <p class="site-description motion-element" itemprop="description">Programmer</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象的三大特性"><span class="nav-number">1.</span> <span class="nav-text">面向对象的三大特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可被继承及不可被继承"><span class="nav-number">2.</span> <span class="nav-text">可被继承及不可被继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义默认构造函数的两种方法"><span class="nav-number">3.</span> <span class="nav-text">定义默认构造函数的两种方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用非默认构造函数的三种方法"><span class="nav-number">4.</span> <span class="nav-text">调用非默认构造函数的三种方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#由编译器生成的六个成员函数"><span class="nav-number">5.</span> <span class="nav-text">由编译器生成的六个成员函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#必须在构造函数初始化式里进行初始化的数据成员"><span class="nav-number">6.</span> <span class="nav-text">必须在构造函数初始化式里进行初始化的数据成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果赋值构造函数参数不是传引用而是传值会有什么问题？"><span class="nav-number">7.</span> <span class="nav-text">如果赋值构造函数参数不是传引用而是传值会有什么问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三种继承方式（public-private-protected）的区别"><span class="nav-number">8.</span> <span class="nav-text">三种继承方式（public, private, protected）的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class-与-struct的区别"><span class="nav-number">9.</span> <span class="nav-text">class 与 struct的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Oizys</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/12/18/CppS2_1/';
+          this.page.identifier = '2017/12/18/CppS2_1/';
+          this.page.title = 'C++ Section2 面向对象(1)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

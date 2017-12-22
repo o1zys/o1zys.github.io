@@ -277,6 +277,424 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/CppS2_2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/22/CppS2_2/" itemprop="url">C++ Section2 面向对象(2) 多态与虚函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-22T17:29:59+08:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/22/CppS2_2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/22/CppS2_2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="多态性"><a href="#多态性" class="headerlink" title="多态性"></a>多态性</h2><p>多态指当不同的对象收到相同的消息时，产生不同的动作</p>
+<ul>
+<li>编译时多态（静态绑定），函数重载，运算符重载，模板。</li>
+<li>运行时多态（动态绑定），虚函数机制。</li>
+</ul>
+<h2 id="运行时多态（动态绑定）"><a href="#运行时多态（动态绑定）" class="headerlink" title="运行时多态（动态绑定）"></a>运行时多态（动态绑定）</h2><ul>
+<li>定义：“一个接口，多种方法”，程序在运行时才决定调用的函数。</li>
+<li>实现：C++多态性主要是通过虚函数实现的，虚函数允许子类重写override(注意和overload的区别，overload是重载，是允许同名函数的表现，这些函数参数列表/类型不同）。</li>
+<li>目的：接口重用。封装可以使得代码模块化，继承可以扩展已存在的代码，他们的目的都是为了代码重用。而多态的目的则是为了接口重用。</li>
+<li>用法：声明基类的指针，利用该指针指向任意一个子类对象，调用相应的虚函数，可以根据指向的子类的不同而实现不同的方法。</li>
+</ul>
+<h2 id="重载、覆盖、重写的区别"><a href="#重载、覆盖、重写的区别" class="headerlink" title="重载、覆盖、重写的区别"></a>重载、覆盖、重写的区别</h2><ul>
+<li><p>Overload(重载)：</p>
+<p>  在C++程序中，可以将语义、功能相似的几个函数用同一个名字表示，但参数或返回值不同（包括类型、顺序不同），即函数重载。</p>
+<p>  （1）相同的范围（在同一个类中）；<br>  （2）函数名字相同；<br>  （3）参数不同；<br>  （4）virtual 关键字可有可无。</p>
+</li>
+</ul>
+<ul>
+<li><p>Override(覆盖)：</p>
+<p>  是指派生类函数覆盖基类函数，特征是：</p>
+<p>  （1）不同的范围（分别位于派生类与基类）；<br>  （2）函数名字相同；<br>  （3）参数相同；<br>  （4）基类函数必须有virtual 关键字。</p>
+</li>
+<li><p>Overwrite(重写)：</p>
+<p>  即隐藏，是指派生类的函数屏蔽了与其同名的基类函数，规则如下：</p>
+<p>  （1）如果派生类的函数与基类的函数同名，但是参数不同。此时，不论有无virtual关键字，基类的函数将被隐藏（注意别与重载混淆）。<br>  （2）如果派生类的函数与基类的函数同名，并且参数也相同，但是基类函数没有virtual关键字。此时，基类的函数被重写(隐藏)（注意别与覆盖混淆）。</p>
+</li>
+</ul>
+<p><strong>注：重写基类虚函数的时候，会自动转换这个函数为virtual函数，不管有没有加virtual，因此重写的时候不加virtual也是可以的，不过为了易读性，还是加上比较好。</strong></p>
+<h2 id="虚函数与虚继承"><a href="#虚函数与虚继承" class="headerlink" title="虚函数与虚继承"></a>虚函数与虚继承</h2><blockquote>
+<p>转自：<a href="http://www.cnblogs.com/fanzhidongyzby/archive/2013/01/14/2859064.html" target="_blank" rel="noopener">虚函数与虚继承寻踪</a></p>
+</blockquote>
+<h3 id="基本对象模型"><a href="#基本对象模型" class="headerlink" title="基本对象模型"></a>基本对象模型</h3><p>首先，我们定义一个简单的类，它含有一个数据成员和一个虚函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> var;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>编译出的<code>MyClass</code>对象结构如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClass    size(8):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;   0    | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | var</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClass::$vftable@:</div><div class="line">1&gt;      | &amp;MyClass_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClass::fun</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClass::fun this adjustor: 0</div></pre></td></tr></table></figure>
+<p>从这段信息中我们看出，<code>MyClass</code>对象大小是8个字节。前四个字节存储的是虚函数表的指针<code>vfptr</code>，后四个字节存储对象成员<code>var</code>的值。虚函数表的大小为4字节，就一条函数地址，即虚函数<code>fun</code>的地址，它在虚函数表<code>vftable</code>的偏移是0。因此，MyClass对象模型的结果如图1所示。</p>
+<p><img src="http://github.com/o1zys/MarkdownImage/blob/master/cpp_s2_2_1.jpg" alt="图1 Myclass对象模型"></p>
+<p>图1 MyClass 对象模型</p>
+<p><code>MyClass</code>的虚函数表虽然只有一条函数记录，但是它的结尾处是由4字节的0作为结束标记的。<br>adjust表示虚函数机制执行时，this指针的调整量，假如fun被多态调用的话，那么它的形式如下：</p>
+<pre><code>*(this+0)[0]()
+</code></pre><p>总结虚函数调用形式，应该是：</p>
+<pre><code>*(this指针+调整量)[虚函数在vftable内的偏移]()
+</code></pre><h3 id="单重继承对象模型"><a href="#单重继承对象模型" class="headerlink" title="单重继承对象模型"></a>单重继承对象模型</h3><p>我们定义一个继承于<code>MyClass</code>类的子类<code>MyClassA</code>，它重写了<code>fun</code>函数，并且提供了一个新的虚函数<code>funA</code>。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/18/CppS2_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/18/CppS2_1/" itemprop="url">C++ Section2 面向对象(1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-18T19:42:28+08:00">
+                2017-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/18/CppS2_1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/18/CppS2_1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h2><p>三大特性：封装，继承，多态。</p>
+<ol>
+<li>封装：封装是实现面向对象程序设计的第一步，封装就是将数据或函数等集合在一个个的单元中（我们称之为类）。封装的意义在于保护或者防止代码（数据）被我们无意中破坏。</li>
+<li>继承：继承主要实现重用代码，节省开发时间。子类可以继承父类的一些东西。</li>
+<li>多态：同一操作作用于不同的对象，可以有不同的解释，产生不同的执行结果。分为编译时多态和运行时多态。</li>
+</ol>
+<h2 id="可被继承及不可被继承"><a href="#可被继承及不可被继承" class="headerlink" title="可被继承及不可被继承"></a>可被继承及不可被继承</h2><p>无法被继承的有:  </p>
+<ul>
+<li>构造函数</li>
+<li>析构函数</li>
+<li>赋值运算符</li>
+<li>友元函数</li>
+</ul>
+<p>可被继承的有:</p>
+<ul>
+<li>静态成员</li>
+<li>静态方法</li>
+<li>非静态成员</li>
+<li>非静态方法</li>
+<li>虚表指针</li>
+</ul>
+<h2 id="定义默认构造函数的两种方法"><a href="#定义默认构造函数的两种方法" class="headerlink" title="定义默认构造函数的两种方法"></a>定义默认构造函数的两种方法</h2><ul>
+<li>给已有的构造函数中的一个的所有参数加上默认值</li>
+<li>通过方法重载定义一个无参数构造函数</li>
+</ul>
+<p><strong>注意：隐式调用默认构造函数不要加括号(), 会被编译器解释为函数声明。</strong></p>
+<h2 id="调用非默认构造函数的三种方法"><a href="#调用非默认构造函数的三种方法" class="headerlink" title="调用非默认构造函数的三种方法"></a>调用非默认构造函数的三种方法</h2><ol>
+<li>Foo f(…); // 隐式调用</li>
+<li>Foo f = Foo(…) ;// 显式调用</li>
+<li>Foo* f = new Foo(); // 显式调用 </li>
+</ol>
+<h2 id="由编译器生成的六个成员函数"><a href="#由编译器生成的六个成员函数" class="headerlink" title="由编译器生成的六个成员函数"></a>由编译器生成的六个成员函数</h2><ol>
+<li>默认构造函数</li>
+<li>析构函数</li>
+<li>复制构造函数</li>
+<li>赋值运算符</li>
+<li>取地址运算符</li>
+<li>取地址运算符 const版本</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	Foo();                              <span class="comment">// 默认构造函数</span></div><div class="line">	~Foo();                             <span class="comment">// 析构函数</span></div><div class="line">	Foo(<span class="keyword">const</span> Foo &amp;);                   <span class="comment">// 复制构造函数</span></div><div class="line">	<span class="keyword">const</span> Foo&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo &amp;);  <span class="comment">// 赋值构造函数</span></div><div class="line">	Foo* <span class="keyword">operator</span>&amp;();                   <span class="comment">// 取地址运算符</span></div><div class="line">	<span class="keyword">const</span> Foo* <span class="keyword">operator</span>&amp;() <span class="keyword">const</span>;       <span class="comment">// 取地址运算符const重载</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="必须在构造函数初始化式里进行初始化的数据成员"><a href="#必须在构造函数初始化式里进行初始化的数据成员" class="headerlink" title="必须在构造函数初始化式里进行初始化的数据成员"></a>必须在构造函数初始化式里进行初始化的数据成员</h2><ol>
+<li>常量成员，因为常量只能初始化不能赋值，所以必须放在初始化列表里面</li>
+<li>引用类型，引用必须在定义的时候初始化，并且不能重新赋值，所以也要写在初始化列表里面</li>
+<li>没有默认构造函数的类类型，因为使用初始化列表可以不必调用默认构造函数来初始化，而是直接调用拷贝构造函数初始化</li>
+</ol>
+<h2 id="如果赋值构造函数参数不是传引用而是传值会有什么问题？"><a href="#如果赋值构造函数参数不是传引用而是传值会有什么问题？" class="headerlink" title="如果赋值构造函数参数不是传引用而是传值会有什么问题？"></a>如果赋值构造函数参数不是传引用而是传值会有什么问题？</h2><p>如果不是传引用，会造成栈溢出。因为如果是Foo(Foo f)的形式，实参初始化形参的时候也会调用复制构造函数，造成死循环。所以，复制构造函数一定要传引用：</p>
+<p>Foo(Foo&amp; f); </p>
+<h2 id="三种继承方式（public-private-protected）的区别"><a href="#三种继承方式（public-private-protected）的区别" class="headerlink" title="三种继承方式（public, private, protected）的区别"></a>三种继承方式（public, private, protected）的区别</h2><ol>
+<li><p><strong>公有继承（public）:</strong> </p>
+<ul>
+<li><strong>基类成员对其对象的可见性</strong>: 与一般类及其对象的可见性相同，<strong>public</strong>成员可见，<strong>protected</strong>和<strong>private</strong>成员不可见。  </li>
+<li><strong>基类成员对派生类的可见性</strong>: 对派生类来说，基类的 <strong>public</strong> 和 <strong>protected</strong> 成员可见的。<ul>
+<li>基类的 <strong>public</strong> 成员和 <strong>protected</strong> 成员作为派生类的成员时，它们都保持原有状态；</li>
+<li>基类的 <strong>private</strong> 成员依旧是private，派生类不可访问基类中的private成员。  </li>
+</ul>
+</li>
+<li><strong>基类成员对派生类对象的可见性</strong>: 对派生类对象来说，基类的public成员是可见的，其他成员是不可见的。所以，在公有继承时，<strong>派生类的对象</strong>可以访问基类中的public成员，<strong>派生类的成员方法</strong>可以访问基类中的public成员和protected成员。</li>
+</ul>
+</li>
+<li><p><strong>私有继承（private）:</strong> </p>
+<ul>
+<li><strong>基类成员对其对象的可见性</strong>: 与一般类及其对象的可见性相同，public成员可见，其他成员不可见。  </li>
+<li><strong>基类成员对派生类的可见性</strong>: 对派生类来说，基类的public和protected成员可见：<ul>
+<li>基类的 <strong>public</strong> 成员和 <strong>protected</strong> 成员都作为派生类的 <strong>private</strong> 成员，并且不能被这个派生类的子类所访问；</li>
+<li>基类的 <strong>private</strong> 成员依旧是private，派生类不可访问基类中的private成员。</li>
+</ul>
+</li>
+<li><strong>基类成员对派生类对象的可见性</strong>: 对派生类对象来说，基类的所有成员都是不可见的,所以在私有继承时，基类的成员只能由直接派生类访问，<strong>无法再往下继承</strong>。</li>
+</ul>
+</li>
+<li><p><strong>保护继承（protected）:</strong> </p>
+<ul>
+<li>保护继承与私有继承相似，基类成员对其对象的可见性与一般类及其对象的可见性相同，public成员可见，其他成员不可见。</li>
+<li><strong>基类成员对派生类的可见性</strong>: 对派生类来说，基类的public和protected成员是可见的：<ul>
+<li>基类的 <strong>public</strong> 成员和 <strong>protected</strong> 成员都作为派生类的 <strong>protected</strong> 成员，并且不能被这个派生类的子类所访问；</li>
+<li>基类的 <strong>private</strong> 成员依旧是private，派生类不可访问基类中的private成员。</li>
+</ul>
+</li>
+<li><strong>基类成员对派生类对象的可见性</strong>: 对派生类对象来说，基类的所有成员都是不可见的。所以，在保护继承时，基类的成员也只能由直接派生类访问，而<strong>无法再向下继承</strong>。</li>
+</ul>
+</li>
+</ol>
+<p>C++支持多重继承。多重继承是一个类从多个基类派生而来的能力。派生类实际上获取了所有基类的特性。当一个类 是两个或多个基类的派生类时，派生类的构造函数必须激活所有基类的构造函数，并把相应的参数传递给它们 。</p>
+<h2 id="class-与-struct的区别"><a href="#class-与-struct的区别" class="headerlink" title="class 与 struct的区别"></a>class 与 struct的区别</h2><ul>
+<li>class默认的继承方式为private, struct 默认继承方式为public </li>
+<li>class的成员访问默认为private, struct默认为public </li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/Markdown/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1226,7 +1644,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1237,7 +1655,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1248,7 +1666,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
