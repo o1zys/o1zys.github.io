@@ -1,0 +1,834 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cpp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="模板通式函数模板通式1234template &amp;lt;class 形参名，class 形参名，...&amp;gt; 返回类型 函数名(参数列表) &amp;#123;	函数体&amp;#125; 类模板通式123template &amp;lt;class 形参名，class 形参名, ...&amp;gt;">
+<meta name="keywords" content="cpp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Section3 泛型编程">
+<meta property="og:url" content="http://yoursite.com/2017/12/25/CppS3/index.html">
+<meta property="og:site_name" content="Oizys&#39;s Blog">
+<meta property="og:description" content="模板通式函数模板通式1234template &amp;lt;class 形参名，class 形参名，...&amp;gt; 返回类型 函数名(参数列表) &amp;#123;	函数体&amp;#125; 类模板通式123template &amp;lt;class 形参名，class 形参名, ...&amp;gt;   class 类名&amp;#123; ... &amp;#125;; 模板的非类型形参 非类型模板形参：模板的非类型形参也就是内置类型形参">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-25T11:07:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ Section3 泛型编程">
+<meta name="twitter:description" content="模板通式函数模板通式1234template &amp;lt;class 形参名，class 形参名，...&amp;gt; 返回类型 函数名(参数列表) &amp;#123;	函数体&amp;#125; 类模板通式123template &amp;lt;class 形参名，class 形参名, ...&amp;gt;   class 类名&amp;#123; ... &amp;#125;; 模板的非类型形参 非类型模板形参：模板的非类型形参也就是内置类型形参">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/25/CppS3/"/>
+
+
+
+
+
+  <title>C++ Section3 泛型编程 | Oizys's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oizys's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/25/CppS3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ Section3 泛型编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-25T19:07:33+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/25/CppS3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/25/CppS3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="模板通式"><a href="#模板通式" class="headerlink" title="模板通式"></a>模板通式</h2><h3 id="函数模板通式"><a href="#函数模板通式" class="headerlink" title="函数模板通式"></a>函数模板通式</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> 形参名，<span class="title">class</span> 形参名，...&gt; </span></div><div class="line">返回类型 函数名(参数列表) &#123;</div><div class="line">	函数体</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="类模板通式"><a href="#类模板通式" class="headerlink" title="类模板通式"></a>类模板通式</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> 形参名，<span class="title">class</span> 形参名, ...&gt;   </span></div><div class="line"><span class="title">class</span> 类名</div><div class="line">&#123; ... &#125;;</div></pre></td></tr></table></figure>
+<h2 id="模板的非类型形参"><a href="#模板的非类型形参" class="headerlink" title="模板的非类型形参"></a>模板的非类型形参</h2><ol>
+<li><p>非类型模板形参：模板的非类型形参也就是内置类型形参，如template<class t,="" int="" a=""> class B{};其中int a就是非类型的模板形参。</class></p>
+</li>
+<li><p>非类型形参在模板定义的内部是常量值，也就是说非类型形参在模板的内部是常量。</p>
+</li>
+<li><p>非类型模板的形参只能是<strong>整型</strong>，<strong>指针</strong>和<strong>引用</strong>，像double，String, String **这样的类型是不允许的。但是double &amp;，double *，对象的引用或指针是正确的。</p>
+</li>
+<li><p>调用非类型模板形参的实参必须是一个常量表达式，即他必须能在编译时计算出结果。</p>
+</li>
+<li><p>注意：任何局部对象，局部变量，局部对象的地址，局部变量的地址都不是一个常量表达式，都不能用作非类型模板形参的实参。全局指针类型，全局变量，全局对象也不是一个常量表达式，不能用作非类型模板形参的实参。</p>
+</li>
+<li><p>全局变量的地址或引用，全局对象的地址或引用const类型变量是常量表达式，可以用作非类型模板形参的实参。</p>
+</li>
+<li><p>sizeof表达式的结果是一个常量表达式，也能用作非类型模板形参的实参。</p>
+</li>
+<li><p>当模板的形参是整型时调用该模板时的实参必须是整型的，且在编译期间是常量，比如template <class t,="" int="" a=""> class A{};如果有int b，这时A<int, b=""> m;将出错，因为b不是常量，如果const int b，这时A<int, b=""> m;就是正确的，因为这时b是常量。</int,></int,></class></p>
+</li>
+<li><p>非类型形参一般不应用于函数模板中，比如有函数模板template<class t,="" int="" a=""> void h(T b){}，若使用h(2)调用会出现无法为非类型形参a推演出参数的错误，对这种模板函数可以用显示模板实参来解决，如用h<int, 3="">(2)这样就把非类型形参a设置为整数3。显示模板实参在后面介绍。</int,></class></p>
+</li>
+<li><p>非类型模板形参的形参和实参间所允许的转换</p>
+<ul>
+<li>允许从数组到指针，从函数到指针的转换。如：template <int \*a=""> class A{}; int b[1]; A\<b\> m;即数组到指针的转换</b\></int></li>
+<li>const修饰符的转换。如：template<const int="" \*a=""> class A{}; int b; A\&lt;&amp;b> m;   即从int *到const int *的转换。</const></li>
+<li>提升转换。如：template<int a=""> class A{}; const short b=2; A\<b\> m; 即从short到int的提升转换</b\></int></li>
+<li>整值转换。如：template<unsigned int="" a=""> class A{};   A<3> m; 即从int 到unsigned int的转换。</3></unsigned></li>
+<li>常规转换。</li>
+</ul>
+</li>
+</ol>
+<h3 id="非类型模板的应用：Stack类"><a href="#非类型模板的应用：Stack类" class="headerlink" title="非类型模板的应用：Stack类"></a>非类型模板的应用：Stack类</h3><p>stack.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> STACK_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> STACK_H</span></div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt; </span></div><div class="line"><span class="title">class</span> <span class="title">Stack</span> &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	T 		elems[MAXSIZE];</div><div class="line">	<span class="keyword">int</span> 	numElems;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	Stack();</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(T <span class="keyword">const</span>&amp;)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>;</div><div class="line">	<span class="function">T <span class="title">top</span><span class="params">()</span> <span class="keyword">const</span></span>;</div><div class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> numElems == <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">full</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> numElems == MAXSIZE;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt; </span></div><div class="line"><span class="title">Stack</span>&lt;T,MAXSIZE&gt;::Stack():numElems(<span class="number">0</span>)&#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt;</span></div><div class="line"><span class="title">void</span> <span class="title">Stack</span>&lt;T, MAXSIZE&gt;::push(T <span class="keyword">const</span>&amp; elem)&#123;</div><div class="line">	<span class="keyword">if</span>(numElems == MAXSIZE)&#123;</div><div class="line">		<span class="keyword">throw</span> <span class="built_in">std</span>::out_of_range(<span class="string">"Stack&lt;&gt;::push(): stack is full"</span>);</div><div class="line">	&#125;</div><div class="line">	elems[numElems] = elem;	</div><div class="line">	++numElems;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt;</span></div><div class="line"><span class="title">void</span> <span class="title">Stack</span>&lt;T,MAXSIZE&gt;::pop()&#123;</div><div class="line">	<span class="keyword">if</span> (numElems &lt;= <span class="number">0</span>) &#123;</div><div class="line">		<span class="keyword">throw</span> <span class="built_in">std</span>::out_of_range(<span class="string">"Stack&lt;&gt;::pop(): empty stack"</span>);</div><div class="line">	&#125;</div><div class="line">    --numElems;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt;</span></div><div class="line"><span class="title">T</span> <span class="title">Stack</span>&lt;T,MAXSIZE&gt;::top() <span class="keyword">const</span>&#123;</div><div class="line">    <span class="keyword">if</span> (numElems &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="built_in">std</span>::out_of_range(<span class="string">"Stack&lt;&gt;::top(): empty stack"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> elems[numElems<span class="number">-1</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<p>stack.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stack.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	Stack&lt;<span class="keyword">int</span>,<span class="number">20</span>&gt; stack_int;  <span class="comment">// 可以存储20个int元素的栈</span></div><div class="line">	Stack&lt;<span class="built_in">std</span>::<span class="built_in">string</span>,<span class="number">40</span>&gt; stack_str; <span class="comment">// 可存储40个string元素的栈</span></div><div class="line"></div><div class="line">	<span class="comment">// 使用可存储20个int元素的栈</span></div><div class="line">	stack_int.push(<span class="number">7</span>);</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; stack_int.top() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;    <span class="comment">//7</span></div><div class="line">	stack_int.pop();</div><div class="line"></div><div class="line">	<span class="comment">// 使用可存储40个string的栈</span></div><div class="line">	stack_str.push(<span class="string">"hello"</span>);</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; stack_str.top() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;    <span class="comment">//hello</span></div><div class="line">	stack_str.pop();    </div><div class="line">	stack_str.pop();    <span class="comment">//Exception: Stack&lt;&gt;::pop&lt;&gt;: empty stack</span></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="模板的全特化和偏特化"><a href="#模板的全特化和偏特化" class="headerlink" title="模板的全特化和偏特化"></a>模板的全特化和偏特化</h2><p>所谓特化，就是将泛型的东西搞得具体化一些，从字面上来解释，就是为已有的模板参数进行一些使其特殊化的指定，使得以前不受任何约束的模板参数，或受到特定的修饰（例如const或者摇身一变成为了指针之类的东东，甚至是经过别的模板类包装之后的模板类型）或完全被指定了下来。</p>
+<p>模板有两种特化，<strong>全特化</strong>和<strong>偏特化</strong>（局部特化） </p>
+<ul>
+<li>模板函数只能全特化，没有偏特化（以后可能有）。 </li>
+<li>模板类是可以全特化和偏特化的。 </li>
+</ul>
+<p>全特化，就是模板中模板参数全被指定为确定的类型。全特化也就是定义了一个全新的类型，全特化的类中的函数可以与模板类不一样。 </p>
+<p>偏特化，就是模板中的模板参数没有被全部确定，需要编译器在编译时进行确定。 在类型上加上const、&amp;、*（ cosnt int、int&amp;、int*、等等）并没有产生新的类型。只是类型被修饰了。模板在编译时，可以得到这些修饰信息。</p>
+<p>模板为什么要特化，因为编译器认为，对于特定的类型，如果你能对某一功能更好的实现，那么就该听你的。<br>模板分为<strong>类模板</strong>与<strong>函数模板</strong>，特化分为<strong>全特化</strong>与<strong>偏特化</strong>。全特化就是限定死模板实现的具体类型，偏特化就是如果这个模板有多个类型，那么只限定其中的一部分。</p>
+<p>先看类模板：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>  </span></div><div class="line">&#123;  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    Test(T1 i,T2 j):a(i),b(j)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"模板类"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;  </div><div class="line"><span class="keyword">private</span>:  </div><div class="line">    T1 a;  </div><div class="line">    T2 b;  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line"><span class="keyword">template</span>&lt;&gt;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;int , char&gt;  </span></div><div class="line">&#123;  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    Test(<span class="keyword">int</span> i, <span class="keyword">char</span> j):a(i),b(j)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"全特化"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;  </div><div class="line"><span class="keyword">private</span>:  </div><div class="line">    <span class="keyword">int</span> a;  </div><div class="line">    <span class="keyword">char</span> b;  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T2&gt;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;char, T2&gt;  </span></div><div class="line">&#123;  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    Test(<span class="keyword">char</span> i, T2 j):a(i),b(j)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"偏特化"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;  </div><div class="line"><span class="keyword">private</span>:  </div><div class="line">    <span class="keyword">char</span> a;  </div><div class="line">    T2 b;  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>那么下面3句依次调用类模板、全特化与偏特化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Test&lt;<span class="keyword">double</span> , <span class="keyword">double</span>&gt; t1(<span class="number">0.1</span>,<span class="number">0.2</span>);  </div><div class="line">Test&lt;<span class="keyword">int</span> , <span class="keyword">char</span>&gt; t2(<span class="number">1</span>,<span class="string">'A'</span>);  </div><div class="line">Test&lt;<span class="keyword">char</span>, <span class="keyword">bool</span>&gt; t3(<span class="string">'A'</span>,<span class="literal">true</span>);</div></pre></td></tr></table></figure>
+<p>而对于函数模板，却只有全特化，不能偏特化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//模板函数  </span></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;  </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(T1 a , T2 b)</span>  </span></div><div class="line">&#123;  </div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"模板函数"</span>&lt;&lt;<span class="built_in">endl</span>;  </div><div class="line">&#125;  </div><div class="line">  </div><div class="line"><span class="comment">//全特化  </span></div><div class="line"><span class="keyword">template</span>&lt;&gt;  </div><div class="line"><span class="keyword">void</span> fun&lt;<span class="keyword">int</span> ,<span class="keyword">char</span> &gt;(<span class="keyword">int</span> a, <span class="keyword">char</span> b)  </div><div class="line">&#123;  </div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"全特化"</span>&lt;&lt;<span class="built_in">endl</span>;  </div><div class="line">&#125;  </div><div class="line">  </div><div class="line"><span class="comment">//函数不存在偏特化：下面的代码是错误的  </span></div><div class="line"><span class="comment">/* </span></div><div class="line">template&lt;typename T2&gt; </div><div class="line">void fun&lt;char,T2&gt;(char a, T2 b) </div><div class="line">&#123; </div><div class="line">    cout&lt;&lt;"偏特化"&lt;&lt;endl; </div><div class="line">&#125; </div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>至于为什么函数不能偏特化，似乎不是因为语言实现不了，而是因为偏特化的功能可以通过函数的重载完成。</p>
+<p>函数模版的全特化不参与函数重载, 并且优先级低于函数基础模版参与匹配，也就是说，匹配的顺序是：</p>
+<ol>
+<li>非模板函数</li>
+<li>某个没有进行全特化的template function</li>
+<li>如果这个没有进行全特化的template function有全特化版本，并且类型也比较匹配，则选择这个全特化版本</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cpp/" rel="tag"># cpp</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/25/CppS2_2/" rel="next" title="C++ Section2 面向对象(2) 多态与虚函数">
+                <i class="fa fa-chevron-left"></i> C++ Section2 面向对象(2) 多态与虚函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/25/CppS4/" rel="prev" title="C++ Section4 内存管理">
+                C++ Section4 内存管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars.githubusercontent.com/o1zys"
+               alt="Oizys" />
+          <p class="site-author-name" itemprop="name">Oizys</p>
+           
+              <p class="site-description motion-element" itemprop="description">Programmer</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板通式"><span class="nav-number">1.</span> <span class="nav-text">模板通式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数模板通式"><span class="nav-number">1.1.</span> <span class="nav-text">函数模板通式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类模板通式"><span class="nav-number">1.2.</span> <span class="nav-text">类模板通式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板的非类型形参"><span class="nav-number">2.</span> <span class="nav-text">模板的非类型形参</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#非类型模板的应用：Stack类"><span class="nav-number">2.1.</span> <span class="nav-text">非类型模板的应用：Stack类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板的全特化和偏特化"><span class="nav-number">3.</span> <span class="nav-text">模板的全特化和偏特化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Oizys</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/12/25/CppS3/';
+          this.page.identifier = '2017/12/25/CppS3/';
+          this.page.title = 'C++ Section3 泛型编程';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
