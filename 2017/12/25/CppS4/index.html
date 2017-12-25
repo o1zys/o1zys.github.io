@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="new与malloc的区别，delet和free的区别及其内部实现new 与 malloc的区别： new 是运算符，malloc是库函数 new会调用构造函数，malloc只申请内存 new返回指定类型的指针，malloc返回void指针 new自动计算所需的内存大小，malloc需要手动设置空间 new可以被重载 ">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Section4 内存管理">
+<meta property="og:url" content="http://yoursite.com/2017/12/25/CppS4/index.html">
+<meta property="og:site_name" content="Oizys&#39;s Blog">
+<meta property="og:description" content="new与malloc的区别，delet和free的区别及其内部实现new 与 malloc的区别： new 是运算符，malloc是库函数 new会调用构造函数，malloc只申请内存 new返回指定类型的指针，malloc返回void指针 new自动计算所需的内存大小，malloc需要手动设置空间 new可以被重载  内部实现： delete 和 free 的区别： delete 是运算符，fr">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s4_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s4_2.png">
+<meta property="og:updated_time" content="2017-12-25T10:55:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ Section4 内存管理">
+<meta name="twitter:description" content="new与malloc的区别，delet和free的区别及其内部实现new 与 malloc的区别： new 是运算符，malloc是库函数 new会调用构造函数，malloc只申请内存 new返回指定类型的指针，malloc返回void指针 new自动计算所需的内存大小，malloc需要手动设置空间 new可以被重载  内部实现： delete 和 free 的区别： delete 是运算符，fr">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s4_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/25/CppS4/"/>
+
+
+
+
+
+  <title>C++ Section4 内存管理 | Oizys's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oizys's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/25/CppS4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ Section4 内存管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-25T12:08:49+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/25/CppS4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/25/CppS4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="new与malloc的区别，delet和free的区别及其内部实现"><a href="#new与malloc的区别，delet和free的区别及其内部实现" class="headerlink" title="new与malloc的区别，delet和free的区别及其内部实现"></a>new与malloc的区别，delet和free的区别及其内部实现</h2><h3 id="new-与-malloc的区别："><a href="#new-与-malloc的区别：" class="headerlink" title="new 与 malloc的区别："></a>new 与 malloc的区别：</h3><ol>
+<li>new 是运算符，malloc是库函数</li>
+<li>new会调用构造函数，malloc只申请内存</li>
+<li>new返回指定类型的指针，malloc返回void指针</li>
+<li>new自动计算所需的内存大小，malloc需要手动设置空间</li>
+<li>new可以被重载</li>
+</ol>
+<p>内部实现：<br><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s4_1.png" alt=""></p>
+<h3 id="delete-和-free-的区别："><a href="#delete-和-free-的区别：" class="headerlink" title="delete 和 free 的区别："></a>delete 和 free 的区别：</h3><ol>
+<li>delete 是运算符，free是库函数</li>
+<li>delete会调用析构函数，free是会释放内存</li>
+<li>使用free之前要检查指针是否为空指针，delete不需要，对空指针delete没有问题</li>
+<li>free 和 delete 不能混用，也就是说new 分配的内存空间最好不要使用使用free 来释放，malloc 分配的空间也不要使用 delete来释放</li>
+</ol>
+<p>内部实现：<br><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s4_2.png" alt=""></p>
+<h2 id="malloc-calloc-realloc-和-alloca-申请内存的区别"><a href="#malloc-calloc-realloc-和-alloca-申请内存的区别" class="headerlink" title="malloc, calloc, realloc, 和 alloca 申请内存的区别"></a>malloc, calloc, realloc, 和 alloca 申请内存的区别</h2><ol>
+<li>calloc 是申请N个大小为S的空间，且会初始化空间值为0；malloc不会初始化，是随机的垃圾数据（在VS Debug模式下，会是0xcccccc这种特殊值，为了调试方便）</li>
+<li>malloc 是在堆上申请大小为S的一个空间，但不会初始化</li>
+<li>realloc 是将原本分配的内存扩充到新的大小，要求新的大小必须大于原大小</li>
+<li>alloca 是在栈上申请空间，不需要（不能）使用free，运行到作用域以外的时候释放申请的空间</li>
+</ol>
+<h2 id="C-内存模型（堆、栈、静态区）"><a href="#C-内存模型（堆、栈、静态区）" class="headerlink" title="C++内存模型（堆、栈、静态区）"></a>C++内存模型（堆、栈、静态区）</h2><p>堆 heap ：<br>由new分配的内存块，其释放编译器不去管，由我们程序自己控制（一个new对应一个delete）。如果程序员没有释放掉，在程序结束时OS会自动回收。涉及的问题：“缓冲区溢出”、“内存泄露”</p>
+<p>栈 stack ：<br>是那些编译器在需要时分配，在不需要时自动清除的存储区。存放局部变量、函数参数。存放在栈中的数据只在当前函数及下一层函数中有效，一旦函数返回了，这些数据也就自动释放了。函数栈内的变量地址总是连续的，从高地址向低地址生长。</p>
+<p>全局/静态存储区 （.bss段和.data段） ：<br>全局和静态变量被分配到同一块内存中。在C语言中，未初始化的静态变量放在.bss段中，初始化的放在.data段中；在C++里则不区分了。</p>
+<p>常量存储区 （.rodata段） ：<br>存放常量，不允许修改（通过非正当手段也可以修改）</p>
+<p>代码区 （.text段） ：<br>存放代码（如函数），不允许修改（类似常量存储区），但可以执行（不同于常量存储区）<br>根据c/c++对象生命周期不同，c/c++的内存模型有三种不同的内存区域，即</p>
+<p>自由存储区（栈区）：局部非静态变量的存储区域，即平常所说的栈<br>动态存储区（堆区）： 用operator new ，malloc分配的内存，即平常所说的堆<br>静态存储区：全局变量 静态变量 字符串常量存在位置</p>
+<p>注意：<br>栈区变量要注意析构函数的调用次序，由于是先进后出，则先创建的对象，最后被析构。</p>
+<h2 id="堆与栈的区别"><a href="#堆与栈的区别" class="headerlink" title="堆与栈的区别"></a>堆与栈的区别</h2><ol>
+<li>堆是先进先出，栈是先进后出。</li>
+<li>栈的大小固定，受限于系统中有效的虚拟内存，可能会发生栈溢出；堆可以动态生长</li>
+<li>栈的空间有系统释放，堆内存由程序员释放</li>
+<li>堆容易产生碎片</li>
+<li>申请方式上，栈是系统自动分配，堆是由程序员申请</li>
+</ol>
+<h2 id="如何实现只能动态分配类对象，不能定义类对象"><a href="#如何实现只能动态分配类对象，不能定义类对象" class="headerlink" title="如何实现只能动态分配类对象，不能定义类对象"></a>如何实现只能动态分配类对象，不能定义类对象</h2><p>即只能将对象创建于堆上，不能创建于栈上。需要把构造函数和析构函数设为protected，派生类可以访问，外部无法访问。同时创建create和destroy函数,在内部调用构造和析构，用于创建和删除对象。其中create设为static，使用类名访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></div><div class="line"><span class="keyword">protected</span>:</div><div class="line"> 	A()&#123;&#125;;</div><div class="line"> 	~A()&#123;&#125;;</div><div class="line"><span class="keyword">public</span>:</div><div class="line"> 	<span class="function"><span class="keyword">static</span> A* <span class="title">creat</span><span class="params">()</span></span>&#123;</div><div class="line"> 		<span class="keyword">return</span> <span class="keyword">new</span> A();</div><div class="line"> 	&#125;</div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>&#123;</div><div class="line"> 		<span class="keyword">delete</span> <span class="keyword">this</span>;</div><div class="line"> 	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"> 	A* a = A::creat();</div><div class="line">	a-&gt;destroy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="如何实现只能在栈上创建对象-不能在堆上创建对像"><a href="#如何实现只能在栈上创建对象-不能在堆上创建对像" class="headerlink" title="如何实现只能在栈上创建对象, 不能在堆上创建对像"></a>如何实现只能在栈上创建对象, 不能在堆上创建对像</h2><p>在堆上创建对象的唯一方法是使用new关键字，所以，只需要禁用new关键字就可以了。将operator new 设为私有的, 外部不可访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="function"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> t)</span></span>&#123;&#125;     <span class="comment">// 注意函数的第一个参数和返回值都是固定的</span></div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* ptr)</span></span>&#123;&#125; <span class="comment">// 重载了new就需要重载delete</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line"> 	A()&#123;&#125;</div><div class="line"> 	~A()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="析构函数什么时候声明为私有？什么时候不能声明为私有？"><a href="#析构函数什么时候声明为私有？什么时候不能声明为私有？" class="headerlink" title="析构函数什么时候声明为私有？什么时候不能声明为私有？"></a>析构函数什么时候声明为私有？什么时候不能声明为私有？</h2><p>私有析构函数可以使得对象只在堆上构造。在栈上创建的对象要求构造函数和析构函数必须都是公有的，否则编译器报错“析构函数不可访问”；而堆对象由程序员创建和删除，可以把析构函数声明为私有的。由于delete会调用析构函数，而私有的析构无法被访问，编译器报错，此时通过增加一个destroy()方法，在方法内调用析构函数来释放对象:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">delete</span> <span class="keyword">this</span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>析构函数不能声明为私有的情况：基类的析构函数不能声明为私有，因为要在派生类的析构函数中被隐式调用。</p>
+<h2 id="构造函数什么时候声明为私有？什么时候不能声明为私有？"><a href="#构造函数什么时候声明为私有？什么时候不能声明为私有？" class="headerlink" title="构造函数什么时候声明为私有？什么时候不能声明为私有？"></a>构造函数什么时候声明为私有？什么时候不能声明为私有？</h2><p>单例模式时构造函数声明为私有。</p>
+<p>基类的构造函数不能声明为私有，因为要在派生类的构造函数中被隐式调用。如果在派生类的构造函数中没有显式调用基类的构造，则会调用基类的默认构造函数。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/22/CppS3/" rel="next" title="C++ Section3 泛型编程">
+                <i class="fa fa-chevron-left"></i> C++ Section3 泛型编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/25/CppS1/" rel="prev" title="C++ Section1 关键字及其用法">
+                C++ Section1 关键字及其用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars.githubusercontent.com/o1zys"
+               alt="Oizys" />
+          <p class="site-author-name" itemprop="name">Oizys</p>
+           
+              <p class="site-description motion-element" itemprop="description">Programmer</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#new与malloc的区别，delet和free的区别及其内部实现"><span class="nav-number">1.</span> <span class="nav-text">new与malloc的区别，delet和free的区别及其内部实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-与-malloc的区别："><span class="nav-number">1.1.</span> <span class="nav-text">new 与 malloc的区别：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#delete-和-free-的区别："><span class="nav-number">1.2.</span> <span class="nav-text">delete 和 free 的区别：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#malloc-calloc-realloc-和-alloca-申请内存的区别"><span class="nav-number">2.</span> <span class="nav-text">malloc, calloc, realloc, 和 alloca 申请内存的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-内存模型（堆、栈、静态区）"><span class="nav-number">3.</span> <span class="nav-text">C++内存模型（堆、栈、静态区）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆与栈的区别"><span class="nav-number">4.</span> <span class="nav-text">堆与栈的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现只能动态分配类对象，不能定义类对象"><span class="nav-number">5.</span> <span class="nav-text">如何实现只能动态分配类对象，不能定义类对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现只能在栈上创建对象-不能在堆上创建对像"><span class="nav-number">6.</span> <span class="nav-text">如何实现只能在栈上创建对象, 不能在堆上创建对像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#析构函数什么时候声明为私有？什么时候不能声明为私有？"><span class="nav-number">7.</span> <span class="nav-text">析构函数什么时候声明为私有？什么时候不能声明为私有？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数什么时候声明为私有？什么时候不能声明为私有？"><span class="nav-number">8.</span> <span class="nav-text">构造函数什么时候声明为私有？什么时候不能声明为私有？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Oizys</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/12/25/CppS4/';
+          this.page.identifier = '2017/12/25/CppS4/';
+          this.page.title = 'C++ Section4 内存管理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

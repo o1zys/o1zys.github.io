@@ -277,6 +277,676 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/25/CppS1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/25/CppS1/" itemprop="url">C++ Section1 关键字及其用法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-25T16:56:56+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/25/CppS1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/25/CppS1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="定义常量"><a href="#定义常量" class="headerlink" title="定义常量"></a>定义常量</h3><h4 id="限定符声明变量只能被读"><a href="#限定符声明变量只能被读" class="headerlink" title="限定符声明变量只能被读"></a>限定符声明变量只能被读</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i=<span class="number">5</span>; </div><div class="line"><span class="keyword">int</span> j=<span class="number">0</span>; </div><div class="line">... </div><div class="line">i=j;  <span class="comment">//非法，导致编译错误 </span></div><div class="line">j=i;  <span class="comment">//合法</span></div></pre></td></tr></table></figure>
+<h4 id="必须初始化"><a href="#必须初始化" class="headerlink" title="必须初始化"></a>必须初始化</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i=<span class="number">5</span>;    <span class="comment">//合法 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> j;      <span class="comment">//非法，导致编译错误</span></div></pre></td></tr></table></figure>
+<h4 id="在另一连接文件中引用const常量"><a href="#在另一连接文件中引用const常量" class="headerlink" title="在另一连接文件中引用const常量"></a>在另一连接文件中引用const常量</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> i;    <span class="comment">//合法 </span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> j=<span class="number">10</span>; <span class="comment">//非法，常量不可以被再次赋值</span></div></pre></td></tr></table></figure>
+<h4 id="便于进行类型检查"><a href="#便于进行类型检查" class="headerlink" title="便于进行类型检查"></a>便于进行类型检查</h4><p>用const方法可以使编译器对处理内容有更多了解。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> I=10 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">long</span> &amp;i=<span class="number">10</span>;  <span class="comment">/*：由于编译器的优化，使 </span></div><div class="line">      得在const long i=10; 时i不被分配内存，而是已10直接代入 </div><div class="line">      以后的引用中，以致在以后的代码中没有错误，为达到说教效 </div><div class="line">      果，特别地用&amp;i明确地给出了i的内存分配。不过一旦你关闭所 </div><div class="line">      有优化措施，即使const long i=10;也会引起后面的编译错误。*/ </div><div class="line"><span class="keyword">char</span> h=I;      <span class="comment">//没有错 </span></div><div class="line"><span class="keyword">char</span> h=i;      <span class="comment">//编译警告，可能由于数的截短带来错误赋值。</span></div></pre></td></tr></table></figure>
+<h4 id="可以避免不必要的内存分配"><a href="#可以避免不必要的内存分配" class="headerlink" title="可以避免不必要的内存分配"></a>可以避免不必要的内存分配</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> STRING <span class="meta-string">"abcdefghijklmn\n"</span> </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> <span class="built_in">string</span>[]=<span class="string">"abcdefghijklm\n"</span>; </div><div class="line">... </div><div class="line"><span class="built_in">printf</span>(STRING);  <span class="comment">//为STRING分配了第一次内存 </span></div><div class="line"><span class="built_in">printf</span>(<span class="built_in">string</span>);  <span class="comment">//为string一次分配了内存，以后不再分配 </span></div><div class="line">... </div><div class="line"><span class="built_in">printf</span>(STRING);  <span class="comment">//为STRING分配了第二次内存 </span></div><div class="line"><span class="built_in">printf</span>(<span class="built_in">string</span>);</div></pre></td></tr></table></figure>
+<p>由于const定义常量从汇编的角度来看，只是给出了对应的内存地址，而不是象#define一样给出的是立即数，所以，const定义的常量在程序运行过程中只有一份拷贝，而#define定义的常量在内存中有若干个拷贝。</p>
+<h4 id="可以通过函数对常量进行初始化"><a href="#可以通过函数对常量进行初始化" class="headerlink" title="可以通过函数对常量进行初始化"></a>可以通过函数对常量进行初始化</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span></span>; </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i = value();</div></pre></td></tr></table></figure>
+<p>假定对ROM编写程序时，由于目标代码的不可改写，本语句将会无效，不过可以变通一下： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;i=value();</div></pre></td></tr></table></figure>
+<p>只要令i的地址处于ROM之外，即可实现：i通过函数初始化，而其值有不会被修改。 </p>
+<h4 id="const的常量值可以被修改"><a href="#const的常量值可以被修改" class="headerlink" title="const的常量值可以被修改"></a>const的常量值可以被修改</h4><p>观察以下一段代码： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i = <span class="number">0</span>; </div><div class="line"><span class="keyword">int</span> *p = (<span class="keyword">int</span>*)&amp;i; </div><div class="line">p = <span class="number">100</span>;</div></pre></td></tr></table></figure>
+<p>通过强制类型转换，将地址赋给变量，再作修改即可以改变const常量值。 </p>
+<h4 id="const与指针"><a href="#const与指针" class="headerlink" title="const与指针"></a>const与指针</h4><p>const char *p 表示 指向的内容不能改变。</p>
+<p>char * const p，就是将P声明为常指针，它的地址不能改变，是固定的，但是它的内容可以改变。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> ii=<span class="number">0</span>; </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i=<span class="number">0</span>;            <span class="comment">//i是常量，i的值不会被修改 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> *p1i=&amp;i;        <span class="comment">//指针p1i所指内容是常量，可以不初始化 </span></div><div class="line"><span class="keyword">int</span>  * <span class="keyword">const</span> p2i=&amp;ii;     <span class="comment">//指针p2i是常量，所指内容可修改 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> * <span class="keyword">const</span> p3i=&amp;i; <span class="comment">//指针p3i是常量，所指内容也是常量 </span></div><div class="line">p1i=&amp;ii;                  <span class="comment">//合法 </span></div><div class="line">*p2i=<span class="number">100</span>;                 <span class="comment">//合法</span></div></pre></td></tr></table></figure>
+<h3 id="修饰函数参数"><a href="#修饰函数参数" class="headerlink" title="修饰函数参数"></a>修饰函数参数</h3><h4 id="const只能修饰输入参数："><a href="#const只能修饰输入参数：" class="headerlink" title="const只能修饰输入参数："></a>const只能修饰输入参数：</h4><p>如果参数作输出用，不论它是什么数据类型，也不论它采用“指针传递”还是“引用传递”，都不能加const修饰，否则该参数将失去输出功能。</p>
+<p>如果输入参数采用“指针传递”，那么加const修饰可以防止意外地改动该指针，起到保护作用</p>
+<p>例如StringCopy函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">StringCopy</span><span class="params">(<span class="keyword">char</span> *strDestination, <span class="keyword">const</span> <span class="keyword">char</span> *strSource)</span></span>;</div></pre></td></tr></table></figure>
+<p>其中strSource是输入参数，strDestination是输出参数。给strSource加上const修饰后，如果函数体内的语句试图改动strSource的内容，编译器将指出错误。</p>
+<h4 id="“值传递”无需const修饰"><a href="#“值传递”无需const修饰" class="headerlink" title="“值传递”无需const修饰"></a>“值传递”无需const修饰</h4><p>如果输入参数采用“值传递”，由于函数将<strong>自动产生临时变量</strong>用于复制该参数，该输入参数本来就无需保护，所以不要加const修饰。</p>
+<p>例如不要将函数<code>voidFunc1(int x)</code> 写成<code>voidFunc1(const int x)</code>。同理不要将函数<code>voidFunc2(A a)</code> 写成<code>voidFunc2(const A a)</code>。其中A为用户自定义的数据类型。</p>
+<h4 id="非内部类型输入参数，采取const引用传递"><a href="#非内部类型输入参数，采取const引用传递" class="headerlink" title="非内部类型输入参数，采取const引用传递"></a>非内部类型输入参数，采取const引用传递</h4><p>对于非内部数据类型的参数而言，像<code>voidFunc(A a)</code> 这样声明的函数注定效率比较底。因为函数体内将产生A类型的临时对象用于复制参数a，而临时对象的构造、复制、析构过程都将消耗时间。</p>
+<p>为了<strong>提高效率</strong>，可以将函数声明改为voidFunc(A &amp;a)，因为“引用传递”仅借用一下参数的别名而已，不需要产生临时对象。但是函数voidFunc(A &amp;a) 存在一个缺点：</p>
+<p>“引用传递”有可能改变参数a，这是我们不期望的。解决这个问题很容易，加const修饰即可，因此函数最终成为<code>voidFunc(const A &amp;a)</code>。</p>
+<h4 id="内部类型输入参数，不必采取const引用传递"><a href="#内部类型输入参数，不必采取const引用传递" class="headerlink" title="内部类型输入参数，不必采取const引用传递"></a>内部类型输入参数，不必采取const引用传递</h4><p>以此类推，是否应将<code>voidFunc(int x)</code> 改写为<code>voidFunc(const int&amp;x)</code>，以便提高效率？完全没有必要，因为内部数据类型的参数不存在构造、析构的过程，而复制也非常快，“值传递”和“引用传递”的效率几乎相当。</p>
+<p>因此，</p>
+<p><strong>对于非内部数据类型的输入参数，应该将“值传递”的方式改为“const引用传递”，目的是提高效率。</strong>例如将<code>voidFunc(A a)</code> 改为<code>voidFunc(const A &amp;a)</code>。</p>
+<p><strong>对于内部数据类型的输入参数，不要将“值传递”的方式改为“const引用传递”。否则既达不到提高效率的目的，又降低了函数的可理解性。</strong>例如<code>voidFunc(int x)</code> 不应该改为<code>voidFunc(const int &amp;x)</code>。</p>
+<h3 id="修饰函数返回值"><a href="#修饰函数返回值" class="headerlink" title="修饰函数返回值"></a>修饰函数返回值</h3><h4 id="“指针传递”方式返回值"><a href="#“指针传递”方式返回值" class="headerlink" title="“指针传递”方式返回值"></a>“指针传递”方式返回值</h4><p>如果给以“指针传递”方式的函数返回值加const修饰，那么函数返回值（即指针）的内容不能被修改，该返回值只能被赋给加const修饰的同类型指针。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function">constchar *<span class="title">GetString</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line">如下语句将出现编译错误：</div><div class="line"><span class="keyword">char</span> *str = GetString();</div><div class="line">正确的用法是</div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> *str = GetString();</div></pre></td></tr></table></figure>
+<h4 id="“值传递”方式返回值"><a href="#“值传递”方式返回值" class="headerlink" title="“值传递”方式返回值"></a>“值传递”方式返回值</h4><p>如果函数返回值采用“值传递方式”，由于函数会把返回值复制到外部临时的存储单元中，加const修饰没有任何价值。</p>
+<p>例如不要把函数<code>int GetInt(void)</code> 写成<code>const int GetInt(void)</code>。</p>
+<p>同理不要把函数<code>A GetA(void)</code> 写成<code>const A GetA(void)</code>，其中A为用户自定义的数据类型。</p>
+<h4 id="“引用传递”方式返回"><a href="#“引用传递”方式返回" class="headerlink" title="“引用传递”方式返回"></a>“引用传递”方式返回</h4><p>如果返回值不是内部数据类型，将函数<code>A GetA(void)</code> 改写为<code>const A &amp;GetA(void)</code>的确能提高效率。但此时千万千万要小心，一定要搞清楚函数究竟是想返回一个对象的“拷贝”还是仅返回“别名”就可以了，否则程序会出错。若返回对象的“拷贝”就应该采用“值传递”，仅返回“别名”可以用“引用传递”。</p>
+<p>函数返回值采用“引用传递”的场合并不多，这种方式一般只出现在类的赋值函数中，目的是为了实现链式表达。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">classA &#123;</div><div class="line">	A &amp;operate = (<span class="keyword">const</span> A &amp;other); <span class="comment">// 赋值函数</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">int</span> main &#123;</div><div class="line">	A a, b, c; 		<span class="comment">// a, b, c 为A的对象</span></div><div class="line">	a = b = c; 		<span class="comment">// 正常的链式赋值</span></div><div class="line">	(a = b) = c;	<span class="comment">// 不正常的链式赋值，但合法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果将赋值函数的返回值加const修饰，即</p>
+<pre><code>const A &amp;operate = (const A &amp;other);
+</code></pre><p>那么该返回值的内容不允许被改动。上例中，语句<code>a = b = c</code> 仍然正确，但是语句<code>(a = b) = c</code> 则是非法的。</p>
+<h3 id="修饰类的数据成员"><a href="#修饰类的数据成员" class="headerlink" title="修饰类的数据成员"></a>修饰类的数据成员</h3><p>不能在类声明中初始化const数据成员。以下用法是错误的，因为类的对象未被创建时，编译器不知道SIZE的值是什么。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span> &#123;</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">100</span>;     <span class="comment">// 错误，企图在类声明中初始化const数据成员</span></div><div class="line">	<span class="keyword">int</span> <span class="built_in">array</span>[SIZE];          <span class="comment">// 错误，未知的SIZE</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>正确的使用const实现方法为：const数据成员的初始化只能在类构造函数的初始化表中进行。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></div><div class="line">	A(<span class="keyword">int</span> size);      <span class="comment">// 构造函数</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> SIZE ; </div><div class="line">&#125;;</div><div class="line"></div><div class="line">A::A(<span class="keyword">int</span> size) : SIZE(size)    <span class="comment">// 构造函数的初始化表</span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// error 赋值的方式是不行的</span></div><div class="line">A::A(<span class="keyword">int</span> size)</div><div class="line">&#123;</div><div class="line">     SIZE=size;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> main（）&#123;</div><div class="line">    <span class="function">A  <span class="title">a</span><span class="params">(<span class="number">100</span>)</span></span>; <span class="comment">// 对象 a 的SIZE值为100</span></div><div class="line">    <span class="function">A  <span class="title">b</span><span class="params">(<span class="number">200</span>)</span></span>; <span class="comment">// 对象 b 的SIZE值为200</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>static和const也以同时修饰数据成员。</strong> 然而，它们不能同时修饰成员函数，这两点要注意区别。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Year</span> &#123;</span> </div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="keyword">int</span> y; </div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">const</span> Inity;</div><div class="line"><span class="keyword">public</span>: </div><div class="line">	Year() &#123;</div><div class="line">		y = Inity;</div><div class="line"> 	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> <span class="keyword">const</span> Year::Inity = <span class="number">1997</span>;	<span class="comment">//静态变量的赋值方法,注意必须放在类外定义</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="built_in">cout</span>&lt;&lt;Year.Inity&lt;&lt;<span class="built_in">endl</span>;		<span class="comment">//注意调用方式，这里是用类名调用的。</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="修饰类的成员函数"><a href="#修饰类的成员函数" class="headerlink" title="修饰类的成员函数"></a>修饰类的成员函数</h3><p><strong>任何不会修改数据成员的函数都应该声明为const类型。</strong>如果在编写const成员函数时，不慎修改了<strong>数据成员</strong>，或者调用了其它<strong>非const成员函数</strong>，编译器将指出错误，这无疑会提高程序的健壮性。</p>
+<p>const放在函数末尾修饰const成员函数，因为const关键字是<strong>左结合</strong>。</p>
+<p>以下程序中，类stack的成员函数GetCount仅用于计数，从逻辑上讲GetCount应当为const函数。编译器将指出GetCount函数中的错误。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(<span class="keyword">int</span> elem)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Pop</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetCount</span><span class="params">(<span class="keyword">void</span>)</span> <span class="keyword">const</span></span>; <span class="comment">// const 成员函数</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="keyword">int</span> m_num;</div><div class="line">	<span class="keyword">int</span> m_data[<span class="number">100</span>];</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> Stack::GetCount(<span class="keyword">void</span>) <span class="keyword">const</span> &#123;</div><div class="line">	++ m_num; 	<span class="comment">// 编译错误，企图修改数据成员m_num</span></div><div class="line">	Pop();		<span class="comment">// 编译错误，企图调用非const函数</span></div><div class="line">	<span class="keyword">return</span> m_num;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果有个成员函数想修改对象中的某一个成员怎么办？这时我们可以使用<code>mutable</code>关键字修饰这个成员，<code>mutable</code>的意思也是易变的，容易改变的意思，被mutable关键字修饰的成员可以处于不断变化中，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(<span class="keyword">int</span> elem)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Pop</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetCount</span><span class="params">(<span class="keyword">void</span>)</span> <span class="keyword">const</span></span>; <span class="comment">// const 成员函数</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="keyword">mutable</span> <span class="keyword">int</span> m_num;		  <span class="comment">// mutable 数据成员</span></div><div class="line">	<span class="keyword">int</span> m_data[<span class="number">100</span>];</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> Stack::GetCount(<span class="keyword">void</span>) <span class="keyword">const</span> &#123;</div><div class="line">	++ m_num; 	<span class="comment">// 编译通过，在const函数中修改mutable数据成员m_num</span></div><div class="line">	<span class="keyword">return</span> m_num;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>注意： 不可以同时用const和static修饰成员函数。</strong></p>
+<p>C++编译器在实现const的成员函数的时候为了确保该函数不能修改类的实例的状态，会在函数中添加一个隐式的参数const this*。但当一个成员为static的时候，该函数是没有this指针的。也就是说此时const的用法和static是冲突的。</p>
+<p>我们也可以这样理解：两者的语意是矛盾的。static的作用是表示该函数只作用在类型的静态变量上，与类的实例没有关系；而const的作用是确保函数不能修改类的实例的状态，与类型的静态变量没有关系。因此不能同时用它们。</p>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>在局部变量之前加上关键字static，局部变量就被定义成为一个局部静态变量。</p>
+<ol>
+<li>内存中的位置：静态存储区</li>
+<li>初始化：未经初始化的全局静态变量会被程序自动初始化为0（自动对象的值是任意的，除非他被显示初始化）</li>
+<li>作用域：作用域仍为局部作用域，当定义它的函数或者语句块结束的时候，作用域随之结束。</li>
+<li>生命周期：直到程序结束。</li>
+</ol>
+<p>注：当static用来修饰局部变量的时候，它就改变了局部变量的存储位置（从原来的栈中存放改为静态存储区）及其生命周期（局部静态变量在离开作用域之后，并没有被销毁，而是仍然驻留在内存当中，直到程序结束，只不过我们不能再对他进行访问），但未改变其作用域。</p>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>在全局变量之前加上关键字static，全局变量就被定义成为一个全局静态变量。</p>
+<ol>
+<li>内存中的位置：静态存储区（静态存储区在整个程序运行期间都存在）</li>
+<li>初始化：未经初始化的全局静态变量会被程序自动初始化为0（自动对象的值是任意的，除非他被显示初始化）</li>
+<li>作用域：全局静态变量在声明他的文件之外是不可见的。准确地讲从定义之处开始到文件结尾。</li>
+<li>生命周期：直到程序结束。</li>
+</ol>
+<p>注：static修饰全局变量，并未改变其存储位置及生命周期，而是改变了其作用域，使当前文件外的源文件无法访问该变量，好处如下：（1）不会被其他文件所访问，修改。（2）其他文件中可以使用相同名字的变量，不会发生冲突。对全局函数也是有隐藏作用。</p>
+<h3 id="类中的成员变量"><a href="#类中的成员变量" class="headerlink" title="类中的成员变量"></a>类中的成员变量</h3><p>用static修饰类的数据成员实际使其成为类的全局变量，会被类的<strong>所有对象</strong>共享，包括<strong>派生类的对象</strong>。因此，static成员必须在类外进行初始化(初始化格式： <code>int base::var=10;</code>)，而不能在构造函数内进行初始化，不过也可以用const修饰static数据成员在类内初始化。但是定义必须在类的外部，见上文。在类的内部const static类型即使赋字面值常量也只能算是声明，定义必须在外部进行。</p>
+<p><strong>不要试图在头文件中定义(初始化)静态数据成员。</strong>在大多数的情况下，这样做会引起重复定义这样的错误。即使加上<code>#ifndef #define #endif</code>或者<code>#pragma once</code>也不行。 </p>
+<p>静态数据成员可以成为成员函数的可选参数，而普通数据成员则不可以。</p>
+<p>静态数据成员的类型可以是所属类的类型，而普通数据成员则不可以。普通数据成员的只能声明为所属类类型的指针或引用。</p>
+<h3 id="类中的成员函数"><a href="#类中的成员函数" class="headerlink" title="类中的成员函数"></a>类中的成员函数</h3><p>用static修饰成员函数，使这个类只存在这一份函数，所有对象共享该函数，不含this指针。</p>
+<p>静态成员是可以独立访问的，也就是说，无须创建任何对象实例就可以访问。<code>base::func(5,3);</code>当static成员函数在类外定义时不需要加static修饰符。</p>
+<p>在静态成员函数的实现中不能直接引用类中说明的非静态成员，可以引用类中说明的静态成员。因为静态成员函数不含this指针。 </p>
+<h2 id="struct-union"><a href="#struct-union" class="headerlink" title="struct / union"></a>struct / union</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>结构体struct：把不同类型的数据组合成一个整体，自定义类型。</p>
+<p>共同体union：使几个不同类型的变量共同占用一段内存</p>
+<h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><p>struct和union都有内存对齐，结构体的内存布局依赖于CPU、操作系统、编译器及编译时的对齐选项。</p>
+<blockquote>
+<p>关于内存对齐，先让我们看四个重要的基本概念：</p>
+<ol>
+<li>数据类型自身的对齐值：对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，单位字节。</li>
+<li>结构体或者类的自身对齐值：其成员中自身对齐值最大的那个值。</li>
+<li>指定对齐值：#pragma pack(n)，n=1,2,4,8,16改变系统的对齐系数</li>
+<li>数据成员、结构体和类的有效对齐值：自身对齐值和指定对齐值中小的那个值。</li>
+</ol>
+</blockquote>
+<p>首先根据结构体内部成员的自身对齐值得到结构体的自身对齐值（<strong>内部成员最大的长度</strong>），如果没有修改系统设定的默认补齐长度4的话，取较小的进行内存补齐。</p>
+<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><p>结构体struct：不同之处，stuct里每个成员都有自己独立的地址。sizeof(struct)是内存对齐后所有成员长度的加和。</p>
+<p>共同体union：当共同体中存入新的数据后，原有的成员就失去了作用，新的数据被写到union的地址中。sizeof(union)是最长的数据成员的长度。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>struct和union都是由多个不同的数据类型成员组成, 但在任何同一时刻, union中只存放了一个被选中的成员, 而struct的所有成员都存在。在struct中，各成员都占有自己的内存空间，它们是同时存在的。一个struct变量的总长度等于所有成员长度之和。在Union中，所有成员不能同时占用它的内存空间，它们不能同时存在。Union变量的长度等于最长的成员的长度。对于union的不同成员赋值, 将会对其它成员重写, 原来成员的值就不存在了, 而对于struct的不同成员赋值是互不影响的。</p>
+<h2 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h2><p>inline用来向编译器请求声明为内联函数，编译器有权拒绝。</p>
+<h3 id="与宏函数的对比"><a href="#与宏函数的对比" class="headerlink" title="与宏函数的对比"></a>与宏函数的对比</h3><ul>
+<li>内联函数在运行时可调试，而宏定义不可以;</li>
+<li>编译器会对内联函数的参数类型做安全检查或自动类型转换（同普通函数），而宏定义则不会；</li>
+<li>内联函数可以访问类的成员变量，宏定义则不能；</li>
+<li>在类中声明同时定义的成员函数，自动转化为内联函数</li>
+<li>宏只是预定义的函数，在编译阶段不进行类型安全性检查，在编译的时候将对应函数用宏命令替换。对程序性能无影响。</li>
+</ul>
+<h3 id="不能声明为inline的函数"><a href="#不能声明为inline的函数" class="headerlink" title="不能声明为inline的函数"></a>不能声明为inline的函数</h3><ul>
+<li>包含了<strong>递归</strong>、<strong>循环</strong>等结构的函数一般不会被内联。</li>
+<li><strong>虚拟函数</strong>一般不会内联，但是如果编译器能在编译时确定具体的调用函数，那么仍然会就地展开该函数。</li>
+<li>如果通过<strong>函数指针</strong>调用内联函数，那么该函数将不会内联而是通过call进行调用。</li>
+<li><strong>构造和析构函数</strong>一般会生成大量代码，因此一般也不适合内联。</li>
+<li>如果内联函数<strong>调用了其他函数</strong>也不会被内联。</li>
+</ul>
+<h2 id="typedef-using"><a href="#typedef-using" class="headerlink" title="typedef / using"></a>typedef / using</h2><p>二者功能都是定义新类型，using 为c++11新特性。下面语句功能一致：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> MyInt;</div><div class="line"></div><div class="line"><span class="keyword">using</span> MyInt = <span class="keyword">int</span>;</div></pre></td></tr></table></figure>
+<h2 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h2><p>explicit禁止了隐式转换类型，用来修饰构造函数。原则上应该在所有的构造函数前加explicit关键字，当你有心利用隐式转换的时候再去解除explicit，这样可以大大减少错误的发生。如果一个构造函数 </p>
+<p><code>Foo(int)</code> ;则下面的语句是合法的:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Foo f; </div><div class="line">f = <span class="number">12</span>; <span class="comment">// 发生了隐式转换，先调用Foo(int)用12构建了一个临时对象，然后调用赋值运算符复制到f中</span></div></pre></td></tr></table></figure>
+<p>如果给构造函数加了explicit,即 <code>explicit Foo(int)</code>；就只能进行显示转换，无法进行隐式转换了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f = <span class="number">12</span>; 		<span class="comment">// 非法，隐式转换</span></div><div class="line">f = Foo(<span class="number">12</span>); 	<span class="comment">// 合法，显示转换</span></div><div class="line">f = (Foo) <span class="number">12</span>;	<span class="comment">// 合法，显示转换，C风格</span></div></pre></td></tr></table></figure>
+<h2 id="指针-引用"><a href="#指针-引用" class="headerlink" title="指针 / 引用"></a>指针 / 引用</h2><p>本质上的区别是，指针是一个新的变量，只是这个变量存储的是另一个变量的地址，我们通过访问这个地址来修改变量。</p>
+<p>而引用只是一个别名，还是变量本身。对引用进行的任何操作就是对变量本身进行操作，因此以达到修改变量的目的。</p>
+<p>区别如下：</p>
+<ol>
+<li><p>指针：指针是一个变量，只不过这个变量存储的是一个地址，指向内存的一个存储单元；而引用跟原来的变量实质上是同一个东西，只不过是原变量的一个别名而已。如：</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">1</span>; <span class="keyword">int</span> *p=&amp;a;</div><div class="line"><span class="keyword">int</span> a=<span class="number">1</span>; <span class="keyword">int</span> &amp;b=a;</div></pre></td></tr></table></figure>
+<p> 上面定义了一个整形变量和一个指针变量p，该指针变量指向a的存储单元，即p的值是a存储单元的地址。</p>
+<p> 而下面2句定义了一个整形变量a和这个整形a的引用b，事实上a和b是同一个东西，在内存占有同一个存储单元。</p>
+</li>
+<li><p>可以有const指针，但是没有const引用（一般说的const引用其实是指向const对象的引用）；</p>
+</li>
+<li>指针可以有多级，但是引用只能是一级（int **p；合法 而 int &amp;&amp;a是不合法的）</li>
+<li>指针的值可以为空，但是引用的值不能为NULL，并且<strong>引用在定义的时候必须初始化</strong>；</li>
+<li>指针的值在初始化后可以改变，即指向其它的存储单元，而<strong>引用在进行初始化后就不会再改变</strong>了。</li>
+<li>“sizeof引用”得到的是所指向的变量(对象)的大小，而”sizeof指针”得到的是指针本身的大小；</li>
+<li>指针和引用的自增(++)运算意义不一样。</li>
+<li>指针传参的时候，还是值传递，试图修改传进来的指针的值是不可以的。只能修改地址所保存变量的值。引用传参的时候，传进来的就是变量本身，因此可以被修改。</li>
+</ol>
+<p><strong>注意：const引用只是表明，保证不会通过此引用间接的改变被引用的对象！</strong> 详见:<a href="https://www.cnblogs.com/chio/archive/2007/07/18/822362.html" target="_blank" rel="noopener">C++引用与const引用</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/25/CppS4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/25/CppS4/" itemprop="url">C++ Section4 内存管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-25T12:08:49+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/25/CppS4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/25/CppS4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="new与malloc的区别，delet和free的区别及其内部实现"><a href="#new与malloc的区别，delet和free的区别及其内部实现" class="headerlink" title="new与malloc的区别，delet和free的区别及其内部实现"></a>new与malloc的区别，delet和free的区别及其内部实现</h2><h3 id="new-与-malloc的区别："><a href="#new-与-malloc的区别：" class="headerlink" title="new 与 malloc的区别："></a>new 与 malloc的区别：</h3><ol>
+<li>new 是运算符，malloc是库函数</li>
+<li>new会调用构造函数，malloc只申请内存</li>
+<li>new返回指定类型的指针，malloc返回void指针</li>
+<li>new自动计算所需的内存大小，malloc需要手动设置空间</li>
+<li>new可以被重载</li>
+</ol>
+<p>内部实现：<br><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s4_1.png" alt=""></p>
+<h3 id="delete-和-free-的区别："><a href="#delete-和-free-的区别：" class="headerlink" title="delete 和 free 的区别："></a>delete 和 free 的区别：</h3><ol>
+<li>delete 是运算符，free是库函数</li>
+<li>delete会调用析构函数，free是会释放内存</li>
+<li>使用free之前要检查指针是否为空指针，delete不需要，对空指针delete没有问题</li>
+<li>free 和 delete 不能混用，也就是说new 分配的内存空间最好不要使用使用free 来释放，malloc 分配的空间也不要使用 delete来释放</li>
+</ol>
+<p>内部实现：<br><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s4_2.png" alt=""></p>
+<h2 id="malloc-calloc-realloc-和-alloca-申请内存的区别"><a href="#malloc-calloc-realloc-和-alloca-申请内存的区别" class="headerlink" title="malloc, calloc, realloc, 和 alloca 申请内存的区别"></a>malloc, calloc, realloc, 和 alloca 申请内存的区别</h2><ol>
+<li>calloc 是申请N个大小为S的空间，且会初始化空间值为0；malloc不会初始化，是随机的垃圾数据（在VS Debug模式下，会是0xcccccc这种特殊值，为了调试方便）</li>
+<li>malloc 是在堆上申请大小为S的一个空间，但不会初始化</li>
+<li>realloc 是将原本分配的内存扩充到新的大小，要求新的大小必须大于原大小</li>
+<li>alloca 是在栈上申请空间，不需要（不能）使用free，运行到作用域以外的时候释放申请的空间</li>
+</ol>
+<h2 id="C-内存模型（堆、栈、静态区）"><a href="#C-内存模型（堆、栈、静态区）" class="headerlink" title="C++内存模型（堆、栈、静态区）"></a>C++内存模型（堆、栈、静态区）</h2><p>堆 heap ：<br>由new分配的内存块，其释放编译器不去管，由我们程序自己控制（一个new对应一个delete）。如果程序员没有释放掉，在程序结束时OS会自动回收。涉及的问题：“缓冲区溢出”、“内存泄露”</p>
+<p>栈 stack ：<br>是那些编译器在需要时分配，在不需要时自动清除的存储区。存放局部变量、函数参数。存放在栈中的数据只在当前函数及下一层函数中有效，一旦函数返回了，这些数据也就自动释放了。函数栈内的变量地址总是连续的，从高地址向低地址生长。</p>
+<p>全局/静态存储区 （.bss段和.data段） ：<br>全局和静态变量被分配到同一块内存中。在C语言中，未初始化的静态变量放在.bss段中，初始化的放在.data段中；在C++里则不区分了。</p>
+<p>常量存储区 （.rodata段） ：<br>存放常量，不允许修改（通过非正当手段也可以修改）</p>
+<p>代码区 （.text段） ：<br>存放代码（如函数），不允许修改（类似常量存储区），但可以执行（不同于常量存储区）<br>根据c/c++对象生命周期不同，c/c++的内存模型有三种不同的内存区域，即</p>
+<p>自由存储区（栈区）：局部非静态变量的存储区域，即平常所说的栈<br>动态存储区（堆区）： 用operator new ，malloc分配的内存，即平常所说的堆<br>静态存储区：全局变量 静态变量 字符串常量存在位置</p>
+<p>注意：<br>栈区变量要注意析构函数的调用次序，由于是先进后出，则先创建的对象，最后被析构。</p>
+<h2 id="堆与栈的区别"><a href="#堆与栈的区别" class="headerlink" title="堆与栈的区别"></a>堆与栈的区别</h2><ol>
+<li>堆是先进先出，栈是先进后出。</li>
+<li>栈的大小固定，受限于系统中有效的虚拟内存，可能会发生栈溢出；堆可以动态生长</li>
+<li>栈的空间有系统释放，堆内存由程序员释放</li>
+<li>堆容易产生碎片</li>
+<li>申请方式上，栈是系统自动分配，堆是由程序员申请</li>
+</ol>
+<h2 id="如何实现只能动态分配类对象，不能定义类对象"><a href="#如何实现只能动态分配类对象，不能定义类对象" class="headerlink" title="如何实现只能动态分配类对象，不能定义类对象"></a>如何实现只能动态分配类对象，不能定义类对象</h2><p>即只能将对象创建于堆上，不能创建于栈上。需要把构造函数和析构函数设为protected，派生类可以访问，外部无法访问。同时创建create和destroy函数,在内部调用构造和析构，用于创建和删除对象。其中create设为static，使用类名访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></div><div class="line"><span class="keyword">protected</span>:</div><div class="line"> 	A()&#123;&#125;;</div><div class="line"> 	~A()&#123;&#125;;</div><div class="line"><span class="keyword">public</span>:</div><div class="line"> 	<span class="function"><span class="keyword">static</span> A* <span class="title">creat</span><span class="params">()</span></span>&#123;</div><div class="line"> 		<span class="keyword">return</span> <span class="keyword">new</span> A();</div><div class="line"> 	&#125;</div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>&#123;</div><div class="line"> 		<span class="keyword">delete</span> <span class="keyword">this</span>;</div><div class="line"> 	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"> 	A* a = A::creat();</div><div class="line">	a-&gt;destroy();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="如何实现只能在栈上创建对象-不能在堆上创建对像"><a href="#如何实现只能在栈上创建对象-不能在堆上创建对像" class="headerlink" title="如何实现只能在栈上创建对象, 不能在堆上创建对像"></a>如何实现只能在栈上创建对象, 不能在堆上创建对像</h2><p>在堆上创建对象的唯一方法是使用new关键字，所以，只需要禁用new关键字就可以了。将operator new 设为私有的, 外部不可访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="function"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> t)</span></span>&#123;&#125;     <span class="comment">// 注意函数的第一个参数和返回值都是固定的</span></div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* ptr)</span></span>&#123;&#125; <span class="comment">// 重载了new就需要重载delete</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line"> 	A()&#123;&#125;</div><div class="line"> 	~A()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="析构函数什么时候声明为私有？什么时候不能声明为私有？"><a href="#析构函数什么时候声明为私有？什么时候不能声明为私有？" class="headerlink" title="析构函数什么时候声明为私有？什么时候不能声明为私有？"></a>析构函数什么时候声明为私有？什么时候不能声明为私有？</h2><p>私有析构函数可以使得对象只在堆上构造。在栈上创建的对象要求构造函数和析构函数必须都是公有的，否则编译器报错“析构函数不可访问”；而堆对象由程序员创建和删除，可以把析构函数声明为私有的。由于delete会调用析构函数，而私有的析构无法被访问，编译器报错，此时通过增加一个destroy()方法，在方法内调用析构函数来释放对象:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">delete</span> <span class="keyword">this</span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>析构函数不能声明为私有的情况：基类的析构函数不能声明为私有，因为要在派生类的析构函数中被隐式调用。</p>
+<h2 id="构造函数什么时候声明为私有？什么时候不能声明为私有？"><a href="#构造函数什么时候声明为私有？什么时候不能声明为私有？" class="headerlink" title="构造函数什么时候声明为私有？什么时候不能声明为私有？"></a>构造函数什么时候声明为私有？什么时候不能声明为私有？</h2><p>单例模式时构造函数声明为私有。</p>
+<p>基类的构造函数不能声明为私有，因为要在派生类的构造函数中被隐式调用。如果在派生类的构造函数中没有显式调用基类的构造，则会调用基类的默认构造函数。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/CppS3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/22/CppS3/" itemprop="url">C++ Section3 泛型编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-22T23:19:00+08:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/22/CppS3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/22/CppS3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="模板通式"><a href="#模板通式" class="headerlink" title="模板通式"></a>模板通式</h2><h3 id="函数模板通式"><a href="#函数模板通式" class="headerlink" title="函数模板通式"></a>函数模板通式</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> 形参名，<span class="title">class</span> 形参名，...&gt; </span></div><div class="line">返回类型 函数名(参数列表) &#123;</div><div class="line">	函数体</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="类模板通式"><a href="#类模板通式" class="headerlink" title="类模板通式"></a>类模板通式</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> 形参名，<span class="title">class</span> 形参名, ...&gt;   </span></div><div class="line"><span class="title">class</span> 类名</div><div class="line">&#123; ... &#125;;</div></pre></td></tr></table></figure>
+<h2 id="模板的非类型形参"><a href="#模板的非类型形参" class="headerlink" title="模板的非类型形参"></a>模板的非类型形参</h2><ol>
+<li><p>非类型模板形参：模板的非类型形参也就是内置类型形参，如template<class t,="" int="" a=""> class B{};其中int a就是非类型的模板形参。</class></p>
+</li>
+<li><p>非类型形参在模板定义的内部是常量值，也就是说非类型形参在模板的内部是常量。</p>
+</li>
+<li><p>非类型模板的形参只能是<strong>整型</strong>，<strong>指针</strong>和<strong>引用</strong>，像double，String, String **这样的类型是不允许的。但是double &amp;，double *，对象的引用或指针是正确的。</p>
+</li>
+<li><p>调用非类型模板形参的实参必须是一个常量表达式，即他必须能在编译时计算出结果。</p>
+</li>
+<li><p>注意：任何局部对象，局部变量，局部对象的地址，局部变量的地址都不是一个常量表达式，都不能用作非类型模板形参的实参。全局指针类型，全局变量，全局对象也不是一个常量表达式，不能用作非类型模板形参的实参。</p>
+</li>
+<li><p>全局变量的地址或引用，全局对象的地址或引用const类型变量是常量表达式，可以用作非类型模板形参的实参。</p>
+</li>
+<li><p>sizeof表达式的结果是一个常量表达式，也能用作非类型模板形参的实参。</p>
+</li>
+<li><p>当模板的形参是整型时调用该模板时的实参必须是整型的，且在编译期间是常量，比如template <class t,="" int="" a=""> class A{};如果有int b，这时A<int, b=""> m;将出错，因为b不是常量，如果const int b，这时A<int, b=""> m;就是正确的，因为这时b是常量。</int,></int,></class></p>
+</li>
+<li><p>非类型形参一般不应用于函数模板中，比如有函数模板template<class t,="" int="" a=""> void h(T b){}，若使用h(2)调用会出现无法为非类型形参a推演出参数的错误，对这种模板函数可以用显示模板实参来解决，如用h<int, 3="">(2)这样就把非类型形参a设置为整数3。显示模板实参在后面介绍。</int,></class></p>
+</li>
+<li><p>非类型模板形参的形参和实参间所允许的转换</p>
+<ul>
+<li>允许从数组到指针，从函数到指针的转换。如：template <int \*a=""> class A{}; int b[1]; A\<b\> m;即数组到指针的转换</b\></int></li>
+<li>const修饰符的转换。如：template<const int="" \*a=""> class A{}; int b; A\&lt;&amp;b> m;   即从int *到const int *的转换。</const></li>
+<li>提升转换。如：template<int a=""> class A{}; const short b=2; A\<b\> m; 即从short到int的提升转换</b\></int></li>
+<li>整值转换。如：template<unsigned int="" a=""> class A{};   A<3> m; 即从int 到unsigned int的转换。</3></unsigned></li>
+<li>常规转换。</li>
+</ul>
+</li>
+</ol>
+<h3 id="非类型模板的应用：Stack类"><a href="#非类型模板的应用：Stack类" class="headerlink" title="非类型模板的应用：Stack类"></a>非类型模板的应用：Stack类</h3><p>stack.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> STACK_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> STACK_H</span></div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt; </span></div><div class="line"><span class="title">class</span> <span class="title">Stack</span> &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	T 		elems[MAXSIZE];</div><div class="line">	<span class="keyword">int</span> 	numElems;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	Stack();</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(T <span class="keyword">const</span>&amp;)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pop</span><span class="params">()</span></span>;</div><div class="line">	<span class="function">T <span class="title">top</span><span class="params">()</span> <span class="keyword">const</span></span>;</div><div class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> numElems == <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">full</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> numElems == MAXSIZE;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt; </span></div><div class="line"><span class="title">Stack</span>&lt;T,MAXSIZE&gt;::Stack():numElems(<span class="number">0</span>)&#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt;</span></div><div class="line"><span class="title">void</span> <span class="title">Stack</span>&lt;T, MAXSIZE&gt;::push(T <span class="keyword">const</span>&amp; elem)&#123;</div><div class="line">	<span class="keyword">if</span>(numElems == MAXSIZE)&#123;</div><div class="line">		<span class="keyword">throw</span> <span class="built_in">std</span>::out_of_range(<span class="string">"Stack&lt;&gt;::push(): stack is full"</span>);</div><div class="line">	&#125;</div><div class="line">	elems[numElems] = elem;	</div><div class="line">	++numElems;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt;</span></div><div class="line"><span class="title">void</span> <span class="title">Stack</span>&lt;T,MAXSIZE&gt;::pop()&#123;</div><div class="line">	<span class="keyword">if</span> (numElems &lt;= <span class="number">0</span>) &#123;</div><div class="line">		<span class="keyword">throw</span> <span class="built_in">std</span>::out_of_range(<span class="string">"Stack&lt;&gt;::pop(): empty stack"</span>);</div><div class="line">	&#125;</div><div class="line">    --numElems;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">int</span> <span class="title">MAXSIZE</span>&gt;</span></div><div class="line"><span class="title">T</span> <span class="title">Stack</span>&lt;T,MAXSIZE&gt;::top() <span class="keyword">const</span>&#123;</div><div class="line">    <span class="keyword">if</span> (numElems &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="built_in">std</span>::out_of_range(<span class="string">"Stack&lt;&gt;::top(): empty stack"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> elems[numElems<span class="number">-1</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<p>stack.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stack.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	Stack&lt;<span class="keyword">int</span>,<span class="number">20</span>&gt; stack_int;  <span class="comment">// 可以存储20个int元素的栈</span></div><div class="line">	Stack&lt;<span class="built_in">std</span>::<span class="built_in">string</span>,<span class="number">40</span>&gt; stack_str; <span class="comment">// 可存储40个string元素的栈</span></div><div class="line"></div><div class="line">	<span class="comment">// 使用可存储20个int元素的栈</span></div><div class="line">	stack_int.push(<span class="number">7</span>);</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; stack_int.top() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;    <span class="comment">//7</span></div><div class="line">	stack_int.pop();</div><div class="line"></div><div class="line">	<span class="comment">// 使用可存储40个string的栈</span></div><div class="line">	stack_str.push(<span class="string">"hello"</span>);</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; stack_str.top() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;    <span class="comment">//hello</span></div><div class="line">	stack_str.pop();    </div><div class="line">	stack_str.pop();    <span class="comment">//Exception: Stack&lt;&gt;::pop&lt;&gt;: empty stack</span></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="模板的全特化和偏特化"><a href="#模板的全特化和偏特化" class="headerlink" title="模板的全特化和偏特化"></a>模板的全特化和偏特化</h2><p>所谓特化，就是将泛型的东西搞得具体化一些，从字面上来解释，就是为已有的模板参数进行一些使其特殊化的指定，使得以前不受任何约束的模板参数，或受到特定的修饰（例如const或者摇身一变成为了指针之类的东东，甚至是经过别的模板类包装之后的模板类型）或完全被指定了下来。</p>
+<p>模板有两种特化，<strong>全特化</strong>和<strong>偏特化</strong>（局部特化） </p>
+<ul>
+<li>模板函数只能全特化，没有偏特化（以后可能有）。 </li>
+<li>模板类是可以全特化和偏特化的。 </li>
+</ul>
+<p>全特化，就是模板中模板参数全被指定为确定的类型。全特化也就是定义了一个全新的类型，全特化的类中的函数可以与模板类不一样。 </p>
+<p>偏特化，就是模板中的模板参数没有被全部确定，需要编译器在编译时进行确定。 在类型上加上const、&amp;、*（ cosnt int、int&amp;、int*、等等）并没有产生新的类型。只是类型被修饰了。模板在编译时，可以得到这些修饰信息。</p>
+<p>模板为什么要特化，因为编译器认为，对于特定的类型，如果你能对某一功能更好的实现，那么就该听你的。<br>模板分为<strong>类模板</strong>与<strong>函数模板</strong>，特化分为<strong>全特化</strong>与<strong>偏特化</strong>。全特化就是限定死模板实现的具体类型，偏特化就是如果这个模板有多个类型，那么只限定其中的一部分。</p>
+<p>先看类模板：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>  </span></div><div class="line">&#123;  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    Test(T1 i,T2 j):a(i),b(j)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"模板类"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;  </div><div class="line"><span class="keyword">private</span>:  </div><div class="line">    T1 a;  </div><div class="line">    T2 b;  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line"><span class="keyword">template</span>&lt;&gt;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;int , char&gt;  </span></div><div class="line">&#123;  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    Test(<span class="keyword">int</span> i, <span class="keyword">char</span> j):a(i),b(j)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"全特化"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;  </div><div class="line"><span class="keyword">private</span>:  </div><div class="line">    <span class="keyword">int</span> a;  </div><div class="line">    <span class="keyword">char</span> b;  </div><div class="line">&#125;;  </div><div class="line">  </div><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T2&gt;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>&lt;char, T2&gt;  </span></div><div class="line">&#123;  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    Test(<span class="keyword">char</span> i, T2 j):a(i),b(j)&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"偏特化"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;  </div><div class="line"><span class="keyword">private</span>:  </div><div class="line">    <span class="keyword">char</span> a;  </div><div class="line">    T2 b;  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>那么下面3句依次调用类模板、全特化与偏特化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Test&lt;<span class="keyword">double</span> , <span class="keyword">double</span>&gt; t1(<span class="number">0.1</span>,<span class="number">0.2</span>);  </div><div class="line">Test&lt;<span class="keyword">int</span> , <span class="keyword">char</span>&gt; t2(<span class="number">1</span>,<span class="string">'A'</span>);  </div><div class="line">Test&lt;<span class="keyword">char</span>, <span class="keyword">bool</span>&gt; t3(<span class="string">'A'</span>,<span class="literal">true</span>);</div></pre></td></tr></table></figure>
+<p>而对于函数模板，却只有全特化，不能偏特化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//模板函数  </span></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;  </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(T1 a , T2 b)</span>  </span></div><div class="line">&#123;  </div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"模板函数"</span>&lt;&lt;<span class="built_in">endl</span>;  </div><div class="line">&#125;  </div><div class="line">  </div><div class="line"><span class="comment">//全特化  </span></div><div class="line"><span class="keyword">template</span>&lt;&gt;  </div><div class="line"><span class="keyword">void</span> fun&lt;<span class="keyword">int</span> ,<span class="keyword">char</span> &gt;(<span class="keyword">int</span> a, <span class="keyword">char</span> b)  </div><div class="line">&#123;  </div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"全特化"</span>&lt;&lt;<span class="built_in">endl</span>;  </div><div class="line">&#125;  </div><div class="line">  </div><div class="line"><span class="comment">//函数不存在偏特化：下面的代码是错误的  </span></div><div class="line"><span class="comment">/* </span></div><div class="line">template&lt;typename T2&gt; </div><div class="line">void fun&lt;char,T2&gt;(char a, T2 b) </div><div class="line">&#123; </div><div class="line">    cout&lt;&lt;"偏特化"&lt;&lt;endl; </div><div class="line">&#125; </div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>至于为什么函数不能偏特化，似乎不是因为语言实现不了，而是因为偏特化的功能可以通过函数的重载完成。</p>
+<p>函数模版的全特化不参与函数重载, 并且优先级低于函数基础模版参与匹配，也就是说，匹配的顺序是：</p>
+<ol>
+<li>非模板函数</li>
+<li>某个没有进行全特化的template function</li>
+<li>如果这个没有进行全特化的template function有全特化版本，并且类型也比较匹配，则选择这个全特化版本</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/CppS2_2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -414,13 +1084,101 @@
 <p>编译出的<code>MyClass</code>对象结构如下：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClass    size(8):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;   0    | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | var</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClass::$vftable@:</div><div class="line">1&gt;      | &amp;MyClass_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClass::fun</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClass::fun this adjustor: 0</div></pre></td></tr></table></figure>
 <p>从这段信息中我们看出，<code>MyClass</code>对象大小是8个字节。前四个字节存储的是虚函数表的指针<code>vfptr</code>，后四个字节存储对象成员<code>var</code>的值。虚函数表的大小为4字节，就一条函数地址，即虚函数<code>fun</code>的地址，它在虚函数表<code>vftable</code>的偏移是0。因此，MyClass对象模型的结果如图1所示。</p>
-<p><img src="http://github.com/o1zys/MarkdownImage/blob/master/cpp_s2_2_1.jpg" alt="图1 Myclass对象模型"></p>
-<p>图1 MyClass 对象模型</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_1.jpg" alt="图1 Myclass对象模型"> </center>
+
+<center>图1 MyClass 对象模型</center>
+
+
 <p><code>MyClass</code>的虚函数表虽然只有一条函数记录，但是它的结尾处是由4字节的0作为结束标记的。<br>adjust表示虚函数机制执行时，this指针的调整量，假如fun被多态调用的话，那么它的形式如下：</p>
 <pre><code>*(this+0)[0]()
 </code></pre><p>总结虚函数调用形式，应该是：</p>
 <pre><code>*(this指针+调整量)[虚函数在vftable内的偏移]()
 </code></pre><h3 id="单重继承对象模型"><a href="#单重继承对象模型" class="headerlink" title="单重继承对象模型"></a>单重继承对象模型</h3><p>我们定义一个继承于<code>MyClass</code>类的子类<code>MyClassA</code>，它重写了<code>fun</code>函数，并且提供了一个新的虚函数<code>funA</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassA</span> :</span> <span class="keyword">public</span> MyClass &#123;</div><div class="line">    <span class="keyword">int</span> varA;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funA</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>它的对象模型为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClassA    size(12):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      | +--- (base class MyClass)</div><div class="line">1&gt;   0    | | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | | var</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;   8    | varA</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassA::$vftable@:</div><div class="line">1&gt;      | &amp;MyClassA_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClassA::fun</div><div class="line">1&gt;   1    | &amp;MyClassA::funA</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassA::fun this adjustor: 0</div><div class="line">1&gt;  MyClassA::funA this adjustor: 0</div></pre></td></tr></table></figure>
+<p>可以看出，<code>MyClassA</code>将基类<code>MyClass</code>完全包含在自己内部，包括<code>vfptr</code>和<code>var</code>。并且虚函数表内的记录多了一条——<code>MyClassA</code>自己定义的虚函数<code>funA</code>。它的对象模型如图2所示。</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_2.jpg" alt="图2 MyclassA对象模型"> </center>
+
+<center>图2 MyClassA 对象模型</center>
+
+<p>我们可以得出结论：</p>
+<ul>
+<li>在单继承形式下，子类完全获得父类的虚函数表和数据。</li>
+<li>子类如果重写了父类的虚函数（如<code>fun</code>），就会把虚函数表原本<code>fun</code>对应的记录（内容<code>MyClass::fun</code>）覆盖为新的函数地址（内容<code>MyClassA::fun</code>），否则继续保持原本的函数地址记录。</li>
+<li>如果子类定义了新的虚函数，虚函数表内会追加一条记录，记录该函数的地址（如<code>MyClassA::funA</code>）。</li>
+</ul>
+<p>另外类的非虚成员排列顺序是由基类到派生类，先<code>var</code>再<code>varA</code>。</p>
+<p>使用这种方式，就可以实现多态的特性。假设我们使用如下语句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MyClass*pc = <span class="keyword">new</span> MyClassA;</div><div class="line">pc-&gt;fun();</div></pre></td></tr></table></figure>
+<p>编译器在处理第二条语句时，发现这是一个多态的调用，那么就会按照上边我们对虚函数的多态访问机制调用函数<code>fun</code>。</p>
+<pre><code>*(pc+0)[0]()
+</code></pre><p>因为虚函数表内的函数地址已经被子类重写的<code>fun</code>函数地址覆盖了，因此该处调用的函数正是<code>MyClassA::fun</code>，而不是基类的<code>MyClass::fun</code>。</p>
+<p>如果使用<code>MyClassA</code>对象直接访问<code>fun</code>，则不会出发多态机制，因为这个函数调用在编译时期是可以确定的，编译器只需要直接调用<code>MyClassA::fun</code>即可。</p>
+<h3 id="多重继承对象模型"><a href="#多重继承对象模型" class="headerlink" title="多重继承对象模型"></a>多重继承对象模型</h3><p>和前边<code>MyClassA</code>类似，我们也定义一个类<code>MyClassB</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassB</span> :</span> <span class="keyword">public</span> MyClass &#123;</div><div class="line">    <span class="keyword">int</span> varB;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funB</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>它的对象模型和<code>MyClassA</code>完全类似，这里就不再赘述了。</p>
+<p>为了实现多重继承，我们再定义一个类<code>MyClassC</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassC</span> :</span> <span class="keyword">public</span> MyClassA, <span class="keyword">public</span> MyClassB &#123;</div><div class="line">    <span class="keyword">int</span> varC;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funB</span><span class="params">()</span></span></div><div class="line">   &#123;&#125;</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funC</span><span class="params">()</span></span></div><div class="line">   &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>为了简化，我们让<code>MyClassC</code>只重写父类<code>MyClassB</code>的虚函数<code>funB</code>，它的对象模型如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClassC    size(28):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      | +--- (base class MyClassA)</div><div class="line">1&gt;      | | +--- (base class MyClass)</div><div class="line">1&gt;   0    | | | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | | | var</div><div class="line">1&gt;      | | +---</div><div class="line">1&gt;   8    | | varA</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;      | +--- (base class MyClassB)</div><div class="line">1&gt;      | | +--- (base class MyClass)</div><div class="line">1&gt;  12    | | | &#123;vfptr&#125;</div><div class="line">1&gt;  16    | | | var</div><div class="line">1&gt;      | | +---</div><div class="line">1&gt;  20    | | varB</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;  24    | varC</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassA@:</div><div class="line">1&gt;      | &amp;MyClassC_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClassA::fun</div><div class="line">1&gt;   1    | &amp;MyClassA::funA</div><div class="line">1&gt;   2    | &amp;MyClassC::funC</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassB@:</div><div class="line">1&gt;      | -12</div><div class="line">1&gt;   0    | &amp;MyClassB::fun</div><div class="line">1&gt;   1    | &amp;MyClassC::funB</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::funB this adjustor: 12</div><div class="line">1&gt;  MyClassC::funC this adjustor: 0</div></pre></td></tr></table></figure>
+<p>和单重继承类似，多重继承时<code>MyClassC</code>会把所有的父类全部按序包含在自身内部。而且每一个父类都对应一个单独的虚函数表。<code>MyClassC</code>的对象模型如图3所示。</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_3.jpg" alt="图3 MyclassC对象模型"> </center>
+
+<center>图3 MyClassC 对象模型</center>
+
+
+<p>多重继承下，子类不再具有自身的虚函数表，它的虚函数表与第一个父类的虚函数表<strong>合并</strong>了。</p>
+<p>同样的，如果子类重写了任意父类的虚函数，都会覆盖对应的函数地址记录。如果<code>MyClassC</code>重写了<code>fun</code>函数（两个父类都有该函数），那么两个虚函数表的记录都需要被覆盖！</p>
+<p>在这里我们发现<code>MyClassC::funB</code>的函数对应的adjust值是12，按照我们前边的规则，可以发现该函数的多态调用形式为：</p>
+<pre><code>*(this+12)[1]()
+</code></pre><p>此处的调整量12正好是<strong><code>MyClassB</code>的<code>vfptr</code>在<code>MyClassC</code>对象内的偏移量</strong>。</p>
+<h3 id="虚拟继承对象模型"><a href="#虚拟继承对象模型" class="headerlink" title="虚拟继承对象模型"></a>虚拟继承对象模型</h3><p>虚拟继承是为了解决多重继承下公共基类的多份拷贝问题。比如上边的例子中<code>MyClassC</code>的对象内包含<code>MyClassA</code>和<code>MyClassB</code>子对象，但是<code>MyClassA</code>和<code>MyClassB</code>内含有共同的基类<code>MyClass</code>。为了消除<code>MyClass</code>子对象的多份存在，我们需要让<code>MyClassA</code>和<code>MyClassB</code>都虚拟继承于<code>MyClass</code>，然后再让<code>MyClassC</code>多重继承于这两个父类。相对于上边的例子，类内的设计不做任何改动，先修改MyClassA和MyClassB的继承方式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassA</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> MyClass</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassB</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> MyClass</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassC</span> :</span> <span class="keyword">public</span> MyClassA, <span class="keyword">public</span> MyClassB</div></pre></td></tr></table></figure>
+<p>由于虚继承的本身语义，<code>MyClassC</code>内必须重写<code>fun</code>函数，否则由于同时存在<code>MyClassA::fun</code>和<code>MyClassB::fun</code>，会有二义性。因此我们需要再重写<code>fun</code>函数。这种情况下，MyClassC的对象模型如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClassC    size(36):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      | +--- (base class MyClassA)</div><div class="line">1&gt;   0    | | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | | &#123;vbptr&#125;</div><div class="line">1&gt;   8    | | varA</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;      | +--- (base class MyClassB)</div><div class="line">1&gt;  12    | | &#123;vfptr&#125;</div><div class="line">1&gt;  16    | | &#123;vbptr&#125;</div><div class="line">1&gt;  20    | | varB</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;  24    | varC</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      +--- (virtual base MyClass)</div><div class="line">1&gt;  28    | &#123;vfptr&#125;</div><div class="line">1&gt;  32    | var</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassA@:</div><div class="line">1&gt;      | &amp;MyClassC_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClassA::funA</div><div class="line">1&gt;   1    | &amp;MyClassC::funC</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassB@:</div><div class="line">1&gt;      | -12</div><div class="line">1&gt;   0    | &amp;MyClassC::funB</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vbtable@MyClassA@:</div><div class="line">1&gt;   0    | -4</div><div class="line">1&gt;   1    | 24 (MyClassCd(MyClassA+4)MyClass)</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vbtable@MyClassB@:</div><div class="line">1&gt;   0    | -4</div><div class="line">1&gt;   1    | 12 (MyClassCd(MyClassB+4)MyClass)</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClass@:</div><div class="line">1&gt;      | -28</div><div class="line">1&gt;   0    | &amp;MyClassC::fun</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::fun this adjustor: 28</div><div class="line">1&gt;  MyClassC::funB this adjustor: 12</div><div class="line">1&gt;  MyClassC::funC this adjustor: 0</div><div class="line">1&gt;  </div><div class="line">1&gt;  vbi:       class  offset o.vbptr  o.vbte fVtorDisp</div><div class="line">1&gt;           MyClass      28       4       4 0</div></pre></td></tr></table></figure>
+<p>虚继承的引入把对象的模型变得十分复杂，除了每个基类（<code>MyClassA</code>和<code>MyClassB</code>）和公共基类（<code>MyClass</code>）的虚函数表指针需要记录外，每个虚拟继承了<code>MyClass</code>的父类还需要记录一个虚基类表<code>vbtable</code>的指针<code>vbptr</code>。<code>MyClassC</code>的对象模型如图4所示。</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_4.jpg" alt="图4 MyclassC虚继承对象模型"> </center>
+
+<center>图4 MyClassC 虚继承对象模型]</center>
+
+
+<p>虚基类表的第一项记录着当前子对象（当前虚表指针，<code>vfptr_A</code>或者<code>vfptr_B</code>）相对与当前虚基类表指针（<code>vbptr_A</code>或者<code>vbptr_B</code>）的偏移。</p>
+<p><code>MyClassA</code>和<code>MyClassB</code>子对象内的虚表指针都是存储在相对于自身的4字节偏移处，因此该值是-4。假定<code>MyClassA</code>和<code>MyClassC</code>或者<code>MyClassB</code>内没有定义新的虚函数，即不会产生虚函数表，那么虚基类表第一项字段的值应该是0。</p>
+<p>虚基类表的第二项记录着公共基类虚表指针<code>vfptr</code>相对于当前虚基类表指针（<code>vbptr_A</code>或者<code>vbptr_B</code>）的偏移量。</p>
+<p>比如<code>MyClassA</code>的虚基类表第二项记录值为24，正是<code>MyClass::vfptr</code>相对于<code>MyClassA::vbptr</code>的偏移量，同理<code>MyClassB</code>的虚基类表第二项记录值12也正是<code>MyClass::vfptr</code>相对于<code>MyClassA::vbptr</code>的偏移量。</p>
+<p>通过以上的对象组织形式，编译器解决了公共虚基类的多份拷贝的问题。通过每个父类的虚基类表指针，都能找到被公共使用的虚基类的子对象的位置，并依次访问虚基类子对象的数据。至于虚基类定义的虚函数，它和其他的虚函数的访问形式相同，本例中，如果使用虚基类指针<code>MyClass*pc</code>访问<code>MyClassC</code>对象的<code>fun</code>，将会被转化为如下形式：</p>
+<pre><code>*(pc+28)[0]()
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虚函数机制涉及的指针和表有:</p>
+<ul>
+<li>虚函数表指针<code>vfptr</code>和虚函数表<code>vftable</code></li>
+<li>虚继承下还涉及 虚基类表指针<code>vbptr</code>和虚基类表<code>vbtable</code></li>
+</ul>
+<p>虚函数的实现过程：</p>
+<ol>
+<li>编译器为每个含有虚函数的类或者从此类派生的类创建一个虚函数表<code>vftable</code>, 保存此类所有虚函数的地址，并增加一个隐藏成员虚函数表指针<code>vfptr</code>放在所有数据成员之前。在创建类的对象时，在构造函数内部对虚函数表指针进行初始化，指向之前创建的虚函数表。</li>
+<li><strong>单继承情况下</strong>，派生类会继承基类所有的数据成员和虚函数表指针，并由编译器生成虚函数表，在创建派生类实例时，将虚函数表指针指向新的，属于派生类的虚函数表。</li>
+<li><strong>多重继承情况下</strong>，会有多个虚函数表，几重继承，就会有几个虚函数表。这些表按照派生的顺序依次排列，如果派生类改写了基类的虚函数，那么就会用派生类自己的虚函数覆盖虚函数表的相应的位置，如果派生类有新的虚函数，那么就添加到第一个虚函数表的末尾。</li>
+<li><strong>虚继承情况下</strong>，会再创建一个<strong>虚基类表</strong>和一个<strong>虚基类表指针</strong>，也就是说，编译器会增加两个指针，<ul>
+<li>一个是<strong>虚基类表指针</strong>，指向<strong>虚基类表</strong>，保存了所有继承过来的虚基类在内存中的地址（偏移量）；</li>
+<li>另一个是从公共基类（<code>MyClass</code>）继承过来的<strong>虚函数表指针</strong>，保存了公共基类<strong>虚函数</strong>的地址。</li>
+</ul>
+</li>
+<li>虚基类部分会在C++继承层次中只有一份。所有由虚基类派生的类都持有一个虚基类表指针，指向一个虚基类表，表里面保存了所有它继承的虚基类部分的地址。虚基类部分有一个虚函数表指针，指向虚函数表。</li>
+</ol>
+<h2 id="基类的析构函数为什么要声明为虚函数"><a href="#基类的析构函数为什么要声明为虚函数" class="headerlink" title="基类的析构函数为什么要声明为虚函数"></a>基类的析构函数为什么要声明为虚函数</h2><p>为了能在多态情况下准确调用派生类的析构函数。</p>
+<p>如果基类的析构函数非虚函数，则用基类指针或引用引用派生类进行析构时，只会调用基类的析构函数；如果是虚析构函数，则会依次调用派生类的析构和基类的析构。（基类的析构是一定会调用的，无论是否为虚）。</p>
+<h2 id="构造函数为什么不可以是虚函数"><a href="#构造函数为什么不可以是虚函数" class="headerlink" title="构造函数为什么不可以是虚函数"></a>构造函数为什么不可以是虚函数</h2><p>虚函数在运行期决定函数调用，而在构造一个对象时，由于对象还未构造成功，编译器无法确定对象的实际类型，继而无法决定调用哪一个构造函数。</p>
+<p>虚函数的执行依赖于虚函数表，而虚函数表在构造函数中进行初始化工作，即初始化 <code>vptr</code>，让它指向正确的虚函数表，而在构造期间，虚函数表还没有初始化，所以无法决定调用哪个构造函数。</p>
+<p>所以，非纯虚的虚方法也就是普通的虚方法必须写定义，哪怕是空的，因为要生成虚函数表，没有方法定义就没有方法地址。纯虚方法和非虚方法可以不用写定义。</p>
+<h2 id="不能声明为虚函数的成员函数"><a href="#不能声明为虚函数的成员函数" class="headerlink" title="不能声明为虚函数的成员函数"></a>不能声明为虚函数的成员函数</h2><p><strong>构造函数</strong>：</p>
+<p>首先明确一点，在编译期间编译器完成了虚表的创建，而虚指针在构造函数期间被初始化。<br>如果构造函数是虚函数，那必然需要通过虚指针来找到虚构造函数的入口地址，但是这个时候我们还没有把虚指针初始化。因此，构造函数不能是虚函数。</p>
+<p><strong>內联函数</strong>：</p>
+<p>编译期內联函数在调用处被展开，而虚函数在运行时才能被确定具体调用哪个类的虚函数。內联函数体现的是编译期机制，而虚函数体现的是运行期机制。</p>
+<p><strong>静态成员函数</strong>:</p>
+<p>静态成员函数和类有关，即使没有生成一个实例对象，也可以调用类的静态成员函数。而虚函数的调用和虚指针有关，虚指针存在于一个类的实例对象中，如果静态成员函数被声明成虚函数，那么调用成员静态函数时又如何访问虚指针呢。总之可以这么理解，静态成员函数与类有关，而虚函数与类的实例对象有关。</p>
+<p><strong>非成员函数</strong>:</p>
+<p>虚函数的目的是为了实现多态，多态和继承有关。所以声明一个非成员函数为虚函数没有任何意义。</p>
 
           
         
@@ -1644,7 +2402,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

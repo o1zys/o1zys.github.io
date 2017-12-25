@@ -1,0 +1,910 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="const定义常量限定符声明变量只能被读12345const int i=5; int j=0; ... i=j;  //非法，导致编译错误 j=i;  //合法 必须初始化12const int i=5;    //合法 const int j;      //非法，导致编译错误 在另一连接文件中引用const常量1">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Section1 关键字及其用法">
+<meta property="og:url" content="http://yoursite.com/2017/12/25/CppS1/index.html">
+<meta property="og:site_name" content="Oizys&#39;s Blog">
+<meta property="og:description" content="const定义常量限定符声明变量只能被读12345const int i=5; int j=0; ... i=j;  //非法，导致编译错误 j=i;  //合法 必须初始化12const int i=5;    //合法 const int j;      //非法，导致编译错误 在另一连接文件中引用const常量12extern const int i;    //合法 extern cons">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-25T10:54:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ Section1 关键字及其用法">
+<meta name="twitter:description" content="const定义常量限定符声明变量只能被读12345const int i=5; int j=0; ... i=j;  //非法，导致编译错误 j=i;  //合法 必须初始化12const int i=5;    //合法 const int j;      //非法，导致编译错误 在另一连接文件中引用const常量12extern const int i;    //合法 extern cons">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/25/CppS1/"/>
+
+
+
+
+
+  <title>C++ Section1 关键字及其用法 | Oizys's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oizys's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/25/CppS1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++ Section1 关键字及其用法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-25T16:56:56+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/25/CppS1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/25/CppS1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="定义常量"><a href="#定义常量" class="headerlink" title="定义常量"></a>定义常量</h3><h4 id="限定符声明变量只能被读"><a href="#限定符声明变量只能被读" class="headerlink" title="限定符声明变量只能被读"></a>限定符声明变量只能被读</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i=<span class="number">5</span>; </div><div class="line"><span class="keyword">int</span> j=<span class="number">0</span>; </div><div class="line">... </div><div class="line">i=j;  <span class="comment">//非法，导致编译错误 </span></div><div class="line">j=i;  <span class="comment">//合法</span></div></pre></td></tr></table></figure>
+<h4 id="必须初始化"><a href="#必须初始化" class="headerlink" title="必须初始化"></a>必须初始化</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i=<span class="number">5</span>;    <span class="comment">//合法 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> j;      <span class="comment">//非法，导致编译错误</span></div></pre></td></tr></table></figure>
+<h4 id="在另一连接文件中引用const常量"><a href="#在另一连接文件中引用const常量" class="headerlink" title="在另一连接文件中引用const常量"></a>在另一连接文件中引用const常量</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> i;    <span class="comment">//合法 </span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> j=<span class="number">10</span>; <span class="comment">//非法，常量不可以被再次赋值</span></div></pre></td></tr></table></figure>
+<h4 id="便于进行类型检查"><a href="#便于进行类型检查" class="headerlink" title="便于进行类型检查"></a>便于进行类型检查</h4><p>用const方法可以使编译器对处理内容有更多了解。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> I=10 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">long</span> &amp;i=<span class="number">10</span>;  <span class="comment">/*：由于编译器的优化，使 </span></div><div class="line">      得在const long i=10; 时i不被分配内存，而是已10直接代入 </div><div class="line">      以后的引用中，以致在以后的代码中没有错误，为达到说教效 </div><div class="line">      果，特别地用&amp;i明确地给出了i的内存分配。不过一旦你关闭所 </div><div class="line">      有优化措施，即使const long i=10;也会引起后面的编译错误。*/ </div><div class="line"><span class="keyword">char</span> h=I;      <span class="comment">//没有错 </span></div><div class="line"><span class="keyword">char</span> h=i;      <span class="comment">//编译警告，可能由于数的截短带来错误赋值。</span></div></pre></td></tr></table></figure>
+<h4 id="可以避免不必要的内存分配"><a href="#可以避免不必要的内存分配" class="headerlink" title="可以避免不必要的内存分配"></a>可以避免不必要的内存分配</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> STRING <span class="meta-string">"abcdefghijklmn\n"</span> </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> <span class="built_in">string</span>[]=<span class="string">"abcdefghijklm\n"</span>; </div><div class="line">... </div><div class="line"><span class="built_in">printf</span>(STRING);  <span class="comment">//为STRING分配了第一次内存 </span></div><div class="line"><span class="built_in">printf</span>(<span class="built_in">string</span>);  <span class="comment">//为string一次分配了内存，以后不再分配 </span></div><div class="line">... </div><div class="line"><span class="built_in">printf</span>(STRING);  <span class="comment">//为STRING分配了第二次内存 </span></div><div class="line"><span class="built_in">printf</span>(<span class="built_in">string</span>);</div></pre></td></tr></table></figure>
+<p>由于const定义常量从汇编的角度来看，只是给出了对应的内存地址，而不是象#define一样给出的是立即数，所以，const定义的常量在程序运行过程中只有一份拷贝，而#define定义的常量在内存中有若干个拷贝。</p>
+<h4 id="可以通过函数对常量进行初始化"><a href="#可以通过函数对常量进行初始化" class="headerlink" title="可以通过函数对常量进行初始化"></a>可以通过函数对常量进行初始化</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span></span>; </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i = value();</div></pre></td></tr></table></figure>
+<p>假定对ROM编写程序时，由于目标代码的不可改写，本语句将会无效，不过可以变通一下： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;i=value();</div></pre></td></tr></table></figure>
+<p>只要令i的地址处于ROM之外，即可实现：i通过函数初始化，而其值有不会被修改。 </p>
+<h4 id="const的常量值可以被修改"><a href="#const的常量值可以被修改" class="headerlink" title="const的常量值可以被修改"></a>const的常量值可以被修改</h4><p>观察以下一段代码： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i = <span class="number">0</span>; </div><div class="line"><span class="keyword">int</span> *p = (<span class="keyword">int</span>*)&amp;i; </div><div class="line">p = <span class="number">100</span>;</div></pre></td></tr></table></figure>
+<p>通过强制类型转换，将地址赋给变量，再作修改即可以改变const常量值。 </p>
+<h4 id="const与指针"><a href="#const与指针" class="headerlink" title="const与指针"></a>const与指针</h4><p>const char *p 表示 指向的内容不能改变。</p>
+<p>char * const p，就是将P声明为常指针，它的地址不能改变，是固定的，但是它的内容可以改变。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> ii=<span class="number">0</span>; </div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> i=<span class="number">0</span>;            <span class="comment">//i是常量，i的值不会被修改 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> *p1i=&amp;i;        <span class="comment">//指针p1i所指内容是常量，可以不初始化 </span></div><div class="line"><span class="keyword">int</span>  * <span class="keyword">const</span> p2i=&amp;ii;     <span class="comment">//指针p2i是常量，所指内容可修改 </span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> * <span class="keyword">const</span> p3i=&amp;i; <span class="comment">//指针p3i是常量，所指内容也是常量 </span></div><div class="line">p1i=&amp;ii;                  <span class="comment">//合法 </span></div><div class="line">*p2i=<span class="number">100</span>;                 <span class="comment">//合法</span></div></pre></td></tr></table></figure>
+<h3 id="修饰函数参数"><a href="#修饰函数参数" class="headerlink" title="修饰函数参数"></a>修饰函数参数</h3><h4 id="const只能修饰输入参数："><a href="#const只能修饰输入参数：" class="headerlink" title="const只能修饰输入参数："></a>const只能修饰输入参数：</h4><p>如果参数作输出用，不论它是什么数据类型，也不论它采用“指针传递”还是“引用传递”，都不能加const修饰，否则该参数将失去输出功能。</p>
+<p>如果输入参数采用“指针传递”，那么加const修饰可以防止意外地改动该指针，起到保护作用</p>
+<p>例如StringCopy函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">StringCopy</span><span class="params">(<span class="keyword">char</span> *strDestination, <span class="keyword">const</span> <span class="keyword">char</span> *strSource)</span></span>;</div></pre></td></tr></table></figure>
+<p>其中strSource是输入参数，strDestination是输出参数。给strSource加上const修饰后，如果函数体内的语句试图改动strSource的内容，编译器将指出错误。</p>
+<h4 id="“值传递”无需const修饰"><a href="#“值传递”无需const修饰" class="headerlink" title="“值传递”无需const修饰"></a>“值传递”无需const修饰</h4><p>如果输入参数采用“值传递”，由于函数将<strong>自动产生临时变量</strong>用于复制该参数，该输入参数本来就无需保护，所以不要加const修饰。</p>
+<p>例如不要将函数<code>voidFunc1(int x)</code> 写成<code>voidFunc1(const int x)</code>。同理不要将函数<code>voidFunc2(A a)</code> 写成<code>voidFunc2(const A a)</code>。其中A为用户自定义的数据类型。</p>
+<h4 id="非内部类型输入参数，采取const引用传递"><a href="#非内部类型输入参数，采取const引用传递" class="headerlink" title="非内部类型输入参数，采取const引用传递"></a>非内部类型输入参数，采取const引用传递</h4><p>对于非内部数据类型的参数而言，像<code>voidFunc(A a)</code> 这样声明的函数注定效率比较底。因为函数体内将产生A类型的临时对象用于复制参数a，而临时对象的构造、复制、析构过程都将消耗时间。</p>
+<p>为了<strong>提高效率</strong>，可以将函数声明改为voidFunc(A &amp;a)，因为“引用传递”仅借用一下参数的别名而已，不需要产生临时对象。但是函数voidFunc(A &amp;a) 存在一个缺点：</p>
+<p>“引用传递”有可能改变参数a，这是我们不期望的。解决这个问题很容易，加const修饰即可，因此函数最终成为<code>voidFunc(const A &amp;a)</code>。</p>
+<h4 id="内部类型输入参数，不必采取const引用传递"><a href="#内部类型输入参数，不必采取const引用传递" class="headerlink" title="内部类型输入参数，不必采取const引用传递"></a>内部类型输入参数，不必采取const引用传递</h4><p>以此类推，是否应将<code>voidFunc(int x)</code> 改写为<code>voidFunc(const int&amp;x)</code>，以便提高效率？完全没有必要，因为内部数据类型的参数不存在构造、析构的过程，而复制也非常快，“值传递”和“引用传递”的效率几乎相当。</p>
+<p>因此，</p>
+<p><strong>对于非内部数据类型的输入参数，应该将“值传递”的方式改为“const引用传递”，目的是提高效率。</strong>例如将<code>voidFunc(A a)</code> 改为<code>voidFunc(const A &amp;a)</code>。</p>
+<p><strong>对于内部数据类型的输入参数，不要将“值传递”的方式改为“const引用传递”。否则既达不到提高效率的目的，又降低了函数的可理解性。</strong>例如<code>voidFunc(int x)</code> 不应该改为<code>voidFunc(const int &amp;x)</code>。</p>
+<h3 id="修饰函数返回值"><a href="#修饰函数返回值" class="headerlink" title="修饰函数返回值"></a>修饰函数返回值</h3><h4 id="“指针传递”方式返回值"><a href="#“指针传递”方式返回值" class="headerlink" title="“指针传递”方式返回值"></a>“指针传递”方式返回值</h4><p>如果给以“指针传递”方式的函数返回值加const修饰，那么函数返回值（即指针）的内容不能被修改，该返回值只能被赋给加const修饰的同类型指针。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function">constchar *<span class="title">GetString</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line">如下语句将出现编译错误：</div><div class="line"><span class="keyword">char</span> *str = GetString();</div><div class="line">正确的用法是</div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> *str = GetString();</div></pre></td></tr></table></figure>
+<h4 id="“值传递”方式返回值"><a href="#“值传递”方式返回值" class="headerlink" title="“值传递”方式返回值"></a>“值传递”方式返回值</h4><p>如果函数返回值采用“值传递方式”，由于函数会把返回值复制到外部临时的存储单元中，加const修饰没有任何价值。</p>
+<p>例如不要把函数<code>int GetInt(void)</code> 写成<code>const int GetInt(void)</code>。</p>
+<p>同理不要把函数<code>A GetA(void)</code> 写成<code>const A GetA(void)</code>，其中A为用户自定义的数据类型。</p>
+<h4 id="“引用传递”方式返回"><a href="#“引用传递”方式返回" class="headerlink" title="“引用传递”方式返回"></a>“引用传递”方式返回</h4><p>如果返回值不是内部数据类型，将函数<code>A GetA(void)</code> 改写为<code>const A &amp;GetA(void)</code>的确能提高效率。但此时千万千万要小心，一定要搞清楚函数究竟是想返回一个对象的“拷贝”还是仅返回“别名”就可以了，否则程序会出错。若返回对象的“拷贝”就应该采用“值传递”，仅返回“别名”可以用“引用传递”。</p>
+<p>函数返回值采用“引用传递”的场合并不多，这种方式一般只出现在类的赋值函数中，目的是为了实现链式表达。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">classA &#123;</div><div class="line">	A &amp;operate = (<span class="keyword">const</span> A &amp;other); <span class="comment">// 赋值函数</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">int</span> main &#123;</div><div class="line">	A a, b, c; 		<span class="comment">// a, b, c 为A的对象</span></div><div class="line">	a = b = c; 		<span class="comment">// 正常的链式赋值</span></div><div class="line">	(a = b) = c;	<span class="comment">// 不正常的链式赋值，但合法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果将赋值函数的返回值加const修饰，即</p>
+<pre><code>const A &amp;operate = (const A &amp;other);
+</code></pre><p>那么该返回值的内容不允许被改动。上例中，语句<code>a = b = c</code> 仍然正确，但是语句<code>(a = b) = c</code> 则是非法的。</p>
+<h3 id="修饰类的数据成员"><a href="#修饰类的数据成员" class="headerlink" title="修饰类的数据成员"></a>修饰类的数据成员</h3><p>不能在类声明中初始化const数据成员。以下用法是错误的，因为类的对象未被创建时，编译器不知道SIZE的值是什么。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span> &#123;</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> SIZE = <span class="number">100</span>;     <span class="comment">// 错误，企图在类声明中初始化const数据成员</span></div><div class="line">	<span class="keyword">int</span> <span class="built_in">array</span>[SIZE];          <span class="comment">// 错误，未知的SIZE</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>正确的使用const实现方法为：const数据成员的初始化只能在类构造函数的初始化表中进行。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></div><div class="line">	A(<span class="keyword">int</span> size);      <span class="comment">// 构造函数</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> SIZE ; </div><div class="line">&#125;;</div><div class="line"></div><div class="line">A::A(<span class="keyword">int</span> size) : SIZE(size)    <span class="comment">// 构造函数的初始化表</span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// error 赋值的方式是不行的</span></div><div class="line">A::A(<span class="keyword">int</span> size)</div><div class="line">&#123;</div><div class="line">     SIZE=size;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> main（）&#123;</div><div class="line">    <span class="function">A  <span class="title">a</span><span class="params">(<span class="number">100</span>)</span></span>; <span class="comment">// 对象 a 的SIZE值为100</span></div><div class="line">    <span class="function">A  <span class="title">b</span><span class="params">(<span class="number">200</span>)</span></span>; <span class="comment">// 对象 b 的SIZE值为200</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>static和const也以同时修饰数据成员。</strong> 然而，它们不能同时修饰成员函数，这两点要注意区别。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Year</span> &#123;</span> </div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="keyword">int</span> y; </div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">static</span> <span class="keyword">int</span> <span class="keyword">const</span> Inity;</div><div class="line"><span class="keyword">public</span>: </div><div class="line">	Year() &#123;</div><div class="line">		y = Inity;</div><div class="line"> 	&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> <span class="keyword">const</span> Year::Inity = <span class="number">1997</span>;	<span class="comment">//静态变量的赋值方法,注意必须放在类外定义</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="built_in">cout</span>&lt;&lt;Year.Inity&lt;&lt;<span class="built_in">endl</span>;		<span class="comment">//注意调用方式，这里是用类名调用的。</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="修饰类的成员函数"><a href="#修饰类的成员函数" class="headerlink" title="修饰类的成员函数"></a>修饰类的成员函数</h3><p><strong>任何不会修改数据成员的函数都应该声明为const类型。</strong>如果在编写const成员函数时，不慎修改了<strong>数据成员</strong>，或者调用了其它<strong>非const成员函数</strong>，编译器将指出错误，这无疑会提高程序的健壮性。</p>
+<p>const放在函数末尾修饰const成员函数，因为const关键字是<strong>左结合</strong>。</p>
+<p>以下程序中，类stack的成员函数GetCount仅用于计数，从逻辑上讲GetCount应当为const函数。编译器将指出GetCount函数中的错误。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(<span class="keyword">int</span> elem)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Pop</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetCount</span><span class="params">(<span class="keyword">void</span>)</span> <span class="keyword">const</span></span>; <span class="comment">// const 成员函数</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="keyword">int</span> m_num;</div><div class="line">	<span class="keyword">int</span> m_data[<span class="number">100</span>];</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> Stack::GetCount(<span class="keyword">void</span>) <span class="keyword">const</span> &#123;</div><div class="line">	++ m_num; 	<span class="comment">// 编译错误，企图修改数据成员m_num</span></div><div class="line">	Pop();		<span class="comment">// 编译错误，企图调用非const函数</span></div><div class="line">	<span class="keyword">return</span> m_num;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果有个成员函数想修改对象中的某一个成员怎么办？这时我们可以使用<code>mutable</code>关键字修饰这个成员，<code>mutable</code>的意思也是易变的，容易改变的意思，被mutable关键字修饰的成员可以处于不断变化中，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(<span class="keyword">int</span> elem)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Pop</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">int</span> <span class="title">GetCount</span><span class="params">(<span class="keyword">void</span>)</span> <span class="keyword">const</span></span>; <span class="comment">// const 成员函数</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="keyword">mutable</span> <span class="keyword">int</span> m_num;		  <span class="comment">// mutable 数据成员</span></div><div class="line">	<span class="keyword">int</span> m_data[<span class="number">100</span>];</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> Stack::GetCount(<span class="keyword">void</span>) <span class="keyword">const</span> &#123;</div><div class="line">	++ m_num; 	<span class="comment">// 编译通过，在const函数中修改mutable数据成员m_num</span></div><div class="line">	<span class="keyword">return</span> m_num;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>注意： 不可以同时用const和static修饰成员函数。</strong></p>
+<p>C++编译器在实现const的成员函数的时候为了确保该函数不能修改类的实例的状态，会在函数中添加一个隐式的参数const this*。但当一个成员为static的时候，该函数是没有this指针的。也就是说此时const的用法和static是冲突的。</p>
+<p>我们也可以这样理解：两者的语意是矛盾的。static的作用是表示该函数只作用在类型的静态变量上，与类的实例没有关系；而const的作用是确保函数不能修改类的实例的状态，与类型的静态变量没有关系。因此不能同时用它们。</p>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>在局部变量之前加上关键字static，局部变量就被定义成为一个局部静态变量。</p>
+<ol>
+<li>内存中的位置：静态存储区</li>
+<li>初始化：未经初始化的全局静态变量会被程序自动初始化为0（自动对象的值是任意的，除非他被显示初始化）</li>
+<li>作用域：作用域仍为局部作用域，当定义它的函数或者语句块结束的时候，作用域随之结束。</li>
+<li>生命周期：直到程序结束。</li>
+</ol>
+<p>注：当static用来修饰局部变量的时候，它就改变了局部变量的存储位置（从原来的栈中存放改为静态存储区）及其生命周期（局部静态变量在离开作用域之后，并没有被销毁，而是仍然驻留在内存当中，直到程序结束，只不过我们不能再对他进行访问），但未改变其作用域。</p>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>在全局变量之前加上关键字static，全局变量就被定义成为一个全局静态变量。</p>
+<ol>
+<li>内存中的位置：静态存储区（静态存储区在整个程序运行期间都存在）</li>
+<li>初始化：未经初始化的全局静态变量会被程序自动初始化为0（自动对象的值是任意的，除非他被显示初始化）</li>
+<li>作用域：全局静态变量在声明他的文件之外是不可见的。准确地讲从定义之处开始到文件结尾。</li>
+<li>生命周期：直到程序结束。</li>
+</ol>
+<p>注：static修饰全局变量，并未改变其存储位置及生命周期，而是改变了其作用域，使当前文件外的源文件无法访问该变量，好处如下：（1）不会被其他文件所访问，修改。（2）其他文件中可以使用相同名字的变量，不会发生冲突。对全局函数也是有隐藏作用。</p>
+<h3 id="类中的成员变量"><a href="#类中的成员变量" class="headerlink" title="类中的成员变量"></a>类中的成员变量</h3><p>用static修饰类的数据成员实际使其成为类的全局变量，会被类的<strong>所有对象</strong>共享，包括<strong>派生类的对象</strong>。因此，static成员必须在类外进行初始化(初始化格式： <code>int base::var=10;</code>)，而不能在构造函数内进行初始化，不过也可以用const修饰static数据成员在类内初始化。但是定义必须在类的外部，见上文。在类的内部const static类型即使赋字面值常量也只能算是声明，定义必须在外部进行。</p>
+<p><strong>不要试图在头文件中定义(初始化)静态数据成员。</strong>在大多数的情况下，这样做会引起重复定义这样的错误。即使加上<code>#ifndef #define #endif</code>或者<code>#pragma once</code>也不行。 </p>
+<p>静态数据成员可以成为成员函数的可选参数，而普通数据成员则不可以。</p>
+<p>静态数据成员的类型可以是所属类的类型，而普通数据成员则不可以。普通数据成员的只能声明为所属类类型的指针或引用。</p>
+<h3 id="类中的成员函数"><a href="#类中的成员函数" class="headerlink" title="类中的成员函数"></a>类中的成员函数</h3><p>用static修饰成员函数，使这个类只存在这一份函数，所有对象共享该函数，不含this指针。</p>
+<p>静态成员是可以独立访问的，也就是说，无须创建任何对象实例就可以访问。<code>base::func(5,3);</code>当static成员函数在类外定义时不需要加static修饰符。</p>
+<p>在静态成员函数的实现中不能直接引用类中说明的非静态成员，可以引用类中说明的静态成员。因为静态成员函数不含this指针。 </p>
+<h2 id="struct-union"><a href="#struct-union" class="headerlink" title="struct / union"></a>struct / union</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>结构体struct：把不同类型的数据组合成一个整体，自定义类型。</p>
+<p>共同体union：使几个不同类型的变量共同占用一段内存</p>
+<h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><p>struct和union都有内存对齐，结构体的内存布局依赖于CPU、操作系统、编译器及编译时的对齐选项。</p>
+<blockquote>
+<p>关于内存对齐，先让我们看四个重要的基本概念：</p>
+<ol>
+<li>数据类型自身的对齐值：对于char型数据，其自身对齐值为1，对于short型为2，对于int,float,double类型，其自身对齐值为4，单位字节。</li>
+<li>结构体或者类的自身对齐值：其成员中自身对齐值最大的那个值。</li>
+<li>指定对齐值：#pragma pack(n)，n=1,2,4,8,16改变系统的对齐系数</li>
+<li>数据成员、结构体和类的有效对齐值：自身对齐值和指定对齐值中小的那个值。</li>
+</ol>
+</blockquote>
+<p>首先根据结构体内部成员的自身对齐值得到结构体的自身对齐值（<strong>内部成员最大的长度</strong>），如果没有修改系统设定的默认补齐长度4的话，取较小的进行内存补齐。</p>
+<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><p>结构体struct：不同之处，stuct里每个成员都有自己独立的地址。sizeof(struct)是内存对齐后所有成员长度的加和。</p>
+<p>共同体union：当共同体中存入新的数据后，原有的成员就失去了作用，新的数据被写到union的地址中。sizeof(union)是最长的数据成员的长度。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>struct和union都是由多个不同的数据类型成员组成, 但在任何同一时刻, union中只存放了一个被选中的成员, 而struct的所有成员都存在。在struct中，各成员都占有自己的内存空间，它们是同时存在的。一个struct变量的总长度等于所有成员长度之和。在Union中，所有成员不能同时占用它的内存空间，它们不能同时存在。Union变量的长度等于最长的成员的长度。对于union的不同成员赋值, 将会对其它成员重写, 原来成员的值就不存在了, 而对于struct的不同成员赋值是互不影响的。</p>
+<h2 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h2><p>inline用来向编译器请求声明为内联函数，编译器有权拒绝。</p>
+<h3 id="与宏函数的对比"><a href="#与宏函数的对比" class="headerlink" title="与宏函数的对比"></a>与宏函数的对比</h3><ul>
+<li>内联函数在运行时可调试，而宏定义不可以;</li>
+<li>编译器会对内联函数的参数类型做安全检查或自动类型转换（同普通函数），而宏定义则不会；</li>
+<li>内联函数可以访问类的成员变量，宏定义则不能；</li>
+<li>在类中声明同时定义的成员函数，自动转化为内联函数</li>
+<li>宏只是预定义的函数，在编译阶段不进行类型安全性检查，在编译的时候将对应函数用宏命令替换。对程序性能无影响。</li>
+</ul>
+<h3 id="不能声明为inline的函数"><a href="#不能声明为inline的函数" class="headerlink" title="不能声明为inline的函数"></a>不能声明为inline的函数</h3><ul>
+<li>包含了<strong>递归</strong>、<strong>循环</strong>等结构的函数一般不会被内联。</li>
+<li><strong>虚拟函数</strong>一般不会内联，但是如果编译器能在编译时确定具体的调用函数，那么仍然会就地展开该函数。</li>
+<li>如果通过<strong>函数指针</strong>调用内联函数，那么该函数将不会内联而是通过call进行调用。</li>
+<li><strong>构造和析构函数</strong>一般会生成大量代码，因此一般也不适合内联。</li>
+<li>如果内联函数<strong>调用了其他函数</strong>也不会被内联。</li>
+</ul>
+<h2 id="typedef-using"><a href="#typedef-using" class="headerlink" title="typedef / using"></a>typedef / using</h2><p>二者功能都是定义新类型，using 为c++11新特性。下面语句功能一致：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> MyInt;</div><div class="line"></div><div class="line"><span class="keyword">using</span> MyInt = <span class="keyword">int</span>;</div></pre></td></tr></table></figure>
+<h2 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h2><p>explicit禁止了隐式转换类型，用来修饰构造函数。原则上应该在所有的构造函数前加explicit关键字，当你有心利用隐式转换的时候再去解除explicit，这样可以大大减少错误的发生。如果一个构造函数 </p>
+<p><code>Foo(int)</code> ;则下面的语句是合法的:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Foo f; </div><div class="line">f = <span class="number">12</span>; <span class="comment">// 发生了隐式转换，先调用Foo(int)用12构建了一个临时对象，然后调用赋值运算符复制到f中</span></div></pre></td></tr></table></figure>
+<p>如果给构造函数加了explicit,即 <code>explicit Foo(int)</code>；就只能进行显示转换，无法进行隐式转换了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f = <span class="number">12</span>; 		<span class="comment">// 非法，隐式转换</span></div><div class="line">f = Foo(<span class="number">12</span>); 	<span class="comment">// 合法，显示转换</span></div><div class="line">f = (Foo) <span class="number">12</span>;	<span class="comment">// 合法，显示转换，C风格</span></div></pre></td></tr></table></figure>
+<h2 id="指针-引用"><a href="#指针-引用" class="headerlink" title="指针 / 引用"></a>指针 / 引用</h2><p>本质上的区别是，指针是一个新的变量，只是这个变量存储的是另一个变量的地址，我们通过访问这个地址来修改变量。</p>
+<p>而引用只是一个别名，还是变量本身。对引用进行的任何操作就是对变量本身进行操作，因此以达到修改变量的目的。</p>
+<p>区别如下：</p>
+<ol>
+<li><p>指针：指针是一个变量，只不过这个变量存储的是一个地址，指向内存的一个存储单元；而引用跟原来的变量实质上是同一个东西，只不过是原变量的一个别名而已。如：</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a=<span class="number">1</span>; <span class="keyword">int</span> *p=&amp;a;</div><div class="line"><span class="keyword">int</span> a=<span class="number">1</span>; <span class="keyword">int</span> &amp;b=a;</div></pre></td></tr></table></figure>
+<p> 上面定义了一个整形变量和一个指针变量p，该指针变量指向a的存储单元，即p的值是a存储单元的地址。</p>
+<p> 而下面2句定义了一个整形变量a和这个整形a的引用b，事实上a和b是同一个东西，在内存占有同一个存储单元。</p>
+</li>
+<li><p>可以有const指针，但是没有const引用（一般说的const引用其实是指向const对象的引用）；</p>
+</li>
+<li>指针可以有多级，但是引用只能是一级（int **p；合法 而 int &amp;&amp;a是不合法的）</li>
+<li>指针的值可以为空，但是引用的值不能为NULL，并且<strong>引用在定义的时候必须初始化</strong>；</li>
+<li>指针的值在初始化后可以改变，即指向其它的存储单元，而<strong>引用在进行初始化后就不会再改变</strong>了。</li>
+<li>“sizeof引用”得到的是所指向的变量(对象)的大小，而”sizeof指针”得到的是指针本身的大小；</li>
+<li>指针和引用的自增(++)运算意义不一样。</li>
+<li>指针传参的时候，还是值传递，试图修改传进来的指针的值是不可以的。只能修改地址所保存变量的值。引用传参的时候，传进来的就是变量本身，因此可以被修改。</li>
+</ol>
+<p><strong>注意：const引用只是表明，保证不会通过此引用间接的改变被引用的对象！</strong> 详见:<a href="https://www.cnblogs.com/chio/archive/2007/07/18/822362.html" target="_blank" rel="noopener">C++引用与const引用</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/25/CppS4/" rel="next" title="C++ Section4 内存管理">
+                <i class="fa fa-chevron-left"></i> C++ Section4 内存管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars.githubusercontent.com/o1zys"
+               alt="Oizys" />
+          <p class="site-author-name" itemprop="name">Oizys</p>
+           
+              <p class="site-description motion-element" itemprop="description">Programmer</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#const"><span class="nav-number">1.</span> <span class="nav-text">const</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义常量"><span class="nav-number">1.1.</span> <span class="nav-text">定义常量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#限定符声明变量只能被读"><span class="nav-number">1.1.1.</span> <span class="nav-text">限定符声明变量只能被读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#必须初始化"><span class="nav-number">1.1.2.</span> <span class="nav-text">必须初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在另一连接文件中引用const常量"><span class="nav-number">1.1.3.</span> <span class="nav-text">在另一连接文件中引用const常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#便于进行类型检查"><span class="nav-number">1.1.4.</span> <span class="nav-text">便于进行类型检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以避免不必要的内存分配"><span class="nav-number">1.1.5.</span> <span class="nav-text">可以避免不必要的内存分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可以通过函数对常量进行初始化"><span class="nav-number">1.1.6.</span> <span class="nav-text">可以通过函数对常量进行初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const的常量值可以被修改"><span class="nav-number">1.1.7.</span> <span class="nav-text">const的常量值可以被修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const与指针"><span class="nav-number">1.1.8.</span> <span class="nav-text">const与指针</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰函数参数"><span class="nav-number">1.2.</span> <span class="nav-text">修饰函数参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#const只能修饰输入参数："><span class="nav-number">1.2.1.</span> <span class="nav-text">const只能修饰输入参数：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“值传递”无需const修饰"><span class="nav-number">1.2.2.</span> <span class="nav-text">“值传递”无需const修饰</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非内部类型输入参数，采取const引用传递"><span class="nav-number">1.2.3.</span> <span class="nav-text">非内部类型输入参数，采取const引用传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部类型输入参数，不必采取const引用传递"><span class="nav-number">1.2.4.</span> <span class="nav-text">内部类型输入参数，不必采取const引用传递</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰函数返回值"><span class="nav-number">1.3.</span> <span class="nav-text">修饰函数返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#“指针传递”方式返回值"><span class="nav-number">1.3.1.</span> <span class="nav-text">“指针传递”方式返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“值传递”方式返回值"><span class="nav-number">1.3.2.</span> <span class="nav-text">“值传递”方式返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“引用传递”方式返回"><span class="nav-number">1.3.3.</span> <span class="nav-text">“引用传递”方式返回</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰类的数据成员"><span class="nav-number">1.4.</span> <span class="nav-text">修饰类的数据成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰类的成员函数"><span class="nav-number">1.5.</span> <span class="nav-text">修饰类的成员函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static"><span class="nav-number">2.</span> <span class="nav-text">static</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部变量"><span class="nav-number">2.1.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局变量"><span class="nav-number">2.2.</span> <span class="nav-text">全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类中的成员变量"><span class="nav-number">2.3.</span> <span class="nav-text">类中的成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类中的成员函数"><span class="nav-number">2.4.</span> <span class="nav-text">类中的成员函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#struct-union"><span class="nav-number">3.</span> <span class="nav-text">struct / union</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相同点"><span class="nav-number">3.2.</span> <span class="nav-text">相同点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同点"><span class="nav-number">3.3.</span> <span class="nav-text">不同点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inline"><span class="nav-number">4.</span> <span class="nav-text">inline</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与宏函数的对比"><span class="nav-number">4.1.</span> <span class="nav-text">与宏函数的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不能声明为inline的函数"><span class="nav-number">4.2.</span> <span class="nav-text">不能声明为inline的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#typedef-using"><span class="nav-number">5.</span> <span class="nav-text">typedef / using</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#explicit"><span class="nav-number">6.</span> <span class="nav-text">explicit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指针-引用"><span class="nav-number">7.</span> <span class="nav-text">指针 / 引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Oizys</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/12/25/CppS1/';
+          this.page.identifier = '2017/12/25/CppS1/';
+          this.page.title = 'C++ Section1 关键字及其用法';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -101,12 +101,15 @@
 <meta property="og:site_name" content="Oizys&#39;s Blog">
 <meta property="og:description" content="多态性多态指当不同的对象收到相同的消息时，产生不同的动作  编译时多态（静态绑定），函数重载，运算符重载，模板。 运行时多态（动态绑定），虚函数机制。  运行时多态（动态绑定） 定义：“一个接口，多种方法”，程序在运行时才决定调用的函数。 实现：C++多态性主要是通过虚函数实现的，虚函数允许子类重写override(注意和overload的区别，overload是重载，是允许同名函数的表现，这些函">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://github.com/o1zys/MarkdownImage/blob/master/cpp_s2_2_1.jpg">
-<meta property="og:updated_time" content="2017-12-22T09:29:59.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_4.jpg">
+<meta property="og:updated_time" content="2017-12-25T10:50:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++ Section2 面向对象(2) 多态与虚函数">
 <meta name="twitter:description" content="多态性多态指当不同的对象收到相同的消息时，产生不同的动作  编译时多态（静态绑定），函数重载，运算符重载，模板。 运行时多态（动态绑定），虚函数机制。  运行时多态（动态绑定） 定义：“一个接口，多种方法”，程序在运行时才决定调用的函数。 实现：C++多态性主要是通过虚函数实现的，虚函数允许子类重写override(注意和overload的区别，overload是重载，是允许同名函数的表现，这些函">
-<meta name="twitter:image" content="http://github.com/o1zys/MarkdownImage/blob/master/cpp_s2_2_1.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_1.jpg">
 
 
 
@@ -412,13 +415,101 @@
 <p>编译出的<code>MyClass</code>对象结构如下：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClass    size(8):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;   0    | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | var</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClass::$vftable@:</div><div class="line">1&gt;      | &amp;MyClass_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClass::fun</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClass::fun this adjustor: 0</div></pre></td></tr></table></figure>
 <p>从这段信息中我们看出，<code>MyClass</code>对象大小是8个字节。前四个字节存储的是虚函数表的指针<code>vfptr</code>，后四个字节存储对象成员<code>var</code>的值。虚函数表的大小为4字节，就一条函数地址，即虚函数<code>fun</code>的地址，它在虚函数表<code>vftable</code>的偏移是0。因此，MyClass对象模型的结果如图1所示。</p>
-<p><img src="http://github.com/o1zys/MarkdownImage/blob/master/cpp_s2_2_1.jpg" alt="图1 Myclass对象模型"></p>
-<p>图1 MyClass 对象模型</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_1.jpg" alt="图1 Myclass对象模型"> </center>
+
+<center>图1 MyClass 对象模型</center>
+
+
 <p><code>MyClass</code>的虚函数表虽然只有一条函数记录，但是它的结尾处是由4字节的0作为结束标记的。<br>adjust表示虚函数机制执行时，this指针的调整量，假如fun被多态调用的话，那么它的形式如下：</p>
 <pre><code>*(this+0)[0]()
 </code></pre><p>总结虚函数调用形式，应该是：</p>
 <pre><code>*(this指针+调整量)[虚函数在vftable内的偏移]()
 </code></pre><h3 id="单重继承对象模型"><a href="#单重继承对象模型" class="headerlink" title="单重继承对象模型"></a>单重继承对象模型</h3><p>我们定义一个继承于<code>MyClass</code>类的子类<code>MyClassA</code>，它重写了<code>fun</code>函数，并且提供了一个新的虚函数<code>funA</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassA</span> :</span> <span class="keyword">public</span> MyClass &#123;</div><div class="line">    <span class="keyword">int</span> varA;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funA</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>它的对象模型为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClassA    size(12):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      | +--- (base class MyClass)</div><div class="line">1&gt;   0    | | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | | var</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;   8    | varA</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassA::$vftable@:</div><div class="line">1&gt;      | &amp;MyClassA_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClassA::fun</div><div class="line">1&gt;   1    | &amp;MyClassA::funA</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassA::fun this adjustor: 0</div><div class="line">1&gt;  MyClassA::funA this adjustor: 0</div></pre></td></tr></table></figure>
+<p>可以看出，<code>MyClassA</code>将基类<code>MyClass</code>完全包含在自己内部，包括<code>vfptr</code>和<code>var</code>。并且虚函数表内的记录多了一条——<code>MyClassA</code>自己定义的虚函数<code>funA</code>。它的对象模型如图2所示。</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_2.jpg" alt="图2 MyclassA对象模型"> </center>
+
+<center>图2 MyClassA 对象模型</center>
+
+<p>我们可以得出结论：</p>
+<ul>
+<li>在单继承形式下，子类完全获得父类的虚函数表和数据。</li>
+<li>子类如果重写了父类的虚函数（如<code>fun</code>），就会把虚函数表原本<code>fun</code>对应的记录（内容<code>MyClass::fun</code>）覆盖为新的函数地址（内容<code>MyClassA::fun</code>），否则继续保持原本的函数地址记录。</li>
+<li>如果子类定义了新的虚函数，虚函数表内会追加一条记录，记录该函数的地址（如<code>MyClassA::funA</code>）。</li>
+</ul>
+<p>另外类的非虚成员排列顺序是由基类到派生类，先<code>var</code>再<code>varA</code>。</p>
+<p>使用这种方式，就可以实现多态的特性。假设我们使用如下语句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">MyClass*pc = <span class="keyword">new</span> MyClassA;</div><div class="line">pc-&gt;fun();</div></pre></td></tr></table></figure>
+<p>编译器在处理第二条语句时，发现这是一个多态的调用，那么就会按照上边我们对虚函数的多态访问机制调用函数<code>fun</code>。</p>
+<pre><code>*(pc+0)[0]()
+</code></pre><p>因为虚函数表内的函数地址已经被子类重写的<code>fun</code>函数地址覆盖了，因此该处调用的函数正是<code>MyClassA::fun</code>，而不是基类的<code>MyClass::fun</code>。</p>
+<p>如果使用<code>MyClassA</code>对象直接访问<code>fun</code>，则不会出发多态机制，因为这个函数调用在编译时期是可以确定的，编译器只需要直接调用<code>MyClassA::fun</code>即可。</p>
+<h3 id="多重继承对象模型"><a href="#多重继承对象模型" class="headerlink" title="多重继承对象模型"></a>多重继承对象模型</h3><p>和前边<code>MyClassA</code>类似，我们也定义一个类<code>MyClassB</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassB</span> :</span> <span class="keyword">public</span> MyClass &#123;</div><div class="line">    <span class="keyword">int</span> varB;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funB</span><span class="params">()</span></span></div><div class="line">    &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>它的对象模型和<code>MyClassA</code>完全类似，这里就不再赘述了。</p>
+<p>为了实现多重继承，我们再定义一个类<code>MyClassC</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassC</span> :</span> <span class="keyword">public</span> MyClassA, <span class="keyword">public</span> MyClassB &#123;</div><div class="line">    <span class="keyword">int</span> varC;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funB</span><span class="params">()</span></span></div><div class="line">   &#123;&#125;</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">funC</span><span class="params">()</span></span></div><div class="line">   &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>为了简化，我们让<code>MyClassC</code>只重写父类<code>MyClassB</code>的虚函数<code>funB</code>，它的对象模型如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClassC    size(28):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      | +--- (base class MyClassA)</div><div class="line">1&gt;      | | +--- (base class MyClass)</div><div class="line">1&gt;   0    | | | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | | | var</div><div class="line">1&gt;      | | +---</div><div class="line">1&gt;   8    | | varA</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;      | +--- (base class MyClassB)</div><div class="line">1&gt;      | | +--- (base class MyClass)</div><div class="line">1&gt;  12    | | | &#123;vfptr&#125;</div><div class="line">1&gt;  16    | | | var</div><div class="line">1&gt;      | | +---</div><div class="line">1&gt;  20    | | varB</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;  24    | varC</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassA@:</div><div class="line">1&gt;      | &amp;MyClassC_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClassA::fun</div><div class="line">1&gt;   1    | &amp;MyClassA::funA</div><div class="line">1&gt;   2    | &amp;MyClassC::funC</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassB@:</div><div class="line">1&gt;      | -12</div><div class="line">1&gt;   0    | &amp;MyClassB::fun</div><div class="line">1&gt;   1    | &amp;MyClassC::funB</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::funB this adjustor: 12</div><div class="line">1&gt;  MyClassC::funC this adjustor: 0</div></pre></td></tr></table></figure>
+<p>和单重继承类似，多重继承时<code>MyClassC</code>会把所有的父类全部按序包含在自身内部。而且每一个父类都对应一个单独的虚函数表。<code>MyClassC</code>的对象模型如图3所示。</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_3.jpg" alt="图3 MyclassC对象模型"> </center>
+
+<center>图3 MyClassC 对象模型</center>
+
+
+<p>多重继承下，子类不再具有自身的虚函数表，它的虚函数表与第一个父类的虚函数表<strong>合并</strong>了。</p>
+<p>同样的，如果子类重写了任意父类的虚函数，都会覆盖对应的函数地址记录。如果<code>MyClassC</code>重写了<code>fun</code>函数（两个父类都有该函数），那么两个虚函数表的记录都需要被覆盖！</p>
+<p>在这里我们发现<code>MyClassC::funB</code>的函数对应的adjust值是12，按照我们前边的规则，可以发现该函数的多态调用形式为：</p>
+<pre><code>*(this+12)[1]()
+</code></pre><p>此处的调整量12正好是<strong><code>MyClassB</code>的<code>vfptr</code>在<code>MyClassC</code>对象内的偏移量</strong>。</p>
+<h3 id="虚拟继承对象模型"><a href="#虚拟继承对象模型" class="headerlink" title="虚拟继承对象模型"></a>虚拟继承对象模型</h3><p>虚拟继承是为了解决多重继承下公共基类的多份拷贝问题。比如上边的例子中<code>MyClassC</code>的对象内包含<code>MyClassA</code>和<code>MyClassB</code>子对象，但是<code>MyClassA</code>和<code>MyClassB</code>内含有共同的基类<code>MyClass</code>。为了消除<code>MyClass</code>子对象的多份存在，我们需要让<code>MyClassA</code>和<code>MyClassB</code>都虚拟继承于<code>MyClass</code>，然后再让<code>MyClassC</code>多重继承于这两个父类。相对于上边的例子，类内的设计不做任何改动，先修改MyClassA和MyClassB的继承方式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassA</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> MyClass</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassB</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> MyClass</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClassC</span> :</span> <span class="keyword">public</span> MyClassA, <span class="keyword">public</span> MyClassB</div></pre></td></tr></table></figure>
+<p>由于虚继承的本身语义，<code>MyClassC</code>内必须重写<code>fun</code>函数，否则由于同时存在<code>MyClassA::fun</code>和<code>MyClassB::fun</code>，会有二义性。因此我们需要再重写<code>fun</code>函数。这种情况下，MyClassC的对象模型如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">1&gt;  class MyClassC    size(36):</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      | +--- (base class MyClassA)</div><div class="line">1&gt;   0    | | &#123;vfptr&#125;</div><div class="line">1&gt;   4    | | &#123;vbptr&#125;</div><div class="line">1&gt;   8    | | varA</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;      | +--- (base class MyClassB)</div><div class="line">1&gt;  12    | | &#123;vfptr&#125;</div><div class="line">1&gt;  16    | | &#123;vbptr&#125;</div><div class="line">1&gt;  20    | | varB</div><div class="line">1&gt;      | +---</div><div class="line">1&gt;  24    | varC</div><div class="line">1&gt;      +---</div><div class="line">1&gt;      +--- (virtual base MyClass)</div><div class="line">1&gt;  28    | &#123;vfptr&#125;</div><div class="line">1&gt;  32    | var</div><div class="line">1&gt;      +---</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassA@:</div><div class="line">1&gt;      | &amp;MyClassC_meta</div><div class="line">1&gt;      |  0</div><div class="line">1&gt;   0    | &amp;MyClassA::funA</div><div class="line">1&gt;   1    | &amp;MyClassC::funC</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClassB@:</div><div class="line">1&gt;      | -12</div><div class="line">1&gt;   0    | &amp;MyClassC::funB</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vbtable@MyClassA@:</div><div class="line">1&gt;   0    | -4</div><div class="line">1&gt;   1    | 24 (MyClassCd(MyClassA+4)MyClass)</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vbtable@MyClassB@:</div><div class="line">1&gt;   0    | -4</div><div class="line">1&gt;   1    | 12 (MyClassCd(MyClassB+4)MyClass)</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::$vftable@MyClass@:</div><div class="line">1&gt;      | -28</div><div class="line">1&gt;   0    | &amp;MyClassC::fun</div><div class="line">1&gt;  </div><div class="line">1&gt;  MyClassC::fun this adjustor: 28</div><div class="line">1&gt;  MyClassC::funB this adjustor: 12</div><div class="line">1&gt;  MyClassC::funC this adjustor: 0</div><div class="line">1&gt;  </div><div class="line">1&gt;  vbi:       class  offset o.vbptr  o.vbte fVtorDisp</div><div class="line">1&gt;           MyClass      28       4       4 0</div></pre></td></tr></table></figure>
+<p>虚继承的引入把对象的模型变得十分复杂，除了每个基类（<code>MyClassA</code>和<code>MyClassB</code>）和公共基类（<code>MyClass</code>）的虚函数表指针需要记录外，每个虚拟继承了<code>MyClass</code>的父类还需要记录一个虚基类表<code>vbtable</code>的指针<code>vbptr</code>。<code>MyClassC</code>的对象模型如图4所示。</p>
+<center> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/cpp_s2_2_4.jpg" alt="图4 MyclassC虚继承对象模型"> </center>
+
+<center>图4 MyClassC 虚继承对象模型]</center>
+
+
+<p>虚基类表的第一项记录着当前子对象（当前虚表指针，<code>vfptr_A</code>或者<code>vfptr_B</code>）相对与当前虚基类表指针（<code>vbptr_A</code>或者<code>vbptr_B</code>）的偏移。</p>
+<p><code>MyClassA</code>和<code>MyClassB</code>子对象内的虚表指针都是存储在相对于自身的4字节偏移处，因此该值是-4。假定<code>MyClassA</code>和<code>MyClassC</code>或者<code>MyClassB</code>内没有定义新的虚函数，即不会产生虚函数表，那么虚基类表第一项字段的值应该是0。</p>
+<p>虚基类表的第二项记录着公共基类虚表指针<code>vfptr</code>相对于当前虚基类表指针（<code>vbptr_A</code>或者<code>vbptr_B</code>）的偏移量。</p>
+<p>比如<code>MyClassA</code>的虚基类表第二项记录值为24，正是<code>MyClass::vfptr</code>相对于<code>MyClassA::vbptr</code>的偏移量，同理<code>MyClassB</code>的虚基类表第二项记录值12也正是<code>MyClass::vfptr</code>相对于<code>MyClassA::vbptr</code>的偏移量。</p>
+<p>通过以上的对象组织形式，编译器解决了公共虚基类的多份拷贝的问题。通过每个父类的虚基类表指针，都能找到被公共使用的虚基类的子对象的位置，并依次访问虚基类子对象的数据。至于虚基类定义的虚函数，它和其他的虚函数的访问形式相同，本例中，如果使用虚基类指针<code>MyClass*pc</code>访问<code>MyClassC</code>对象的<code>fun</code>，将会被转化为如下形式：</p>
+<pre><code>*(pc+28)[0]()
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>虚函数机制涉及的指针和表有:</p>
+<ul>
+<li>虚函数表指针<code>vfptr</code>和虚函数表<code>vftable</code></li>
+<li>虚继承下还涉及 虚基类表指针<code>vbptr</code>和虚基类表<code>vbtable</code></li>
+</ul>
+<p>虚函数的实现过程：</p>
+<ol>
+<li>编译器为每个含有虚函数的类或者从此类派生的类创建一个虚函数表<code>vftable</code>, 保存此类所有虚函数的地址，并增加一个隐藏成员虚函数表指针<code>vfptr</code>放在所有数据成员之前。在创建类的对象时，在构造函数内部对虚函数表指针进行初始化，指向之前创建的虚函数表。</li>
+<li><strong>单继承情况下</strong>，派生类会继承基类所有的数据成员和虚函数表指针，并由编译器生成虚函数表，在创建派生类实例时，将虚函数表指针指向新的，属于派生类的虚函数表。</li>
+<li><strong>多重继承情况下</strong>，会有多个虚函数表，几重继承，就会有几个虚函数表。这些表按照派生的顺序依次排列，如果派生类改写了基类的虚函数，那么就会用派生类自己的虚函数覆盖虚函数表的相应的位置，如果派生类有新的虚函数，那么就添加到第一个虚函数表的末尾。</li>
+<li><strong>虚继承情况下</strong>，会再创建一个<strong>虚基类表</strong>和一个<strong>虚基类表指针</strong>，也就是说，编译器会增加两个指针，<ul>
+<li>一个是<strong>虚基类表指针</strong>，指向<strong>虚基类表</strong>，保存了所有继承过来的虚基类在内存中的地址（偏移量）；</li>
+<li>另一个是从公共基类（<code>MyClass</code>）继承过来的<strong>虚函数表指针</strong>，保存了公共基类<strong>虚函数</strong>的地址。</li>
+</ul>
+</li>
+<li>虚基类部分会在C++继承层次中只有一份。所有由虚基类派生的类都持有一个虚基类表指针，指向一个虚基类表，表里面保存了所有它继承的虚基类部分的地址。虚基类部分有一个虚函数表指针，指向虚函数表。</li>
+</ol>
+<h2 id="基类的析构函数为什么要声明为虚函数"><a href="#基类的析构函数为什么要声明为虚函数" class="headerlink" title="基类的析构函数为什么要声明为虚函数"></a>基类的析构函数为什么要声明为虚函数</h2><p>为了能在多态情况下准确调用派生类的析构函数。</p>
+<p>如果基类的析构函数非虚函数，则用基类指针或引用引用派生类进行析构时，只会调用基类的析构函数；如果是虚析构函数，则会依次调用派生类的析构和基类的析构。（基类的析构是一定会调用的，无论是否为虚）。</p>
+<h2 id="构造函数为什么不可以是虚函数"><a href="#构造函数为什么不可以是虚函数" class="headerlink" title="构造函数为什么不可以是虚函数"></a>构造函数为什么不可以是虚函数</h2><p>虚函数在运行期决定函数调用，而在构造一个对象时，由于对象还未构造成功，编译器无法确定对象的实际类型，继而无法决定调用哪一个构造函数。</p>
+<p>虚函数的执行依赖于虚函数表，而虚函数表在构造函数中进行初始化工作，即初始化 <code>vptr</code>，让它指向正确的虚函数表，而在构造期间，虚函数表还没有初始化，所以无法决定调用哪个构造函数。</p>
+<p>所以，非纯虚的虚方法也就是普通的虚方法必须写定义，哪怕是空的，因为要生成虚函数表，没有方法定义就没有方法地址。纯虚方法和非虚方法可以不用写定义。</p>
+<h2 id="不能声明为虚函数的成员函数"><a href="#不能声明为虚函数的成员函数" class="headerlink" title="不能声明为虚函数的成员函数"></a>不能声明为虚函数的成员函数</h2><p><strong>构造函数</strong>：</p>
+<p>首先明确一点，在编译期间编译器完成了虚表的创建，而虚指针在构造函数期间被初始化。<br>如果构造函数是虚函数，那必然需要通过虚指针来找到虚构造函数的入口地址，但是这个时候我们还没有把虚指针初始化。因此，构造函数不能是虚函数。</p>
+<p><strong>內联函数</strong>：</p>
+<p>编译期內联函数在调用处被展开，而虚函数在运行时才能被确定具体调用哪个类的虚函数。內联函数体现的是编译期机制，而虚函数体现的是运行期机制。</p>
+<p><strong>静态成员函数</strong>:</p>
+<p>静态成员函数和类有关，即使没有生成一个实例对象，也可以调用类的静态成员函数。而虚函数的调用和虚指针有关，虚指针存在于一个类的实例对象中，如果静态成员函数被声明成虚函数，那么调用成员静态函数时又如何访问虚指针呢。总之可以这么理解，静态成员函数与类有关，而虚函数与类的实例对象有关。</p>
+<p><strong>非成员函数</strong>:</p>
+<p>虚函数的目的是为了实现多态，多态和继承有关。所以声明一个非成员函数为虚函数没有任何意义。</p>
 
       
     </div>
@@ -470,6 +561,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/CppS3/" rel="prev" title="C++ Section3 泛型编程">
+                C++ Section3 泛型编程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -548,7 +643,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -605,7 +700,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多态性"><span class="nav-number">1.</span> <span class="nav-text">多态性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时多态（动态绑定）"><span class="nav-number">2.</span> <span class="nav-text">运行时多态（动态绑定）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重载、覆盖、重写的区别"><span class="nav-number">3.</span> <span class="nav-text">重载、覆盖、重写的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚函数与虚继承"><span class="nav-number">4.</span> <span class="nav-text">虚函数与虚继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本对象模型"><span class="nav-number">4.1.</span> <span class="nav-text">基本对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单重继承对象模型"><span class="nav-number">4.2.</span> <span class="nav-text">单重继承对象模型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多态性"><span class="nav-number">1.</span> <span class="nav-text">多态性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时多态（动态绑定）"><span class="nav-number">2.</span> <span class="nav-text">运行时多态（动态绑定）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重载、覆盖、重写的区别"><span class="nav-number">3.</span> <span class="nav-text">重载、覆盖、重写的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚函数与虚继承"><span class="nav-number">4.</span> <span class="nav-text">虚函数与虚继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本对象模型"><span class="nav-number">4.1.</span> <span class="nav-text">基本对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单重继承对象模型"><span class="nav-number">4.2.</span> <span class="nav-text">单重继承对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重继承对象模型"><span class="nav-number">4.3.</span> <span class="nav-text">多重继承对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟继承对象模型"><span class="nav-number">4.4.</span> <span class="nav-text">虚拟继承对象模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基类的析构函数为什么要声明为虚函数"><span class="nav-number">5.</span> <span class="nav-text">基类的析构函数为什么要声明为虚函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数为什么不可以是虚函数"><span class="nav-number">6.</span> <span class="nav-text">构造函数为什么不可以是虚函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不能声明为虚函数的成员函数"><span class="nav-number">7.</span> <span class="nav-text">不能声明为虚函数的成员函数</span></a></li></ol></div>
             
 
           </div>
