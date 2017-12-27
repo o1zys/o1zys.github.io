@@ -1,0 +1,972 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="cpp11,lambda,右值引用," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本文概述了C++11在C++98基础上主要的一些新特性，内容主要转自这里。 一、关键字和新语法1.1 auto关键字C++11以前，auto是用来表明变量是放在自动存储区（栈区）的。C++11开始，废弃了这个功能，转而用来进行类型判断，编译器会根据上下文来判断auto变量的类型。auto作为函数返回值时，只能用于定义函">
+<meta name="keywords" content="cpp11,lambda,右值引用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++11 新特性概述">
+<meta property="og:url" content="http://yoursite.com/2017/12/26/Cpp11_Summary/index.html">
+<meta property="og:site_name" content="Oizys&#39;s Blog">
+<meta property="og:description" content="本文概述了C++11在C++98基础上主要的一些新特性，内容主要转自这里。 一、关键字和新语法1.1 auto关键字C++11以前，auto是用来表明变量是放在自动存储区（栈区）的。C++11开始，废弃了这个功能，转而用来进行类型判断，编译器会根据上下文来判断auto变量的类型。auto作为函数返回值时，只能用于定义函数，不能用于声明函数。下面的写法是可行的。也就是说auto附近必须有上下文可以推">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-12-27T09:06:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++11 新特性概述">
+<meta name="twitter:description" content="本文概述了C++11在C++98基础上主要的一些新特性，内容主要转自这里。 一、关键字和新语法1.1 auto关键字C++11以前，auto是用来表明变量是放在自动存储区（栈区）的。C++11开始，废弃了这个功能，转而用来进行类型判断，编译器会根据上下文来判断auto变量的类型。auto作为函数返回值时，只能用于定义函数，不能用于声明函数。下面的写法是可行的。也就是说auto附近必须有上下文可以推">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/26/Cpp11_Summary/"/>
+
+
+
+
+
+  <title>C++11 新特性概述 | Oizys's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oizys's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/26/Cpp11_Summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++11 新特性概述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T18:53:21+08:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cpp/" itemprop="url" rel="index">
+                    <span itemprop="name">cpp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/26/Cpp11_Summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/26/Cpp11_Summary/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文概述了C++11在C++98基础上主要的一些新特性，内容主要转自<a href="http://blog.csdn.net/csdn_chai/article/details/77752046" target="_blank" rel="noopener">这里</a>。</p>
+<h2 id="一、关键字和新语法"><a href="#一、关键字和新语法" class="headerlink" title="一、关键字和新语法"></a>一、关键字和新语法</h2><h3 id="1-1-auto关键字"><a href="#1-1-auto关键字" class="headerlink" title="1.1 auto关键字"></a>1.1 auto关键字</h3><p>C++11以前，auto是用来表明变量是放在自动存储区（栈区）的。C++11开始，废弃了这个功能，转而用来进行类型判断，编译器会根据上下文来判断auto变量的类型。auto作为函数返回值时，只能用于定义函数，不能用于声明函数。下面的写法是可行的。也就是说auto附近必须有上下文可以推断类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> &#123;</span>  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    <span class="function"><span class="keyword">auto</span> <span class="title">TestWork</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;  </div><div class="line">        <span class="keyword">return</span> a + b;  </div><div class="line">    &#125;  </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="1-2-nullptr关键字"><a href="#1-2-nullptr关键字" class="headerlink" title="1.2 nullptr关键字"></a>1.2 nullptr关键字</h3><p>以前，我们都是用<code>NULL</code> 或者<code>0</code>来表示空指针，但是由于<code>NULL</code>可以隐式转换为整型，在函数调用时可能会出现问题。比如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TestWork</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"TestWork 1"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">TestWork</span><span class="params">(<span class="keyword">int</span>* index)</span> </span>&#123;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"TestWork 2"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    Test test;</div><div class="line">    test.TestWork(<span class="literal">NULL</span>);</div><div class="line">    test.TestWork(<span class="literal">nullptr</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码，用<code>NULL</code>调用时，会先匹配整型，这不是我们希望的。而使用<code>nullptr</code>就可以规避这个问题，因为<code>nullptr</code>不允许隐式转换为整型，只允许隐式转换为<code>bool型(false)</code>和任意指针类型（空指针）。</p>
+<h3 id="1-3-基于范围的for循环"><a href="#1-3-基于范围的for循环" class="headerlink" title="1.3 基于范围的for循环"></a>1.3 基于范围的for循环</h3><p>C++11 引入了一种更为简单的for语句，这种for语句可以很方便的遍历容器或其他序列的所有元素。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> numbers[] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span> &#125;;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"numbers:"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> number : numbers) &#123;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; number &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-4-大括号初始化器"><a href="#1-4-大括号初始化器" class="headerlink" title="1.4 大括号初始化器"></a>1.4 大括号初始化器</h3><p>C++11中全面加入了列表初始化的功能，包括对<code>vector</code>，<code>map</code>，值类型，<code>struct</code>等等都可以使用列表初始化，还可以在函数中返回一个花括号括起来的列表，而在这之前我们只能对数组进行列表初始化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//数组列表初始化  </span></div><div class="line"><span class="keyword">int</span> xx[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;  </div><div class="line"><span class="keyword">int</span> yy[]=&#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">0</span>&#125;;  </div><div class="line">   </div><div class="line"><span class="comment">//值类型进行初始化  </span></div><div class="line"><span class="keyword">int</span> a&#123;<span class="number">10</span>&#125;;  </div><div class="line"><span class="keyword">int</span> b=&#123;<span class="number">10</span>&#125;;  </div><div class="line"><span class="keyword">int</span> c=&#123;<span class="number">10.123</span>&#125;; <span class="comment">// 编译器报错，g++ 5.3.1当列表初始化用于值类型的时候，如果有精度损失，编译器会报错。  </span></div><div class="line">   </div><div class="line"><span class="comment">//列表初始化还可以用结构体  </span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Str</span>&#123;</span>  </div><div class="line">    <span class="keyword">int</span> x;  </div><div class="line">    <span class="keyword">int</span> y;  </div><div class="line">&#125; Str;  </div><div class="line">Str s = &#123;<span class="number">10</span>,<span class="number">20</span>&#125;;  </div><div class="line">   </div><div class="line"><span class="comment">//列表初始化类,必须是public成员,如果含有私有成员会失败  </span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cls</span> &#123;</span>  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">   <span class="keyword">int</span> x;  </div><div class="line">   <span class="keyword">int</span> y;  </div><div class="line">&#125;;  </div><div class="line">Cls c = &#123;<span class="number">10</span>,<span class="number">20</span>&#125;;  </div><div class="line">   </div><div class="line"><span class="comment">//vector不仅可以使用列表初始化，还可以使用列表进行赋值，数组不能用列表赋值  </span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v1=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;; <span class="comment">// 初始化  </span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v2;  </div><div class="line">v2=&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>&#125;; <span class="comment">//赋值  </span></div><div class="line"></div><div class="line"><span class="comment">//map列表初始化  </span></div><div class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span> ,<span class="keyword">int</span>&gt; m = &#123;  </div><div class="line">    &#123;<span class="string">"x"</span>,<span class="number">1</span>&#125;,  </div><div class="line">    &#123;<span class="string">"y"</span>,<span class="number">2</span>&#125;,  </div><div class="line">    &#123;<span class="string">"z"</span>,<span class="number">3</span>&#125;  </div><div class="line">&#125;;  </div><div class="line">   </div><div class="line"><span class="comment">//用函数返回初始化列表只展示关键代码，相关头文件自行添加  </span></div><div class="line"><span class="comment">//同理结构体，类，map的返回也可以使用初始化列表返回  </span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; getVector() &#123;  </div><div class="line">    <span class="keyword">return</span> &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;  </div><div class="line">&#125;  </div><div class="line">   </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;  </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v = getVector();  </div><div class="line">    <span class="built_in">cout</span>&lt;&lt;v[<span class="number">0</span>]&lt;&lt;v[<span class="number">1</span>]&lt;&lt;v.size()&lt;&lt;<span class="built_in">endl</span>;  </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span> ;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-5-long-long类型（长整型）"><a href="#1-5-long-long类型（长整型）" class="headerlink" title="1.5 long long类型（长整型）"></a>1.5 long long类型（长整型）</h3><p><code>long long</code> 类型实际上没有在C++ 98中存在，而之后被C99标准收录，其实现在市面上大多数编译器是支持 <code>long long</code> 的，但是这个类型正式成为C++的标准类型是在C++11中。标准要求<code>long long</code>至少是64位也就是8个字节。一个字面常量使用LL后缀表示<code>long long</code>类型，使用ULL后缀表示<code>unsigned long long</code> 类型。</p>
+<h3 id="1-6-char16-t-与-char32-t-类型（宽字符型）"><a href="#1-6-char16-t-与-char32-t-类型（宽字符型）" class="headerlink" title="1.6 char16_t 与 char32_t 类型（宽字符型）"></a>1.6 char16_t 与 char32_t 类型（宽字符型）</h3><p>为了表示更宽的字符集，C++11提供了2字节和4字节字符整型</p>
+<h3 id="1-7-raw-字符串-R”-”"><a href="#1-7-raw-字符串-R”-”" class="headerlink" title="1.7 raw 字符串 R”(  )”"></a>1.7 raw 字符串 R”(  )”</h3><p>C++11提供了写字符串常量的方式，<code>R&quot;()&quot;</code>内的内容会原原本本的显示出来，不会有转义的问题，正则表达式这种字符串很友好。</p>
+<h3 id="1-8-using-类型别名"><a href="#1-8-using-类型别名" class="headerlink" title="1.8 using 类型别名"></a>1.8 using 类型别名</h3><p>类型别名其实早在C语言中就有了，一般情况下我们使用关键字<code>typedef</code>来声明一个类型的别名，在C++11中增加了另一种声明类型别名的方法就是使用<code>using</code>关键字，<code>using</code>关键字在C++11以前一般用来引用命名空间。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> INT; <span class="comment">// 右侧符号代表左侧</span></div><div class="line"><span class="keyword">using</span> INT2 = <span class="keyword">int</span>; <span class="comment">// 左侧符号代表右侧</span></div><div class="line"></div><div class="line">INT a = <span class="number">20</span>;</div><div class="line">INT2 b = <span class="number">30</span>;</div></pre></td></tr></table></figure>
+<h3 id="1-9-decltype类型指示符"><a href="#1-9-decltype类型指示符" class="headerlink" title="1.9 decltype类型指示符"></a>1.9 decltype类型指示符</h3><p>有时候会有这样的需求，我们需要知道一个表达式的类型，并使用该类型去定义一个变量，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</div><div class="line"><span class="keyword">auto</span> c = a + b; <span class="comment">// OK a+b的类型是int，此时c的类型是int，并且c的值是 a+b</span></div></pre></td></tr></table></figure>
+<p><code>auto</code>可以解决部分问题，例如我们定义的变量的类型就是表达式 <code>a+b</code> 的类型，但是如果我们仅仅需要定义一个与表达式 <code>a+b</code> 的类型相同的变量，但是我们又不希望将表达式<code>a+b</code>的值赋值给刚刚定义的变量，我们希望赋另外一个值或者是仅仅定义变量而不赋值呢。 这就需要用到C++11 提供的另一个类型说明符 <code>decltype</code>了。<code>decltype</code>作用于一个表达式，并且返回该表达式的类型，在此过程中编译器分析表达式的类型，并不会计算表达式的值。例如</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">10</span>;  </div><div class="line"><span class="keyword">int</span> b = <span class="number">20</span>;  </div><div class="line"><span class="keyword">decltype</span>(a+b) c = <span class="number">50</span>; <span class="comment">// OK c的类型就是 a+b 的类型int</span></div></pre></td></tr></table></figure>
+<p>对于引用类型<code>decltype</code>有一些特别的地方：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">20</span> ;  </div><div class="line"><span class="keyword">int</span> &amp;b = a;  </div><div class="line"><span class="keyword">decltype</span>(b) c ;  <span class="comment">// Error c是引用类型必须赋值  </span></div><div class="line"><span class="keyword">decltype</span>(b) d = a; <span class="comment">// OK  d是引用类型，指向a</span></div></pre></td></tr></table></figure>
+<p>可以看到<code>decltype</code>如果作用于一个引用类型，其得到的还是一个引用类型。我们知道一个引用类型在使用的时候一般会当作其关联的那个变量的同义词处理，例如如果使用 <code>cout&lt;&lt;b&lt;&lt;endl</code>; 其中b实际上相当于a，但是<code>decltype</code>作用于引用类型的时候会保留引用性质。</p>
+<p>如果一个表达式是一个解指针引用的操作，decltype得到的也是一个引用类型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">20</span> ;  </div><div class="line"><span class="keyword">int</span> *p = &amp;a;  </div><div class="line"><span class="keyword">decltype</span>(*p) c = a;  <span class="comment">// c的类型是int&amp;  </span></div><div class="line">c = <span class="number">50</span>;  </div><div class="line"><span class="built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="built_in">endl</span>;  <span class="comment">// 输出50</span></div></pre></td></tr></table></figure>
+<p>当decltype作用于一个变量的时候，<strong>变量加不加括号是有区别</strong>的，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">20</span>;  </div><div class="line"><span class="keyword">decltype</span>(a) b = <span class="number">30</span>; <span class="comment">//ok b的类型是 int  </span></div><div class="line"><span class="keyword">decltype</span>((a)) c = a ; <span class="comment">// ok c的类型是int&amp; 其关联变量 a</span></div></pre></td></tr></table></figure>
+<p>加上括号之后编译器会把<code>(a)</code>当作是一个表达式处理，而变量是一种可以作为赋值语句左值的表达式，所以会<strong>解释成引用类型</strong>。</p>
+<h2 id="二、智能指针与内存管理"><a href="#二、智能指针与内存管理" class="headerlink" title="二、智能指针与内存管理"></a>二、智能指针与内存管理</h2><p>C++11 从boost 库中引入了<code>share_ptr</code>，<code>unique_ptr</code>，<code>weak_ptr</code>做智能指针，进行内存管理。</p>
+<p>C++11以前，有<code>auto_ptr</code>，但是一个对象只能有一个<code>auto_ptr</code>持有（防止重复析构所引用的对象），它利用的是栈内存释放规则，回收<code>auto_ptr</code>时，调用它的析构函数，在析构函数里调用所引用对象的析构。</p>
+<p>C++11摒弃了<code>auto_ptr</code>，使用另外三个来做动态内存管理。智能指针是为了解决堆内存管理而存在的。要是用智能指针，必须包含memory头文件，这些智能指针的定义都在这个文件中：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></div></pre></td></tr></table></figure>
+<p>智能指针重载了解除引用运算符 <code>*</code> 使得他们可以像普通指针一样来获得所引用的对象的内容。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">operator * 接触引用</div><div class="line">T* get() 获得对象的地址</div></pre></td></tr></table></figure>
+<h3 id="2-1-unique-ptr"><a href="#2-1-unique-ptr" class="headerlink" title="2.1 unique_ptr"></a>2.1 unique_ptr</h3><p><code>unique_ptr</code>作为<code>auto_ptr</code>的替代品，比<code>auto_ptr</code>更安全，因为它不允许赋值，也就是不能把对象所有权转移，会抛出编译错误。如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; p1(<span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">"hello"</span>)); <span class="comment">// #1</span></div><div class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; p2 = p1; 				<span class="comment">// #2</span></div><div class="line">p2 = p1; 									<span class="comment">// #3</span></div></pre></td></tr></table></figure>
+<p>#2和#3都是违法的，不允许使用复制构造函数和赋值运算符,这种特性是通过C++11的移动构造函数和右值引用实现的。</p>
+<p>而在<code>auto_ptr</code>中，上面的语法都是正确的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">auto_ptr</span>&lt;<span class="built_in">string</span>&gt; p1(<span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">"string"</span>));</div><div class="line"><span class="built_in">auto_ptr</span>&lt;<span class="built_in">string</span>&gt; p2 = p1; </div><div class="line">p2 = p1; </div><div class="line"><span class="keyword">int</span> n = p1.size(); <span class="comment">// 错误，p1已经丧失所有权</span></div></pre></td></tr></table></figure>
+<p>p2会获得堆变量<code>new string(&quot;string&quot;)</code>所有权，如果再次使用p1，程序在运行时会崩溃，这样很不安全，于是引入了<code>unique_ptr</code>来禁止引用转移。</p>
+<h3 id="2-2-shared-ptr"><a href="#2-2-shared-ptr" class="headerlink" title="2.2 shared_ptr"></a>2.2 shared_ptr</h3><p><code>shared_ptr</code>允许多个<code>shadred_ptr</code>引用同一个对象，和<code>unique_ptr</code>相反。<br><code>shared_ptr</code>允许多个指针指向同一个对象，<code>unique_ptr</code>则独占所指向的对象，我们主要说明<code>shared_ptr</code>的使用。通过使用<code>make_shared&lt;type&gt;()</code>函数产生智能指针对象。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p = make_shared&lt;<span class="keyword">int</span>&gt;(<span class="number">40</span>); <span class="comment">// p指向一个值为40的int对象</span></div><div class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p2 = make_shared&lt;<span class="built_in">string</span>&gt;(<span class="number">10</span>,<span class="string">'c'</span>); <span class="comment">//指向值为'cccccccccc'的string对象</span></div></pre></td></tr></table></figure>
+<p><code>make_shared&lt;type&gt;()</code>函数中传递的值要与对应的type的构造函数相匹配，实际上应该就是直接调用的对应type的构造函数。</p>
+<p>我们可以使用new初始化的指针来初始化智能指针：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">share_ptr&lt;<span class="keyword">int</span>&gt; p (<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">40</span>));</div><div class="line">p.get(); <span class="comment">// 使用share_ptr&lt;type&gt;的get()函数来获得其关联的原始指针。</span></div></pre></td></tr></table></figure>
+<p><code>shared_ptr</code>对象在离开其作用域(例如一个函数体)，会自动释放其关联的指针指向的动态内存，就像局部变量那样。另外多个<code>shared_ptr</code>可以指向一个对象，当最后一个<code>shared_ptr</code>对象销毁的时候才会销毁其关联的那个对象的动态内存。这里使用了引用记数。</p>
+<p>有个地方需要注意，当删除一个智能指针时，并不影响其它两个智能指针的继续使用。因为该片内存添加了一个引用计数，每<code>shared_ptr</code>一次，引用计数+1；每次调用析构函数，引用计数减一。直到最后一个智能指针删除，才会释放内存。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;  </span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">smartptr</span>&#123;</span>  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    smartptr(T* ptr=<span class="number">0</span>);  </div><div class="line">    smartptr(<span class="keyword">const</span> smartptr&amp; src);  </div><div class="line">    smartptr&amp; <span class="keyword">operator</span>= (<span class="keyword">const</span> smartptr&amp; src);  </div><div class="line">    T&amp; <span class="keyword">operator</span>* ()&#123;  </div><div class="line">        <span class="keyword">if</span>(_ptr)&#123;  </div><div class="line">            <span class="keyword">return</span> *_ptr;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    T* <span class="keyword">operator</span>-&gt; ()&#123;  </div><div class="line">        <span class="keyword">if</span>(_ptr)&#123;  </div><div class="line">            <span class="keyword">return</span> _ptr;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    ~smartptr();  </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print_data</span><span class="params">()</span></span>&#123;<span class="comment">//不能重载运算符，不然会多算一个指针  </span></div><div class="line">        <span class="built_in">cout</span>&lt;&lt;(*_ptr)&lt;&lt;<span class="string">" "</span>&lt;&lt;*_referece_count&lt;&lt;<span class="built_in">endl</span>;  </div><div class="line">    &#125;  </div><div class="line"><span class="keyword">private</span>:  </div><div class="line">    <span class="keyword">size_t</span>* _referece_count;<span class="comment">//引用计数  </span></div><div class="line">    T* _ptr;  </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">releasecount</span><span class="params">()</span></span>;  </div><div class="line">&#125;;  </div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </div><div class="line"><span class="keyword">void</span> smartptr&lt;T&gt;::releasecount()&#123;  </div><div class="line">    <span class="keyword">if</span>(_ptr)&#123;  </div><div class="line">        <span class="comment">//--(*_referece_count);  </span></div><div class="line">        <span class="keyword">if</span>(--(*_referece_count)==<span class="number">0</span>)&#123;  </div><div class="line">            <span class="keyword">delete</span> _ptr;  </div><div class="line">            <span class="keyword">delete</span> _referece_count;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </div><div class="line">smartptr&lt;T&gt;::smartptr(T* ptr):_ptr(ptr),_referece_count(<span class="keyword">new</span> <span class="keyword">size_t</span>)&#123;  </div><div class="line">    <span class="keyword">if</span>(ptr)&#123;  </div><div class="line">        *_referece_count=<span class="number">1</span>;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">else</span>&#123;  </div><div class="line">        *_referece_count=<span class="number">0</span>;  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </div><div class="line">smartptr&lt;T&gt;::smartptr(<span class="keyword">const</span> smartptr&amp; src)&#123;  </div><div class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>!=&amp;src)&#123;  </div><div class="line">        _ptr=src._ptr;  </div><div class="line">        _referece_count = src._referece_count;  </div><div class="line">        (*_referece_count)++;  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </div><div class="line">smartptr&lt;T&gt;&amp; smartptr&lt;T&gt;::<span class="keyword">operator</span>= (<span class="keyword">const</span> smartptr&amp; src)&#123;  </div><div class="line">    <span class="keyword">if</span>(_ptr == src._ptr)&#123;  </div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;  </div><div class="line">    &#125;  </div><div class="line">    releasecount();  </div><div class="line">    _ptr = src._ptr;  </div><div class="line">    _referece_count=src._referece_count;  </div><div class="line">    (*_referece_count)++;  </div><div class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;  </div><div class="line">&#125;  </div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </div><div class="line">smartptr&lt;T&gt;::~smartptr()&#123;  </div><div class="line">    <span class="keyword">if</span>(--*(_referece_count)==<span class="number">0</span>)&#123;  </div><div class="line">        <span class="keyword">delete</span> _ptr;  </div><div class="line">        <span class="keyword">delete</span> _referece_count;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;  </div><div class="line">    smartptr&lt;<span class="keyword">char</span>&gt;cp1(<span class="keyword">new</span> <span class="keyword">char</span>(<span class="string">'a'</span>));  </div><div class="line">    cp1.print_data();  </div><div class="line">    smartptr&lt;<span class="keyword">char</span>&gt;cp2(cp1);  </div><div class="line">    cp2.print_data();  </div><div class="line">    cp1.print_data();  </div><div class="line">    smartptr&lt;<span class="keyword">char</span>&gt;cp3;  </div><div class="line">    cp3 = cp2;  </div><div class="line">    cp2.print_data();  </div><div class="line">    smartptr&lt;<span class="keyword">char</span>&gt;cp4(<span class="keyword">new</span> <span class="keyword">char</span>(<span class="string">'b'</span>));  </div><div class="line">    cp4.print_data();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="三、新增容器"><a href="#三、新增容器" class="headerlink" title="三、新增容器"></a>三、新增容器</h2><h3 id="3-1-std-array"><a href="#3-1-std-array" class="headerlink" title="3.1 std::array"></a>3.1 std::array</h3><p>用于创建位于栈区的定长数组，和数组的区别是增加了迭代器。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;array&gt;  </span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="keyword">int</span>, 4&gt; arrayDemo = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> &#125;;  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"arrayDemo:"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> itor : arrayDemo) &#123;  </div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; itor &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">int</span> arrayDemoSize = <span class="keyword">sizeof</span>(arrayDemo);  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"arrayDemo size:"</span> &lt;&lt; arrayDemoSize &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-2-std-forward-list-单向链表"><a href="#3-2-std-forward-list-单向链表" class="headerlink" title="3.2 std::forward_list 单向链表"></a>3.2 std::forward_list 单向链表</h3><p><code>std::forward_list</code>为C++新增的线性表，与<code>list</code>区别在于它是单向链表。我们在学习数据结构的时候都知道，链表在对数据进行插入和删除是比顺序存储的线性表有优势，因此在插入和删除操作频繁的应用场景中，使用<code>list</code>和<code>forward_list</code>比使用<code>array</code>、<code>vector</code>和<code>deque</code>效率要高很多。</p>
+<h3 id="3-3-std-unordered-map"><a href="#3-3-std-unordered-map" class="headerlink" title="3.3 std::unordered_map"></a>3.3 std::unordered_map</h3><p><code>std::unordered_map</code>与<code>std::map</code>用法基本差不多，但STL在内部实现上有很大不同，<code>std::map</code>使用的数据结构为二叉树，而<code>std::unordered_map</code>内部是哈希表的实现方式，哈希map理论上查找效率为<code>O(1)</code>。但在存储效率上，哈希map需要增加哈希表的内存开销。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_map&gt;  </span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>  </span></div><div class="line">&#123;  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt; mymap =  </div><div class="line">    &#123;  </div><div class="line">        &#123; <span class="string">"house"</span>,<span class="string">"maison"</span> &#125;,  </div><div class="line">        &#123; <span class="string">"apple"</span>,<span class="string">"pomme"</span> &#125;,  </div><div class="line">        &#123; <span class="string">"tree"</span>,<span class="string">"arbre"</span> &#125;,  </div><div class="line">        &#123; <span class="string">"book"</span>,<span class="string">"livre"</span> &#125;,  </div><div class="line">        &#123; <span class="string">"door"</span>,<span class="string">"porte"</span> &#125;,  </div><div class="line">        &#123; <span class="string">"grapefruit"</span>,<span class="string">"pamplemousse"</span> &#125;  </div><div class="line">    &#125;;  </div><div class="line">    <span class="keyword">unsigned</span> n = mymap.bucket_count();  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"mymap has "</span> &lt;&lt; n &lt;&lt; <span class="string">" buckets.\n"</span>;  </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> i = <span class="number">0</span>; i&lt;n; ++i)   </div><div class="line">    &#123;  </div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"bucket #"</span> &lt;&lt; i &lt;&lt; <span class="string">" contains: "</span>;  </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it = mymap.begin(i); it != mymap.end(i); ++it)  </div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"["</span> &lt;&lt; it-&gt;first &lt;&lt; <span class="string">":"</span> &lt;&lt; it-&gt;second &lt;&lt; <span class="string">"] "</span>;  </div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"\n"</span>;  </div><div class="line">    &#125;  </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-4-std-unordered-set"><a href="#3-4-std-unordered-set" class="headerlink" title="3.4 std::unordered_set"></a>3.4 std::unordered_set</h3><p><code>std::unordered_set</code>的数据存储结构也是哈希表的方式结构，除此之外，<code>std::unordered_set</code>在插入时不会自动排序，这都是<code>std::set</code>表现不同的地方。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unordered_set&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;  </span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; unorder_set;  </div><div class="line">    unorder_set.insert(<span class="number">7</span>);  </div><div class="line">    unorder_set.insert(<span class="number">5</span>);  </div><div class="line">    unorder_set.insert(<span class="number">3</span>);  </div><div class="line">    unorder_set.insert(<span class="number">4</span>);  </div><div class="line">    unorder_set.insert(<span class="number">6</span>);  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"unorder_set:"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> itor : unorder_set) &#123;  </div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; itor &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">set</span>;  </div><div class="line">    <span class="built_in">set</span>.insert(<span class="number">7</span>);  </div><div class="line">    <span class="built_in">set</span>.insert(<span class="number">5</span>);  </div><div class="line">    <span class="built_in">set</span>.insert(<span class="number">3</span>);  </div><div class="line">    <span class="built_in">set</span>.insert(<span class="number">4</span>);  </div><div class="line">    <span class="built_in">set</span>.insert(<span class="number">6</span>);  </div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"set:"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> itor : <span class="built_in">set</span>) &#123;  </div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; itor &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="四、lambda表达式（匿名函数）"><a href="#四、lambda表达式（匿名函数）" class="headerlink" title="四、lambda表达式（匿名函数）"></a>四、lambda表达式（匿名函数）</h2><p><code>lambda</code>表达式是C++11最重要也最常用的一个特性之一。<code>lambda</code>来源于函数式编程的概念，也是现代编程语言的一个特点。</p>
+<h3 id="4-1-函数式编程简介"><a href="#4-1-函数式编程简介" class="headerlink" title="4.1 函数式编程简介"></a>4.1 函数式编程简介</h3><p>定义：简单说，“函数式编程”是一种“编程范式”。它属于“结构化编程”的一种，主要思想是把运算过程尽量写成一系列嵌套的函数调用。</p>
+<p>特点：</p>
+<ol>
+<li><p>函数是“第一等公民”，可以赋值给他其他变量，也可以做为参数，返回值。</p>
+</li>
+<li><p>只用“表达式”，不用“语句”。“表达式”是一个单纯的运算过程，总是有返回值；“语句”是执行某种操作，没有返回值。</p>
+</li>
+<li><p>没有副作用。函数保持独立，所有功能就是返回一个新的值，其他什么都不做，不修改外部变量的值。</p>
+</li>
+<li><p>引用透明。函数的运行不依赖于外部变量或“状态”，只依赖于输入的参数，只要参数相同，返回值就相同。</p>
+</li>
+</ol>
+<h3 id="4-2-lambda-表达式"><a href="#4-2-lambda-表达式" class="headerlink" title="4.2 lambda 表达式"></a>4.2 lambda 表达式</h3><p><code>lambda表达式</code>提供了一种匿名函数的实现方式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[捕获列表](参数列表) -&gt; 返回类型 &#123;函数体&#125;</div></pre></td></tr></table></figure>
+<p>其中，参数列表、返回类型可以省略，其余不可省略，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[x] &#123;&#125; ; <span class="comment">// 可以，最起码得这样</span></div></pre></td></tr></table></figure>
+<p><code>lambda表达式</code>的返回值由函数体的<code>return</code>决定，如果函数体内无<code>return</code> ,默认是<code>void</code>。只有被捕获的变量才能在函数体重访问到<code>lambda表达式</code>。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[capture_block](parameters) mutable exception_specification-&gt;return_type&#123; body &#125;</div></pre></td></tr></table></figure>
+<p>lambda表达式包含以下部分：</p>
+<p><strong>捕捉块(catpure block)</strong>: 指定如何捕捉所在作用域中的变量，并供给<code>lambda</code>主体使用。</p>
+<p><strong>参数(parameter)</strong>: (可选)<code>lambda表达式</code>使用的参数列表。只有在不使用任何参数，并且没有自定<code>mutable</code>、一个<code>exception_specification</code> 和一个<code>return_type</code>的情况下可以忽略该列表，返回类型在某些情况下也是可以忽略的，详见对<code>return_type</code>的说明：<code>eg: [] {return 10;}</code></p>
+<p>参数列表和普通函数的参数列表类似，区别如下：  </p>
+<ul>
+<li>参数不能有默认值。  </li>
+<li>不允许变长参数列表。  </li>
+<li>不允许未命名的参数。  </li>
+</ul>
+<p><strong>mutable</strong>:（可选）如果所在作用域的变量是通过值捕捉到，那么<code>lambda表达式</code>主体中可以使用这些变量的副本。这些副本默认标记为<code>const</code>，因此<code>lambda表达式</code>的主体不能修改这些副本的值。如果<code>lambda表达式</code>标记为<code>mutable</code>，那么这些副本则不是<code>const</code>，因此主体可以修改这些本地副本。</p>
+<p><strong>exception_specification</strong>:（可选）用于指定<code>lambda</code>可以抛出的异常。</p>
+<p><strong>return_type</strong>：（可选）返回值的类型。如果忽略了<code>return_type</code>，那么编译器会根据以下原则判断返回类型：<br>如果<code>lambda表达式</code>主体的形式为<code>{return expression;}</code>，那么表达式<code>return_type</code>的类型为<code>expression</code>类型。<br>其他情况下的<code>return_type</code>为<code>void</code>。</p>
+<p>下面的例子演示了如何创建一个<code>lambda表达式</code>并立即执行这个表达式。这行代码定义了一个没有返回值也没有任何参数的<code>lambda表达式</code>。</p>
+<p><strong>注意：尾部的<code>()</code>，这对括号使得这个<code>lambda表达式</code>立即执行</strong>： </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[] &#123;<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello from Lambda"</span> &lt;&lt; <span class="built_in">endl</span>;&#125; ();</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">string</span> result = [](<span class="keyword">const</span> <span class="built_in">string</span> &amp; str) -&gt; <span class="built_in">string</span> &#123; <span class="keyword">return</span> <span class="string">"Hello from "</span> + str; &#125;(<span class="string">"second Lambda"</span>);  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"Result: "</span> &lt;&lt; result &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Result: Hello from second Lambda</div></pre></td></tr></table></figure>
+<p>根据前面的描述，这个例子中的返回值可以忽略：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">string</span> result = [](<span class="keyword">const</span> <span class="built_in">string</span> &amp; str)&#123; <span class="keyword">return</span> <span class="string">"Hello from "</span> + str; &#125;(<span class="string">"second Lambda"</span>);</div></pre></td></tr></table></figure>
+<p>还可以保存lambda表达式的指针，并且通过函数指针执行这个<code>lambda表达式</code>。使用C++11的<code>auto</code>关键字可以轻松地做到这一点：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">auto</span> fn = [](<span class="keyword">const</span> <span class="built_in">string</span>&amp; str) &#123;<span class="keyword">return</span> <span class="string">"hello from "</span> + str; &#125;;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; fn(<span class="string">"call 1"</span>) &lt;&lt; <span class="built_in">endl</span>;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; fn(<span class="string">"call 2"</span>) &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Hello from call 1  </div><div class="line">Hello from call 2</div></pre></td></tr></table></figure>
+<h3 id="4-3-捕捉块详解"><a href="#4-3-捕捉块详解" class="headerlink" title="4.3 捕捉块详解"></a>4.3 捕捉块详解</h3><p><code>lambda</code>表达式的方括号部分称为<code>lambda</code>捕捉块(<code>capture block</code>)，在这里可以指定如何从所在作用域中捕捉变量。捕捉变量的意思是可以在lambda表达式主体中使用这个变量。有两种方式：</p>
+<p>[=]：通过值捕捉所有变量<br>[&amp;]：通过引用捕捉所有变量</p>
+<p>指定空白的捕捉块<code>[]</code>表示不从所在作用域中捕捉变量。还可以酌情决定捕捉那些变量以及这些变量的捕捉方法，方法是指定一个捕捉列表，其中带有可选的默认捕捉选项。前缀为&amp;的变量通过引用捕捉。不带前缀的变量通过值捕捉。默认捕捉应该是捕捉列表中的第一个元素，可以是<code>=</code>或<code>&amp;</code>。</p>
+<p>例如：<br>[&amp;x] 只通过引用捕捉x，不捕捉其他变量。<br>[x] 只通过值捕捉x，不捕捉其他变量。<br>[=, &amp;x，&amp;y] 默认通过值捕捉，变量x和y例外，这两个变量通过引用捕捉。<br>[&amp;, x] 默认通过引用捕捉，变量x例外，这个变量通过引用捕捉。<br>[&amp;x, &amp;y] 非法，因为标志符不允许重复。<br>[this] 捕获当前类中的<code>this</code>指针，让<code>lambda</code>表达式拥有和当前类成员函数同样的访问权限。如果已经使用了<code>&amp;</code>或者<code>=</code>，就默认添加此选项。捕获this的目的是可以在<code>lamda</code>中使用当前类的成员函数和成员变量。 </p>
+<p><strong>通过引用捕捉变量的时候，一定保证当<code>lambda</code>表达式在执行的时候，这个引用还是可用的。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span>  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">    <span class="keyword">int</span> i_ = <span class="number">0</span>;  </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;  </div><div class="line">        <span class="keyword">auto</span> x1 = [] &#123; <span class="keyword">return</span> i_; &#125;;                    <span class="comment">//error,没有捕获外部变量  </span></div><div class="line">        <span class="keyword">auto</span> x2 = [=] &#123; <span class="keyword">return</span> i_ + x + y; &#125;;           <span class="comment">//OK  </span></div><div class="line">        <span class="keyword">auto</span> x3 = [&amp;] &#123; <span class="keyword">return</span> i_ + x + y; &#125;;           <span class="comment">//OK  </span></div><div class="line">        <span class="keyword">auto</span> x4 = [<span class="keyword">this</span>] &#123; <span class="keyword">return</span> i_; &#125;;                <span class="comment">//OK  </span></div><div class="line">        <span class="keyword">auto</span> x5 = [<span class="keyword">this</span>] &#123; <span class="keyword">return</span> i_ + x + y; &#125;;        <span class="comment">//error,没有捕获x,y  </span></div><div class="line">        <span class="keyword">auto</span> x6 = [<span class="keyword">this</span>, x, y] &#123; <span class="keyword">return</span> i_ + x + y; &#125;;  <span class="comment">//OK  </span></div><div class="line">        <span class="keyword">auto</span> x7 = [<span class="keyword">this</span>] &#123; <span class="keyword">return</span> i_++; &#125;;              <span class="comment">//OK  </span></div><div class="line">    &#125;</div><div class="line">&#125;;  </div><div class="line">  </div><div class="line"><span class="keyword">int</span> a=<span class="number">0</span> , b=<span class="number">1</span>;  </div><div class="line"><span class="keyword">auto</span> f1 = [] &#123; <span class="keyword">return</span> a; &#125;;                 <span class="comment">//error,没有捕获外部变量      </span></div><div class="line"><span class="keyword">auto</span> f2 = [&amp;] &#123; <span class="keyword">return</span> a++ &#125;;               <span class="comment">//OK  </span></div><div class="line"><span class="keyword">auto</span> f3 = [=] &#123; <span class="keyword">return</span> a; &#125;;                <span class="comment">//OK  </span></div><div class="line"><span class="keyword">auto</span> f4 = [=] &#123;<span class="keyword">return</span> a++; &#125;;               <span class="comment">//error,a是以复制方式捕获的，无法修改  </span></div><div class="line"><span class="keyword">auto</span> f5 = [a] &#123; <span class="keyword">return</span> a+b; &#125;;              <span class="comment">//error,没有捕获变量b  </span></div><div class="line"><span class="keyword">auto</span> f6 = [a, &amp;b] &#123; <span class="keyword">return</span> a + (b++); &#125;;    <span class="comment">//OK  </span></div><div class="line"><span class="keyword">auto</span> f7 = [=, &amp;b] &#123; <span class="keyword">return</span> a + (b++); &#125;;    <span class="comment">//OK</span></div></pre></td></tr></table></figure>
+<p>两个问题说明：</p>
+<p>1.一个容易出错的细节是lambda表达式的延迟调用，lambda表达式按值捕获了所有外部变量。在捕获的一瞬间，a的值就已经被复制了。如果希望lambda表达式在调用时能即时访问外部变量，我们应当使用引用方式捕获。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">0</span>;  </div><div class="line"><span class="keyword">auto</span> f = [=] &#123; <span class="keyword">return</span> a; &#125;;  </div><div class="line">a+=<span class="number">1</span>;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; f() &lt;&lt; <span class="built_in">endl</span>;       <span class="comment">//输出0  </span></div><div class="line">  </div><div class="line"><span class="keyword">int</span> a = <span class="number">0</span>;  </div><div class="line"><span class="keyword">auto</span> f = [&amp;a] &#123; <span class="keyword">return</span> a; &#125;;  </div><div class="line">a+=<span class="number">1</span>;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; f() &lt;&lt;<span class="built_in">endl</span>;       <span class="comment">//输出1</span></div></pre></td></tr></table></figure>
+<p>2.虽然按值捕获的变量值均补复制一份存储在lambda表达式变量中， 修改他们也并不会真正影响到外部，但我们却仍然无法修改它们。</p>
+<p>那么如果希望去修改按值捕获的外部变量，需要显示指明lambda表达式为mutable。</p>
+<p><strong>需要注意：被mutable修饰的lambda表达式就算没有参数也要写明参数列表。</strong></p>
+<p>原因：<code>lambda</code>表达式可以说是就地定义仿函数闭包的“语法糖”。它的捕获列表捕获住的任何外部变量，最终均会变为闭包类型的成员变量。按照C++标准，<code>lambda</code>表达式的<code>operator()</code>默认是<code>const</code>的，一个const成员函数是无法修改成员变量的值的。而<code>mutable</code>的作用，就在于取消<code>operator()</code>的<code>const</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">0</span>;  </div><div class="line"><span class="keyword">auto</span> f1 = [=] &#123; <span class="keyword">return</span> a++; &#125;;                  <span class="comment">//Error  </span></div><div class="line"><span class="keyword">auto</span> f2 = [=] () <span class="keyword">mutable</span> &#123; <span class="keyword">return</span> a++; &#125;;       <span class="comment">//OK</span></div></pre></td></tr></table></figure>
+<h3 id="4-4-将lambda表达式用作返回值"><a href="#4-4-将lambda表达式用作返回值" class="headerlink" title="4.4 将lambda表达式用作返回值"></a>4.4 将lambda表达式用作返回值</h3><p>一个没有指定任何捕获的<code>lambda</code>函数,可以显式转换成一个具有相同声明形式函数指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> (*p)(<span class="keyword">void</span>) = [] &#123;<span class="keyword">return</span> <span class="number">1</span>; &#125;;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; p();</div></pre></td></tr></table></figure>
+<p>定义在<code>&lt;functional&gt;</code>头文件中的<code>std::function</code>是多态的函数对象包装，类似函数指针。它可以绑定至任何可以被调用的对象(仿函数、成员函数指针、函数指针和lambda表达式)，只要参数和返回类型符合包装的类型即可。返回一个<code>double</code>、接受两个整数参数的函数包装定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">function&lt;<span class="keyword">double</span>(<span class="keyword">int</span>, <span class="keyword">int</span>)&gt; myWrapper;</div></pre></td></tr></table></figure>
+<p>通过使用<code>std::function</code>，可从函数中返回<code>lambda</code>表达式，看一下定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function&lt;<span class="keyword">int</span>(<span class="keyword">void</span>)&gt; multiplyBy2Lambda(<span class="keyword">int</span> x) &#123;  </div><div class="line">    <span class="keyword">return</span> [=]()-&gt;<span class="keyword">int</span>&#123;<span class="keyword">return</span> <span class="number">2</span> * x; &#125;;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个例子中，lambda表达式的返回类型和空参数列表可以忽略，可改写为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function&lt;<span class="keyword">int</span>(<span class="keyword">void</span>)&gt; multiplyBy2Lambda(<span class="keyword">int</span> x) &#123;  </div><div class="line">    <span class="keyword">return</span>[=] &#123;<span class="keyword">return</span> <span class="number">2</span> * x; &#125;;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个函数的主体部分创建了一个<code>lambda</code>表达式，这个<code>lambda</code>表达式通过值捕捉所在作用域的变量，并返回一个整数，这个返回的整数是传给<code>multiplyBy2Lambda()</code>的值的两倍。这个<code>multiplyBy2Lambda()</code>函数的返回值类型为 <code>function&lt;int(void)&gt;</code>，即一个不接受参数并返回一个整数的函数。函数主体中定义的<code>lambda</code>表达式正好匹配这个原型。变量<code>x</code>通过值捕捉，因此，在<code>lambda</code>表达式从函数返回之前，<code>x</code>值的一份副本绑定至<code>lambda</code>表达式中的<code>x</code>。</p>
+<p>可以通过以下方式调用上述函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">function&lt;<span class="keyword">int</span>(<span class="keyword">void</span>)&gt; fn = mutiplyBy2Lambda(<span class="number">5</span>);  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; fn() &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure>
+<p>通过C++11的auto关键字可以简化这个调用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">auto</span> fn = mutiplyBy2Lambda(<span class="number">5</span>);  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; fn() &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure>
+<p>输出为10。</p>
+<p><code>mutiplyBy2Lambda()</code>示例通过值捕捉了变量<code>x:[=]</code>。假设这个函数重写为通过引用捕捉变量：<code>[&amp;]</code>，如下所示。根据代码所示。根据代码后面的解释，下面这段代码不能正常工作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function&lt;<span class="keyword">int</span>(<span class="keyword">void</span>)&gt; mutiplyBy2Lambda(<span class="keyword">int</span> x) &#123;  </div><div class="line">    <span class="keyword">return</span>[&amp;] &#123;<span class="keyword">return</span> <span class="number">2</span> * x; &#125;;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>lambda</code>表达式通过引用捕捉变量<code>x</code>。然而，<code>lambda</code>表达式会在程序后面执行，而不会在<code>mutiplyBy2Lambda()</code>函数的作用域中执行，在那里<code>x</code>的引用不再有效。</p>
+<h3 id="4-5-将lambda表达式用作参数"><a href="#4-5-将lambda表达式用作参数" class="headerlink" title="4.5 将lambda表达式用作参数"></a>4.5 将lambda表达式用作参数</h3><p>可以编写<code>lambda</code>表达式作为参数的函数。例如，可通过这种方式实现回调函数。下面的代码实现了一个<code>testCallback()</code>函数，这个函数接受一个整数<code>vector</code>和一个回调函数作为参数。这个实现迭代给定<code>vector</code>中的所有元素，并对每个元素调用回调函数，回调函数接受<code>vector</code>中每个元素作为<code>int</code>参数，并返回一个布尔值。如果回调函数返回<code>false</code>，那么停止迭代。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">void testCallback(const vector&lt;int&gt;&amp; vec, const function&lt;bool(int)&gt;&amp; callback) &#123; </div><div class="line">    for (auto i : vec) &#123;  </div><div class="line">        if (!callback(i))  </div><div class="line">            break;  </div><div class="line">        cout &lt;&lt; i &lt;&lt; " ";  </div><div class="line">    &#125;  </div><div class="line">    cout &lt;&lt; endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以按照以下方式测试<code>testCallback()</code>函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec(<span class="number">10</span>);  </div><div class="line"><span class="keyword">int</span> index = <span class="number">0</span>;  </div><div class="line">generate(vec.begin(), vec.end(), [&amp;index] &#123;<span class="keyword">return</span> ++index;&#125;);  </div><div class="line">for_each (vec.begin(), vec.end(), [](<span class="keyword">int</span> i) &#123;<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span>; &#125;); </div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;  </div><div class="line">testCallback(vec, [](<span class="keyword">int</span> i)&#123;<span class="keyword">return</span> i &lt; <span class="number">6</span>; &#125;);</div></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1 2 3 4 5 6 7 8 9 10  </div><div class="line">1 2 3 4 5</div></pre></td></tr></table></figure>
+<h2 id="五、移动语义move和右值引用"><a href="#五、移动语义move和右值引用" class="headerlink" title="五、移动语义move和右值引用"></a>五、移动语义move和右值引用</h2><h3 id="5-1-左值与右值"><a href="#5-1-左值与右值" class="headerlink" title="5.1 左值与右值"></a>5.1 左值与右值</h3><p>C++11中引入的一个非常重要的概念就是右值引用。理解右值引用是学习“移动语义”（<code>move semantics</code>）的基础。而要理解右值引用，就必须先区分左值与右值。</p>
+<p>对左值和右值的一个最常见的误解是：等号左边的就是左值，等号右边的就是右值。</p>
+<p>左值和右值都是针对表达式而言的，左值是指表达式结束后依然存在的<strong>持久对象</strong>，右值是指表达式结束时就不再存在的<strong>临时对象</strong>。</p>
+<p>一个区分左值与右值的便捷方法是：看能不能对表达式取地址，如果能，则为左值，否则为右值。下面给出一些例子来进行说明。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</div><div class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</div><div class="line"><span class="keyword">int</span> *pFlag = &amp;a;</div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vctTemp;</div><div class="line">vctTemp.push_back(<span class="number">1</span>);</div><div class="line"><span class="built_in">string</span> str1 = <span class="string">"hello "</span>;</div><div class="line"><span class="built_in">string</span> str2 = <span class="string">"world"</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;m = <span class="number">1</span>;</div></pre></td></tr></table></figure>
+<p>请问，<code>a</code>，<code>b</code>, <code>a+b</code>, <code>a++</code>, <code>++a</code>, <code>pFlag</code>, <code>*pFlag</code>, <code>vctTemp[0]</code>, <code>100</code>, <code>string(&quot;hello&quot;)</code>, <code>str1</code>, <code>str1+str2</code>, <code>m</code> 分别是左值还是右值？</p>
+<ul>
+<li><code>a</code>和<code>b</code>都是持久对象（可以对其取地址），是左值；</li>
+<li><code>a+b</code>是临时对象（不可以对其取地址），是右值；</li>
+<li><code>a++</code>是先取出持久对象a的一份拷贝，再使持久对象<code>a</code>的值加1，最后返回那份拷贝，而那份拷贝是临时对象（不可以对其取地址），故其是右值；</li>
+<li><code>++a</code>则是使持久对象<code>a</code>的值加1，并返回那个持久对象<code>a</code>本身（可以对其取地址），故其是左值；</li>
+<li><code>pFlag</code>和<code>*pFlag</code>都是持久对象（可以对其取地址），是左值；</li>
+<li><code>vctTemp[0]</code>调用了重载的<code>[]</code>操作符，而<code>[]</code>操作符返回的是一个<code>int &amp;</code>，为持久对象（可以对其取地址），是左值；</li>
+<li><code>100</code>和<code>string(&quot;hello&quot;)</code>是临时对象（不可以对其取地址），是右值；</li>
+<li><code>str1</code>是持久对象（可以对其取地址），是左值；</li>
+<li><code>str1+str2</code>是调用了<code>+</code>操作符，而<code>+</code>操作符返回的是一个<code>string</code>（不可以对其取地址），故其为右值；</li>
+<li><code>m</code>是一个常量引用，引用到一个右值，但引用本身是一个持久对象（可以对其取地址），为左值。</li>
+</ul>
+<h3 id="5-2-左值引用"><a href="#5-2-左值引用" class="headerlink" title="5.2 左值引用"></a>5.2 左值引用</h3><p>区分清楚了左值与右值，我们再来看看<strong>左值引用</strong>。左值引用根据其修饰符的不同，可以分为<strong>非常量左值引用</strong>和<strong>常量左值引用</strong>。</p>
+<p>非常量左值引用只能绑定到非常量左值，不能绑定到常量左值、非常量右值和常量右值。</p>
+<ul>
+<li>如果允许绑定到常量左值和常量右值，则非常量左值引用可以用于修改常量左值和常量右值，这明显违反了其常量的含义。</li>
+<li>如果允许绑定到非常量右值，则会导致非常危险的情况出现，因为非常量右值是一个临时对象，非常量左值引用可能会使用一个已经被销毁了的临时对象。</li>
+</ul>
+<p>常量左值引用可以绑定到所有类型的值，包括非常量左值、常量左值、非常量右值和常量右值。</p>
+<p>可以看出，使用左值引用时，我们无法区分出绑定的是否是非常量右值的情况。那么，为什么要对非常量右值进行区分呢，区分出来了又有什么好处呢？这就牵涉到C++中一个著名的性能问题——拷贝临时对象。考虑下面的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; GetAllScores() &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vctTemp;</div><div class="line">    vctTemp.push_back(<span class="number">90</span>);</div><div class="line">    vctTemp.push_back(<span class="number">95</span>);</div><div class="line">    <span class="keyword">return</span> vctTemp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当使用<code>vector&lt;int&gt; vctScore = GetAllScores()</code>进行初始化时，实际上调用了三次构造函数。</p>
+<ul>
+<li>一次是<code>vecTemp</code>的构造，</li>
+<li>一次是<code>return</code>临时对象的构造，</li>
+<li>一次是<code>vecScore</code>的复制构造。</li>
+</ul>
+<p>尽管有些编译器可以采用<code>RVO（Return Value Optimization</code>来进行优化，但优化工作只在某些特定条件下才能进行。</p>
+<p>可以看到，上面很普通的一个函数调用，由于存在临时对象的拷贝，导致了额外的两次拷贝构造函数和析构函数的开销。当然，我们也可以修改函数的形式为<code>void GetAllScores(vector&lt;int&gt; &amp;vctScore)</code>，但这并不一定就是我们需要的形式。另外，考虑下面字符串的连接操作：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="built_in">string</span> <span class="title">s1</span><span class="params">(<span class="string">"hello"</span>)</span></span>;</div><div class="line"><span class="built_in">string</span> s = s1 + <span class="string">"a"</span> + <span class="string">"b"</span> + <span class="string">"c"</span> + <span class="string">"d"</span> + <span class="string">"e"</span>;</div></pre></td></tr></table></figure>
+<p>在对<code>s</code>进行初始化时，会产生大量的临时对象，并涉及到大量字符串的拷贝操作，这显然会影响程序的效率和性能。</p>
+<p>怎么解决这个问题呢？如果我们能确定某个值是一个非常量右值（或者是一个以后不会再使用的左值），则我们在进行临时对象的拷贝时，可以不用拷贝实际的数据，而只是“窃取”指向实际数据的指针（类似于STL中的<code>auto_ptr</code>，会转移所有权）。C++ 11中引入的右值引用正好可用于标识一个非常量右值。</p>
+<p>C++ 11中用<code>&amp;</code>表示左值引用，用<code>&amp;&amp;</code>表示右值引用，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> &amp;&amp;a = <span class="number">10</span>;</div></pre></td></tr></table></figure>
+<h3 id="5-3-右值引用"><a href="#5-3-右值引用" class="headerlink" title="5.3 右值引用"></a>5.3 右值引用</h3><p>右值引用根据其修饰符的不同，也可以分为<strong>非常量右值引用</strong>和<strong>常量右值引用</strong>。</p>
+<p>非常量右值引用只能绑定到非常量右值，不能绑定到非常量左值、常量左值和常量右值。  </p>
+<ul>
+<li>如果允许绑定到非常量左值，则可能会错误地窃取一个持久对象的数据，而这是非常危险的；  </li>
+<li>如果允许绑定到常量左值和常量右值，则非常量右值引用可以用于修改常量左值和常量右值，这明显违反了其常量的含义。</li>
+</ul>
+<p>常量右值引用可以绑定到非常量右值和常量右值，不能绑定到非常量左值和常量左值（理由同上）。</p>
+<h3 id="5-4-move-语句"><a href="#5-4-move-语句" class="headerlink" title="5.4 move 语句"></a>5.4 move 语句</h3><p>有了右值引用的概念，我们就可以用它来实现下面的CMyString类。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CMyString</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">// 构造函数</span></div><div class="line">    CMyString(<span class="keyword">const</span> <span class="keyword">char</span> *pszSrc = <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"CMyString(const char *pszSrc = NULL)"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">if</span> (pszSrc == <span class="literal">NULL</span>) &#123;</div><div class="line">            m_pData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">1</span>];</div><div class="line">            *m_pData = <span class="string">'\0'</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            m_pData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="built_in">strlen</span>(pszSrc)+<span class="number">1</span>];</div><div class="line">            <span class="built_in">strcpy</span>(m_pData, pszSrc);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 拷贝构造函数</span></div><div class="line">    CMyString(<span class="keyword">const</span> CMyString &amp;s) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"CMyString(const CMyString &amp;s)"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        m_pData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="built_in">strlen</span>(s.m_pData)+<span class="number">1</span>];</div><div class="line">        <span class="built_in">strcpy</span>(m_pData, s.m_pData);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// move构造函数     ----        实质上就是·窃取·临时对象，注意参数的形式</span></div><div class="line">    CMyString(CMyString &amp;&amp;s) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"CMyString(CMyString &amp;&amp;s)"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        m_pData = s.m_pData;</div><div class="line">        s.m_pData = <span class="literal">NULL</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 析构函数</span></div><div class="line">    ~CMyString() &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"~CMyString()"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">delete</span> [] m_pData;</div><div class="line">        m_pData = <span class="literal">NULL</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 拷贝赋值函数</span></div><div class="line">    CMyString &amp;<span class="keyword">operator</span> =(<span class="keyword">const</span> CMyString &amp;s) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"CMyString &amp;operator =(const CMyString &amp;s)"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> != &amp;s) &#123;</div><div class="line">            <span class="keyword">delete</span> [] m_pData;</div><div class="line">            m_pData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="built_in">strlen</span>(s.m_pData)+<span class="number">1</span>];</div><div class="line">            <span class="built_in">strcpy</span>(m_pData, s.m_pData);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// move赋值函数</span></div><div class="line">    CMyString &amp;<span class="keyword">operator</span> =(CMyString &amp;&amp;s) &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"CMyString &amp;operator =(CMyString &amp;&amp;s)"</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> != &amp;s) &#123;</div><div class="line">            <span class="keyword">delete</span> [] m_pData;</div><div class="line">            m_pData = s.m_pData;</div><div class="line">            s.m_pData = <span class="literal">NULL</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">char</span> *m_pData;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>可以看到，上面我们添加了<code>move</code>版本的构造函数和赋值函数。那么，添加了<code>move</code>版本后，对类的自动生成规则有什么影响呢？唯一的影响就是，<strong>如果提供了move版本的构造函数，则不会生成默认的构造函数</strong>。另外，编译器永远不会自动生成move版本的构造函数和赋值函数，它们需要你手动显式地添加。</p>
+<p>当添加了<code>move</code>版本的构造函数和赋值函数的重载形式后，某一个函数调用应当使用哪一个重载版本呢？下面是按照判决的优先级列出的3条规则：</p>
+<ol>
+<li><p>常量值只能绑定到常量引用上，不能绑定到非常量引用上。</p>
+</li>
+<li><p>左值优先绑定到左值引用上，右值优先绑定到右值引用上。</p>
+</li>
+<li><p>非常量值优先绑定到非常量引用上。</p>
+</li>
+</ol>
+<p>当给构造函数或赋值函数传入一个非常量右值时，依据上面给出的判决规则，可以得出会调用move版本的构造函数或赋值函数。而在move版本的构造函数或赋值函数内部，都是直接“移动”了其内部数据的指针（因为它是非常量右值，是一个临时对象，移动了其内部数据的指针不会导致任何问题，它马上就要被销毁了，我们只是重复利用了其内存），这样就省去了拷贝数据的大量开销。</p>
+<p>一个需要注意的地方是，拷贝构造函数可以通过直接调用<code>*this = s</code>来实现，但<code>move</code>构造函数却不能。这是因为在<code>move</code>构造函数中，<code>s</code>虽然是一个非常量右值引用，但其本身却是一个左值（是持久对象，可以对其取地址），因此调用<code>*this = s</code>时，会使用拷贝赋值函数而不是<code>move</code>赋值函数，而这已与<code>move</code>构造函数的语义不相符。要使语义正确，我们需要将左值绑定到非常量右值引用上，C++ 11提供了<code>move</code>函数来实现这种转换，因此我们可以修改为<code>*this = move(s)</code>，这样<code>move</code>构造函数就会调用<code>move</code>赋值函数。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cpp11/" rel="tag"># cpp11</a>
+          
+            <a href="/tags/lambda/" rel="tag"># lambda</a>
+          
+            <a href="/tags/右值引用/" rel="tag"># 右值引用</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/26/Sort/" rel="next" title="排序算法">
+                <i class="fa fa-chevron-left"></i> 排序算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars.githubusercontent.com/o1zys"
+               alt="Oizys" />
+          <p class="site-author-name" itemprop="name">Oizys</p>
+           
+              <p class="site-description motion-element" itemprop="description">Programmer</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、关键字和新语法"><span class="nav-number">1.</span> <span class="nav-text">一、关键字和新语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-auto关键字"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 auto关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-nullptr关键字"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 nullptr关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-基于范围的for循环"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 基于范围的for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-大括号初始化器"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 大括号初始化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-long-long类型（长整型）"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 long long类型（长整型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-char16-t-与-char32-t-类型（宽字符型）"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 char16_t 与 char32_t 类型（宽字符型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-raw-字符串-R”-”"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 raw 字符串 R”(  )”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-using-类型别名"><span class="nav-number">1.8.</span> <span class="nav-text">1.8 using 类型别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-decltype类型指示符"><span class="nav-number">1.9.</span> <span class="nav-text">1.9 decltype类型指示符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、智能指针与内存管理"><span class="nav-number">2.</span> <span class="nav-text">二、智能指针与内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-unique-ptr"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 unique_ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-shared-ptr"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 shared_ptr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、新增容器"><span class="nav-number">3.</span> <span class="nav-text">三、新增容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-std-array"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 std::array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-std-forward-list-单向链表"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 std::forward_list 单向链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-std-unordered-map"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 std::unordered_map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-std-unordered-set"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 std::unordered_set</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、lambda表达式（匿名函数）"><span class="nav-number">4.</span> <span class="nav-text">四、lambda表达式（匿名函数）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-函数式编程简介"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 函数式编程简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-lambda-表达式"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 lambda 表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-捕捉块详解"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 捕捉块详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-将lambda表达式用作返回值"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 将lambda表达式用作返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-将lambda表达式用作参数"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 将lambda表达式用作参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、移动语义move和右值引用"><span class="nav-number">5.</span> <span class="nav-text">五、移动语义move和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-左值与右值"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 左值与右值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-左值引用"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 左值引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-右值引用"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 右值引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-move-语句"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 move 语句</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Oizys</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/12/26/Cpp11_Summary/';
+          this.page.identifier = '2017/12/26/Cpp11_Summary/';
+          this.page.title = 'C++11 新特性概述';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
