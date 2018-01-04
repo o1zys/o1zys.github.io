@@ -277,6 +277,317 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/EssenceOfLinearAlgebra/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Oizys">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oizys's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/03/EssenceOfLinearAlgebra/" itemprop="url">线性代数的本质(Essense of Linear Algebra)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-03T14:30:03+08:00">
+                2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数学/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/03/EssenceOfLinearAlgebra/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/03/EssenceOfLinearAlgebra/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>本文主要是一篇系列视频观后总结，Essense of Linear Algebra 系列视频以几何的角度理解线性代数，形象地描述了线性代数的基本概念。视频原版位于<a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab" target="_blank" rel="noopener">Youtube</a>，中英双语版可在<a href="https://www.bilibili.com/video/av6731067/#page=1" target="_blank" rel="noopener">BiliBili</a>上访问。</p>
+</blockquote>
+<h2 id="一-向量是什么-What-are-Vectors"><a href="#一-向量是什么-What-are-Vectors" class="headerlink" title="一. 向量是什么 (What are Vectors?)"></a>一. 向量是什么 (What are Vectors?)</h2><p>很精辟概括，一句话，</p>
+<p>相加与数乘运算构成向量。</p>
+<h2 id="二-线性组合-张成的空间和基-Linear-Combinations-Span-and-Basis-Vectors"><a href="#二-线性组合-张成的空间和基-Linear-Combinations-Span-and-Basis-Vectors" class="headerlink" title="二. 线性组合 张成的空间和基 (Linear Combinations, Span and Basis Vectors)"></a>二. 线性组合 张成的空间和基 (Linear Combinations, Span and Basis Vectors)</h2><p>线性相关(Linearly Dependent)： <img src="http://latex.codecogs.com/gif.latex?\vec{u}&space;=&space;a&space;\vec{v}&space;&plus;&space;b&space;\vec{w}" title=""></p>
+<p>线性无关(Linearly Independent)：<img src="https://latex.codecogs.com/gif.latex?\vec{w}&space;\neq&space;a\vec{v}" title=""></p>
+<p>基的严格定义：向量空间的一组<strong>基</strong>(Basis)是<strong>张成</strong>(Span)改空间的一个<strong>线性无关</strong>(Linearly Independent)的向量集。</p>
+<h2 id="三-矩阵和线性变换-Linear-Transformation-and-Matrices"><a href="#三-矩阵和线性变换-Linear-Transformation-and-Matrices" class="headerlink" title="三. 矩阵和线性变换(Linear Transformation and Matrices)"></a>三. 矩阵和线性变换(Linear Transformation and Matrices)</h2><h3 id="变换和线性变换的定义"><a href="#变换和线性变换的定义" class="headerlink" title="变换和线性变换的定义"></a>变换和线性变换的定义</h3><p>变换(Transformation)本质上就是函数(Function)，接收一个向量(Vector Input)，输出一个向量(Vector Output)，变换是复杂的，可能将原本笔直的输入向量变得扭曲。</p>
+<p>线性变换(Linear Transformation)则保持向量的加法和数乘运算。它有两条性质：</p>
+<ol>
+<li>Lines remain lines 直线依旧是直线<br> **注：不止平行与轴的直线，斜线(比如下图中的对角线)在变换后也应该是直线。<br> <img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra3_1.png" alt=""></li>
+<li>Origin remain fixed 原点保持固定</li>
+</ol>
+<p>在向量中，线性变换可以看作是保持网格线平行且等距分布。</p>
+<p>这是在这里形象直观的定义，在本文的最后一节，我们将给出确切的抽象定义。当然，抽象定义并不只是适用于网格中的有方向的直线。</p>
+<h3 id="线性变换和矩阵的关系"><a href="#线性变换和矩阵的关系" class="headerlink" title="线性变换和矩阵的关系"></a>线性变换和矩阵的关系</h3><p>空间中的任意向量都可以用该空间的基向量线性组合表示。</p>
+<p>一个二维线性变换可以由四个数字完全确定，即两个变换后的基向量i的坐标和基向量j的坐标，分别作为列向量组合成二维矩阵，就可以用矩阵表示一个线性变化，因此，</p>
+<p><strong>线性变换和矩阵是等价的。</strong></p>
+<p>一个矩阵与向量相乘就意味着对这个向量做了一次线性变换，</p>
+<p><img src="http://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;a&space;&&space;b\\&space;c&space;&&space;d&space;\end{bmatrix}&space;\begin{bmatrix}&space;x\\&space;y&space;\end{bmatrix}=x\begin{bmatrix}&space;a\\&space;c&space;\end{bmatrix}&plus;y\begin{bmatrix}&space;b\\&space;d&space;\end{bmatrix}=\begin{bmatrix}&space;ax&plus;by\\&space;cx&plus;dy&space;\end{bmatrix}" title=""></p>
+<p>其中，[a, c] 为变换后基向量i的坐标， [b, d] 为变换后基向量j的坐标。</p>
+<p>下图说明了一个具体的例子。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra3_2.png" alt=""></p>
+<h3 id="列线性相关"><a href="#列线性相关" class="headerlink" title="列线性相关"></a>列线性相关</h3><p>当变换后的两个向量线性相关时，空间会被压缩成一条直线。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra3_3.png" alt=""></p>
+<h3 id="三维空间下的线性变换"><a href="#三维空间下的线性变换" class="headerlink" title="三维空间下的线性变换"></a>三维空间下的线性变换</h3><p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra3_4.png" alt=""></p>
+<h2 id="四-矩阵乘法与复合线性变换-Matrix-Multiplication-as-Composition"><a href="#四-矩阵乘法与复合线性变换-Matrix-Multiplication-as-Composition" class="headerlink" title="四. 矩阵乘法与复合线性变换(Matrix Multiplication as Composition)"></a>四. 矩阵乘法与复合线性变换(Matrix Multiplication as Composition)</h2><p>由上一节的理解，我们其实可以很自然的推论出，两个矩阵相乘的几何意义，其实就是两个线性变换的相继作用。</p>
+<p>过程是这样进行的，M1中的[e, g] 和[f, h]就是第一变换后的基向量，随后，M2作用于M1，即分别与第一次变换后的基变量相乘，由将这两个变量又进行了一次变换，最终得到二次变换后的基变量[ae+bg, ce+dg]和[af+bh, cf+dh]。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra4_1.png" alt=""></p>
+<h2 id="五-行列式-The-Determinant"><a href="#五-行列式-The-Determinant" class="headerlink" title="五. 行列式 (The Determinant)"></a>五. 行列式 (The Determinant)</h2><h3 id="行列式的几何意义"><a href="#行列式的几何意义" class="headerlink" title="行列式的几何意义"></a>行列式的几何意义</h3><p>在二维空间中，当进行线性变换时，会改变基向量i和基向量j围成的单位正方形的形状，从而形成一个新的平行四边形。平行四边形面积的缩放比，就是代表线性变换矩阵的行列式大小。</p>
+<p>行列式的方向，则取决于空间的定向，即满足右手定则为正，反之为负。对于二维矩阵，线性变换后的基向量i在基向量j的<br>右侧，则矩阵行列式为正，在左侧则为负。</p>
+<p>三维空间中，行列式代表着1*1*1的单位立方体的体积缩放比例。</p>
+<h3 id="行列式的几何计算"><a href="#行列式的几何计算" class="headerlink" title="行列式的几何计算"></a>行列式的几何计算</h3><p>二维空间中，由行列式和面积的关系，我们只要计算出变换后的平行四边形的面积，就可以求出行列式的大小，然后再根据空间定向确定其方向。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra5_1.png" alt=""></p>
+<p>类似的，三维空间中，就是要计算出变换后平行六面体的体积，这里直接给出计算公式。（或许这个比直接套用行列式公式要复杂得多。。）</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra5_2.png" alt=""></p>
+<h3 id="行列式为零"><a href="#行列式为零" class="headerlink" title="行列式为零"></a>行列式为零</h3><p>当行列式等于0，就意味着这个线性变换使得空间的维度降低了。</p>
+<p>对于二维空间，有可能变换后的空间变成一维(一条直线)，零维(一个原点)。<br>对于三维空间，有可能变换后的空间变成二维(一个平面)，一维(一条直线)，零维(一个原点)。</p>
+<p>行列式为零的特性在后面的章节中有及其重要的作用。</p>
+<h2 id="六-逆矩阵，秩，列空间和零空间-Inverse-Matrices-Rank-Column-Space-adn-Null-Space"><a href="#六-逆矩阵，秩，列空间和零空间-Inverse-Matrices-Rank-Column-Space-adn-Null-Space" class="headerlink" title="六. 逆矩阵，秩，列空间和零空间 (Inverse Matrices, Rank, Column Space adn Null Space)"></a>六. 逆矩阵，秩，列空间和零空间 (Inverse Matrices, Rank, Column Space adn Null Space)</h2><h3 id="逆矩阵"><a href="#逆矩阵" class="headerlink" title="逆矩阵"></a>逆矩阵</h3><p>首先，我们先引入线性方程组(Linear System of Equations)。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra6_1.png" alt=""></p>
+<p>很显然能发现线性方程组和矩阵向量乘法相似。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra6_2.png" alt=""></p>
+<p>这个方程的解依赖于矩阵A所代表的变换，是将空间压缩成一条线或者一个点的低维变换，还是变换成和初始状态一样的完整二维空间。由上节分析的结论，我们将它们分成两种情况，A的行列式为零，A的行列式不为零。</p>
+<ol>
+<li><p>当<code>detA != 0</code>时<br> 要求出向量<code>x</code>，就需要将A的逆矩阵与向量<code>v</code>相乘，进行逆变换求出向量<code>x</code>的解。<br> 也就是说，只要A的行列式为零，它的逆矩阵就一定存在。</p>
+</li>
+<li><p>当<code>detA = 0</code>时<br>空间被压缩成低维，这时不存在逆矩阵。但是却可能存在解，只要变换后的向量落在变换后的空间中。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra6_3.png" alt=""></p>
+</li>
+</ol>
+<h3 id="秩和列空间"><a href="#秩和列空间" class="headerlink" title="秩和列空间"></a>秩和列空间</h3><p>行列式这一节以及上述情况讨论，我们知道行列式为零代表着变换后的空间降维了，具体变成哪种低维度，但从行列式的值看不出来，因此，我们引入<strong>秩</strong>(Rank)的概念。</p>
+<p><strong>秩代表着变换后空间的维数。</strong></p>
+<p>三维空间中，一个变换矩阵的最大秩为3，这意味着基向量仍然能张成整个三维空间。<br>当变换后的空间被压缩成一个平面，则这个变换矩阵的秩为2；<br>当变换后的空间被压缩成一条直线，则这个变换矩阵的秩为1；<br>当变换后的空间被压缩成一个原点，则这个变换矩阵的秩为0。</p>
+<p>不管是一条直线，一个平面还是三维空间，所有可能的变换的结果的集合被称为矩阵的<strong>列空间</strong>(Column Space)。</p>
+<p>所有可能的输出向量<img src="http://latex.codecogs.com/gif.latex?A\vec{v}" title="">的集合，叫做A的列空间。</p>
+<p>我们已经知道，矩阵的列告诉我们基向量变换后的位置。<strong>列空间其实就是矩阵的列张成的空间。</strong></p>
+<p>所以更精确的秩的定义是：<strong>列空间的维数。</strong></p>
+<p>当秩最大时和列数相等，称之为<strong>满秩</strong>(Full Rank)。</p>
+<h3 id="零空间"><a href="#零空间" class="headerlink" title="零空间"></a>零空间</h3><p>零向量<code>[0,0]</code>一定在列空间中，当满秩时，唯一能在变换后落在原点的就是零向量本身。  </p>
+<p>但对于一个非满秩矩阵，它将空间压缩到一个更低的维度，<br>如果将一个二维线性变换将空间压缩到一条直线，那么沿着某个不同方向直线上所有的向量就会被压缩到原点。<br>如果将一个三维线性变换将空间压缩到一个平面，也会有某条直线上的所有向量被压缩到原点。<br>如果将一个三维线性变换将空间压缩到一条直线，则某个平面上的所有向量都会被压缩到原点。  </p>
+<p>变换后落到原点的向量的集合，被称为“零空间”（Null Space）或者 “核”（Kernel)。</p>
+<p>对线性方程组来说，当<img src="http://latex.codecogs.com/gif.latex?\vec{v}=0" title="">时，零空间刚好是线性方程组的解。</p>
+<h2 id="七-非方阵-Nosquare-Matrices-as-Transformation-Between-Dimensions"><a href="#七-非方阵-Nosquare-Matrices-as-Transformation-Between-Dimensions" class="headerlink" title="七. 非方阵 (Nosquare Matrices as Transformation Between Dimensions)"></a>七. 非方阵 (Nosquare Matrices as Transformation Between Dimensions)</h2><p>非方阵(Nosquare Matrices)可以进行不同维度空间中的转换。</p>
+<p>二维升三维：</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra7_1.png" alt=""></p>
+<p>三维降二维：</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra7_2.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra7_3.png" alt=""></p>
+<h2 id="八-点积和对偶性-Dot-Product-and-Duality"><a href="#八-点积和对偶性-Dot-Product-and-Duality" class="headerlink" title="八. 点积和对偶性 (Dot Product and Duality)"></a>八. 点积和对偶性 (Dot Product and Duality)</h2><p>点积的几何意义是，</p>
+<p>点积的大小：向量w在向量v方向的投影长度与向量v的长度的乘积。<br>点积的方向：根据两个向量的夹角确定，小于90度为正，大于90度为负。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra8_1.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra8_2.png" alt=""></p>
+<p>1X2变换矩阵的作用是将二维向量变成数轴上的一个数。1X2矩阵和二维向量之间存在着对偶性，点积可以转化成一个1X2矩阵作用在一个向量上。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra8_3.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra8_4.png" alt=""></p>
+<h2 id="九-叉积-Cross-Product"><a href="#九-叉积-Cross-Product" class="headerlink" title="九. 叉积 (Cross Product)"></a>九. 叉积 (Cross Product)</h2><p>叉积的绝对值就是两个向量围成的平行四边形的面积。计算方法就是：矩阵的行列式。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_1.png" alt=""></p>
+<p>以上主要是针对二维空间中的向量而言，对于三维空间中的向量，叉积的计算与二维空间不同，它并不是输出一个有垂直于二维平面方向的数，而是接受两个向量，输出一个向量。它的公式是：</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_2.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_3.png" alt=""></p>
+<p>所以叉积严格的几何定义是，两个向量叉积产生的是第三个向量。向量的长度是两个输入向量张成的平行四边形的面积，向量的方向垂直于两个向量张成的平行四边形，正负取决于右手定则。</p>
+<p>要理解这个公式的几何意义，是一个很有趣的过程。</p>
+<p>假设两个三维空间中的向量v和w，我们采取以下步骤说明：</p>
+<ol>
+<li>根据v和w定义一个三维到一维的线性变换。</li>
+<li>找到它的对偶向量。</li>
+<li>说明这个对偶向量就是<img src="http://latex.codecogs.com/gif.latex?\vec{v}\times\vec{w}" title="">。</li>
+</ol>
+<p>首先确定将叉积看成一个函数，对于任一输入变量<code>[x, y, z]</code>，与一直的向量v和w组成任意平行六面体。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_4.png" alt=""></p>
+<p>为什么把它看成一个函数呢？因为叉积运算具有一个非常重要的性质，它是线性的（线性的定义会在最后一节抽象出来）。一旦知道它是线性的，就可以用矩阵来描述这个函数。这个矩阵就是步骤1需要我们定义的三维到一维的变换矩阵。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_5.png" alt=""></p>
+<p>看到这里，根据上一节的对偶性，有没有想将这个1X3矩阵与向量的乘法写成两个三维向量点积的冲动？</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_6.png" alt=""></p>
+<p>没错，到这里我们就完成了步骤2，将这个对偶向量定义为向量p。与此同时，我们也可以通过代数运算（待定系数法），解出向量p的值。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_7.png" alt=""></p>
+<p>那么算出的这个向量p到底是什么呢？答案就是，这个向量p就是向量v与向量w的叉积！下面就是最有酷的一部分(Now for the Cool Part)，步骤3了。</p>
+<p>要理解p是什么，我们需要回顾之前的两个知识点。</p>
+<ol>
+<li>行列式的几何意义</li>
+<li>向量点积的几何意义</li>
+</ol>
+<p>对于1，观察等式右边，是一个三维矩阵的行列式。它代表着由向量v，向量w和任意向量[x, y, z]组成的平行六面体的体积。  </p>
+<p>对于2，观察等式左边，向量p与任意向量[x, y, z]点积。它的几何意义是，将任意向量[x, y, z]投影到p上，然后将投影长度与p的长度相乘。</p>
+<pre><code>平行六面体的体积 = 向量v和w组成的平面面积 * 垂直于vw平面的高 
+p与[x, y, z]的点积 = p的长度 * [x, y, z]在p上的投影长度
+</code></pre><p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra9_8.png" alt=""></p>
+<p>观察两个等式以及示意图，是不是发现了p到底是什么？很显然，p必然与vw垂直，并且长度等于两个向量张成的平行四边形的面积。往前翻一翻叉积的几何定义，神奇的发现与p的描述一致，</p>
+<p><strong>因此，这个向量p就是向量v和向量w的叉积。</strong></p>
+<h2 id="十-基变换-Change-of-Basis"><a href="#十-基变换-Change-of-Basis" class="headerlink" title="十. 基变换 (Change of Basis)"></a>十. 基变换 (Change of Basis)</h2><p>基变换其实就是从自然坐标系([1, 0], [0, 1])变换到任一个坐标系([a, c], [b, d])的过程。这个变换矩阵就是</p>
+<p><img src="http://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;a&space;&&space;b\\&space;c&space;&&space;d&space;\end{bmatrix}" title=""></p>
+<p>反过来的变换，则需要这个矩阵的逆矩阵。</p>
+<p>例如在自然坐标系下的[-1, 2]，在另一坐标系下就变成了[-4, 1]</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra10_1.png" alt=""></p>
+<p>可以形象的描述成两种语言的翻译。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra10_2.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra10_3.png" alt=""></p>
+<p>基变换的定义给了<strong>相似矩阵</strong>(Similar Matrix)直观的解释。</p>
+<p><img src="http://latex.codecogs.com/gif.latex?P^{-1}AP" title=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra10_4.png" alt=""></p>
+<p>相似矩阵就是：用<strong>Jennifer的语言</strong>来表述<strong>变换</strong>后的向量。换句话说，实际上相似矩阵就是在不同坐标系下进行的相同的变换，因为变换相同，所以相似矩阵和原矩阵具有相等的行列式。</p>
+<p>变换前后的向量都是在Jennifer的坐标系下，而中间的变换矩阵则是同一个变换，由图中颜色可知，这里代表着在自然坐标系下。</p>
+<h2 id="十一-特征向量和特征值-Eigenvectors-and-Eigenvalues"><a href="#十一-特征向量和特征值-Eigenvectors-and-Eigenvalues" class="headerlink" title="十一. 特征向量和特征值 (Eigenvectors and Eigenvalues)"></a>十一. 特征向量和特征值 (Eigenvectors and Eigenvalues)</h2><h3 id="特征向量几何意义"><a href="#特征向量几何意义" class="headerlink" title="特征向量几何意义"></a>特征向量几何意义</h3><p>特征向量和特征值的几何意义：特征向量就是进行线性变换之后仍然留在它们所张成空间的向量，特征值就是这个向量拉伸的倍数，当向量反向时，特征值为负。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_1.png" alt=""></p>
+<p>特征向量有什么应用呢？考虑一个三维空间中的旋转，如果你能找到这个旋转的特征向量，也就是旋转之后仍留在它所张成空间的向量，那么你就找到了它的<strong>旋转轴</strong>。</p>
+<p>另外，像这个旋转的特征值必为1，因为旋转并不缩放任何一个向量。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_2.png" alt=""></p>
+<h3 id="特征向量特征值的计算思想。"><a href="#特征向量特征值的计算思想。" class="headerlink" title="特征向量特征值的计算思想。"></a>特征向量特征值的计算思想。</h3><p>用符号表示的话，以下是特征向量的概念，</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_3.png" alt=""></p>
+<p>等式左边是一个矩阵向量乘积，右边则是一个向量数乘，经过一系列等式转化后，得出如果要求特征值，在特征向量非零的情况下，行列式必须等于0。从而求出特征值，最后，代入原表达式，利用线性方程组求出特征向量。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_4.png" alt=""></p>
+<h3 id="特征基"><a href="#特征基" class="headerlink" title="特征基"></a>特征基</h3><p>变换后的基向量正好是特征向量，则这组基被称为特征基(Eigenbasis)。</p>
+<p>特征基变换矩阵是一个<strong>对角矩阵</strong>(Diagonal Matrix)，所有的基向量都是特征向量，矩阵的对角元是它们所属的特征值。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_5.png" alt=""></p>
+<p>对角矩阵有一个性质，n个相同对角矩阵相乘是比较好计算的，每个对角元都是自己的n次幂。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_6.png" alt=""></p>
+<p>然而，如果要直接计算n个相同的非对角矩阵相乘，则是一件很痛苦的事。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_7.png" alt=""></p>
+<p>所以很自然的想到，可不可以将一个非对角变换矩阵变成一个对角变换矩阵。答案是肯定的，只要这个非对角矩阵能选出一组特征向量来张成全空间的，那么就可以变换坐标系，使得这些特征向量就是基向量，而这个非对角变换矩阵将变成一个对角变换矩阵。</p>
+<p>这个过程又叫做，相似对角化。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_8.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra11_9.png" alt=""></p>
+<p>因此n个非对角矩阵相乘，就可以先计算相似对角化后的对角矩阵相乘，再通过基变换变回自然坐标系下的结果，计算复杂度就简便了很多。</p>
+<p>当然，并不是所有的非对角矩阵都能相似对角化，矩阵的特征向量必须足够多，满足可以张成一个全空间。比如剪切矩阵就只有一个特征向量，数量不够，无法相似对角化。</p>
+<h2 id="十二-抽象向量空间-Abstact-Vector-Spaces"><a href="#十二-抽象向量空间-Abstact-Vector-Spaces" class="headerlink" title="十二. 抽象向量空间 (Abstact Vector Spaces)"></a>十二. 抽象向量空间 (Abstact Vector Spaces)</h2><p>最后的最后，我们回到最初的问题，什么是向量？(What are vectors?)。</p>
+<p><strong>相加与数乘运算构成向量。</strong></p>
+<p>我们上面讨论的向量都是一个箭头或者一组数字，从某种意义上来说，函数(Function)也是一种向量。函数拥有相加的性质，以及与实数数乘的性质。同时，函数的线性变换有一个完全合理的解释，那就是导数。</p>
+<p>这里，我们终于可以给出线性的严格定义而不是以网格来描述了，这是一个由直观到抽象的过程。满足以下两条性质的变换是线性的，这两条性质是“可加性”和“成比例”。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra12_1.png" alt=""></p>
+<p>求导运算满足以上两条性质，所以它是一种线性变换。而<strong>只要是线性变换，都可以用矩阵表示</strong>，这是本文最重要的一个思想。因此，我们可以将求导运算抽象成矩阵与向量相乘的运算。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra12_2.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra12_3.png" alt=""></p>
+<p>乍一看毫不相关的两者，其实是一家人。实际上我们讨论的线性代数中的一些概念，在函数中都有直接的类比。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra12_4.png" alt=""></p>
+<p>回到“向量是什么”这个问题上来，数学上有很多类似向量的事物，只要你处理的对象集具有数乘和相加的概念，不管是空间中的箭头，一组数，还是函数的集合，甚至是你自己定义的某些奇怪的东西，线性代数所有关于向量，线性变换和其他的一些概念都应该适用于它。这些类似向量的事物构成的集合被称为“<strong>向量空间</strong>(Vector Space)”。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra12_5.png" alt=""></p>
+<p>如果你作为数学家，可能很想说，</p>
+<blockquote>
+<p>“大伙听好了，我可不想考虑你们构思出来的乱七八糟的向量空间！”</p>
+</blockquote>
+<p>所以你需要做的事建立一系列向量加法和数乘必须遵守的规则，这些规则被称为“<strong>公理</strong>(axioms)”。</p>
+<p><img src="https://raw.githubusercontent.com/o1zys/MarkdownImage/master/LinearAlgebra12_6.png" alt=""></p>
+<p>如果要让所有已建立好的理论和概念适用于一个向量空间，它必须满足这八大公理。</p>
+<p>这，就是数学家眼里的“向量”。</p>
+<p>它是抽象的，普适的。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/26/Cpp11_Summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2759,162 +3070,13 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Oizys">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars.githubusercontent.com/o1zys">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Oizys's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-15T16:18:25+08:00">
-                2017-06-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Others/" itemprop="url" rel="index">
-                    <span itemprop="name">Others</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/15/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/15/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2957,7 +3119,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2968,7 +3130,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -2979,7 +3141,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -3021,7 +3183,7 @@ $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$$
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
